@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Rosario Di Leva — Autore</title>
+<meta name="description" content="Rosario Di Leva — autore di techno-thriller. Sito ufficiale. Romanzi, eventi, biografia, newsletter." />
+<meta name="author" content="Rosario Di Leva" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Rosario Di Leva — Autore" />
+<meta property="og:description" content="Autore di techno-thriller. Romanzi, eventi, biografia, newsletter." />
+<meta property="og:locale" content="it_IT" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Rosario Di Leva — Autore" />
+<meta name="twitter:description" content="Autore di techno-thriller. Romanzi, eventi, biografia, newsletter." />
+
+<!-- Canonical -->
+<link rel="canonical" href="https://rosariodileva.it/" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav class="nav" id="nav" role="navigation" aria-label="Navigazione principale">
+  <a class="nav-brand" href="#home" aria-label="Rosario Di Leva — torna alla home">
+    <span class="mark"><b>Rosario</b> <em>Di Leva</em></span>
+    <span class="sub" aria-hidden="true">// autore</span>
+  </a>
+
+  <ul class="nav-menu" role="menubar" aria-label="Menu principale">
+    <li role="none"><a href="#home" role="menuitem">Home</a></li>
+    <li role="none"><a href="#biografia" role="menuitem">Biografia</a></li>
+    <li role="none"><a href="#libri" role="menuitem">Libri</a></li>
+    <li role="none"><a href="#eventi" role="menuitem">Eventi</a></li>
+    <li role="none"><a href="#gallery" role="menuitem">Gallery</a></li>
+    <li role="none"><a href="#newsletter" role="menuitem">Newsletter</a></li>
+    <li role="none"><a href="#contatti" role="menuitem">Contatti</a></li>
+  </ul>
+
+  <button class="nav-cta" type="button" onclick="document.getElementById('libri').scrollIntoView({behavior:'smooth'})">
+    in libreria
+  </button>
+
+  <button class="nav-burger" type="button" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-menu">
+    <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M0 1h16M0 6h16M0 11h16" stroke="currentColor" stroke-width="1.5"/></svg>
+  </button>
+</nav>
+
+<!-- Mobile menu overlay -->
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu mobile" aria-hidden="true">
+  <div class="mobile-menu-inner">
+    <button class="mobile-close" type="button" aria-label="Chiudi menu">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.5"/></svg>
+    </button>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#biografia">Biografia</a></li>
+      <li><a href="#libri">Libri</a></li>
+      <li><a href="#eventi">Eventi</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#newsletter">Newsletter</a></li>
+      <li><a href="#contatti">Contatti</a></li>
+    </ul>
+    <button class="mobile-cta" type="button" onclick="document.getElementById('libri').scrollIntoView({behavior:'smooth'});closeMobileMenu()">
+      in libreria
+    </button>
+  </div>
+</div>
+
+
+<!-- ================= HERO / BOOK ENTRY ================= -->
+<section class="hero" id="home" aria-labelledby="hero-title">
+  <div class="hero-inner">
+
+    <!-- COVER (left) -->
+    <div class="book-cover reveal" aria-hidden="true">
+      <div class="cover-placeholder">
+        <div class="ctop">
+          <span>// novità · novembre 2026</span>
+          <span>vol. 01</span>
+        </div>
+        <div class="cmid">
+          L'algoritmo<br/>
+          che <em>governa</em><br/>
+          i destini
+        </div>
+        <div class="cbot">
+          <span class="author">Rosario Di Leva</span>
+          <span>techno · thriller</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- COPY (right) -->
+    <div class="hero-copy">
+      <div class="hero-tag reveal" aria-hidden="true">
+        <span class="dot"></span>
+        <span>// novità · disponibile dal 04 nov 2026</span>
+      </div>
+
+      <h1 class="hero-title reveal delay-1" id="hero-title">
+        <span class="glitch" data-text="L'algoritmo">L'algoritmo</span><br/>
+        che <em>governa</em><br/>
+        i destini.
+      </h1>
+
+      <div class="hero-meta reveal delay-2" aria-label="Dettagli libro">
+        <span>romanzo</span>
+        <span>448 pagine</span>
+        <span>ISBN 978·88·0000·000·0</span>
+      </div>
+
+      <p class="hero-synopsis reveal delay-2">
+        <span class="lead">Un</span> sistema previsionale promette di calcolare chi commetterà un crimine
+        prima ancora che venga concepito. Quando un analista scopre che il proprio
+        nome è in cima alla lista, ha settantadue ore per dimostrare che l'algoritmo
+        sta mentendo — o che sta dicendo la verità.
+      </p>
+
+      <div class="hero-cta reveal delay-3">
+        <a class="btn primary" href="#libri">
+          Acquista <span class="arrow" aria-hidden="true"></span>
+        </a>
+        <a class="btn ghost" href="#libri">
+          Leggi un estratto
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span>scroll</span>
+    <span class="line"></span>
+  </div>
+</section>
+
+
+<!-- ================= BIOGRAFIA ================= -->
+<section class="section" id="biografia" aria-labelledby="bio-title">
+  <header class="section-head">
+    <div class="label" aria-hidden="true">[ 01 ] // dossier</div>
+    <h2 class="reveal" id="bio-title">L'autore<em>.</em></h2>
+  </header>
+
+  <div class="bio-grid">
+    <div class="bio-portrait reveal">
+      <div class="frame">
+        <img src="assets/rosario.jpg" alt="Rosario Di Leva — ritratto dell'autore" width="476" height="460" loading="lazy" />
+      </div>
+      <span class="corners" aria-hidden="true"></span>
+      <div class="tag" aria-hidden="true">
+        <span class="name">Rosario Di Leva</span>
+        <span>IT · IE · UK</span>
+      </div>
+    </div>
+
+    <div class="bio-text reveal delay-1">
+      <p>
+        Rosario Di Leva è autore e professionista della tecnologia, con esperienza
+        tra Italia, Dublino e Regno Unito. Da anni lavora sui sistemi che governano
+        il mondo reale — e ne conosce le ombre.
+      </p>
+      <p>
+        Nei suoi romanzi trasforma dati e algoritmi in storie ad alta tensione,
+        dove ogni scelta ha un costo e nulla accade davvero per caso. La sua
+        scrittura, asciutta e a tratti chirurgica, mescola il rigore del codice
+        all'incertezza umana.
+      </p>
+
+      <div class="bio-stats" aria-label="Statistiche autore">
+        <div class="stat">
+          <div class="num" aria-label="3 paesi vissuti">3</div>
+          <div class="lbl">Paesi vissuti</div>
+        </div>
+        <div class="stat">
+          <div class="num" aria-label="più di 15 anni nel tech">15<span style="font-size:0.5em;color:var(--muted)" aria-hidden="true">+</span></div>
+          <div class="lbl">Anni nel tech</div>
+        </div>
+        <div class="stat">
+          <div class="num" aria-label="02 romanzi pubblicati">02</div>
+          <div class="lbl">Romanzi pubblicati</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= LIBRI ================= -->
+<section class="section" id="libri" aria-labelledby="libri-title">
+  <header class="section-head">
+    <div class="label" aria-hidden="true">[ 02 ] // bibliografia</div>
+    <h2 class="reveal" id="libri-title">Romanzi <em>&amp;</em> uscite.</h2>
+  </header>
+
+  <div class="libri-grid">
+
+    <!-- BOOK 1 -->
+    <article class="book-card reveal" aria-label="L'algoritmo che governa i destini">
+      <div class="thumb" aria-hidden="true">
+        <div class="cover-art cover-algoritmo">
+          <div class="ct"><span>// vol. 01</span><span>2026</span></div>
+          <div class="ctitle">L'algoritmo<br/>che <em>governa</em><br/>i destini</div>
+          <div class="cauthor">Rosario Di Leva</div>
+        </div>
+      </div>
+      <div class="info">
+        <div class="meta" aria-label="Romanzo numero 01, novembre 2026, techno-thriller">
+          <span class="num">01.</span><span>novembre 2026</span><span>· techno-thriller</span>
+        </div>
+        <h3>L'algoritmo che <em>governa</em> i destini</h3>
+        <p class="desc">
+          Un sistema previsionale promette di prevedere ogni crimine. Quando l'uomo
+          che lo ha costruito si ritrova al primo posto della sua lista, deve
+          decidere se fidarsi della macchina o di sé stesso.
+        </p>
+        <a class="more" href="#contatti" aria-label="Scheda libro: L'algoritmo che governa i destini">Scheda libro</a>
+      </div>
+    </article>
+
+    <!-- BOOK 2 -->
+    <article class="book-card reveal delay-1" aria-label="Il codice dei vivi">
+      <div class="thumb" aria-hidden="true">
+        <div class="cover-art cover-codice">
+          <div class="ct"><span>// vol. 00</span><span>2024</span></div>
+          <div class="ctitle">Il <em>codice</em><br/>dei vivi</div>
+          <div class="cauthor">Rosario Di Leva</div>
+        </div>
+      </div>
+      <div class="info">
+        <div class="meta" aria-label="Romanzo numero 02, 2024, thriller">
+          <span class="num">02.</span><span>2024</span><span>· thriller</span>
+        </div>
+        <h3>Il <em>codice</em> dei vivi</h3>
+        <p class="desc">
+          Una sviluppatrice scompare lasciando solo righe di codice. Per ritrovarla,
+          chi indaga deve imparare a leggere quello che il computer ha visto e
+          dimenticato di archiviare.
+        </p>
+        <a class="more" href="#contatti" aria-label="Scheda libro: Il codice dei vivi">Scheda libro</a>
+      </div>
+    </article>
+
+    <!-- COMING SOON -->
+    <article class="book-card coming reveal delay-2" aria-label="Prossimo romanzo — in lavorazione">
+      <div class="thumb">
+        <div class="stamp" aria-hidden="true">// in lavorazione</div>
+      </div>
+      <div class="info">
+        <div class="meta"><span class="num">03.</span><span>prossimamente</span></div>
+        <h3>Prossimo <em>romanzo</em></h3>
+        <p class="desc">
+          Il prossimo capitolo è in scrittura. Iscriviti alla newsletter per
+          ricevere il titolo, la sinossi e l'estratto in anteprima.
+        </p>
+        <a class="more" href="#newsletter">Anteprime in arrivo</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+
+<!-- ================= EVENTI ================= -->
+<section class="section" id="eventi" aria-labelledby="eventi-title">
+  <header class="section-head">
+    <div class="label" aria-hidden="true">[ 03 ] // calendario</div>
+    <h2 class="reveal" id="eventi-title">Date<em>.</em></h2>
+  </header>
+
+  <div class="events-list reveal" role="list">
+
+    <div class="event-row" role="listitem">
+      <div class="event-date">
+        <div class="day">04</div>
+        <div class="month-year">Nov · 2026</div>
+      </div>
+      <div class="event-info">
+        <h4>Presentazione · <em>L'algoritmo che governa i destini</em></h4>
+        <div class="where">
+          <span>Libreria Feltrinelli, Milano</span>
+          <span>ore 18:30</span>
+          <span>ingresso libero</span>
+        </div>
+      </div>
+      <a class="event-cta" href="#contatti">Prenota →</a>
+    </div>
+
+    <div class="event-row" role="listitem">
+      <div class="event-date">
+        <div class="day">11</div>
+        <div class="month-year">Nov · 2026</div>
+      </div>
+      <div class="event-info">
+        <h4>Firmacopie · Mondadori Duomo</h4>
+        <div class="where">
+          <span>Mondadori, Milano</span>
+          <span>ore 17:00</span>
+          <span>su prenotazione</span>
+        </div>
+      </div>
+      <a class="event-cta" href="#contatti">Prenota →</a>
+    </div>
+
+    <div class="event-row" role="listitem">
+      <div class="event-date">
+        <div class="day">22</div>
+        <div class="month-year">Nov · 2026</div>
+      </div>
+      <div class="event-info">
+        <h4>Incontro con l'autore · Festival Noir</h4>
+        <div class="where">
+          <span>Palazzo Ducale, Genova</span>
+          <span>ore 21:00</span>
+          <span>con M. Bianchi</span>
+        </div>
+      </div>
+      <a class="event-cta" href="#contatti">Programma →</a>
+    </div>
+
+    <div class="event-row" role="listitem">
+      <div class="event-date">
+        <div class="day">05</div>
+        <div class="month-year">Dic · 2026</div>
+      </div>
+      <div class="event-info">
+        <h4>Più libri più liberi · Roma</h4>
+        <div class="where">
+          <span>La Nuvola, Roma EUR</span>
+          <span>ore 15:30</span>
+          <span>Sala Marte</span>
+        </div>
+      </div>
+      <a class="event-cta" href="#contatti">Dettagli →</a>
+    </div>
+
+    <div class="event-row" role="listitem">
+      <div class="event-date">
+        <div class="day">19</div>
+        <div class="month-year">Set · 2026</div>
+      </div>
+      <div class="event-info">
+        <h4>Festivaletteratura · Mantova</h4>
+        <div class="where">
+          <span>Piazza Castello, Mantova</span>
+          <span>evento concluso</span>
+        </div>
+      </div>
+      <span class="event-cta past" aria-label="Evento archiviato">// archiviato</span>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================= GALLERY ================= -->
+<section class="section" id="gallery" aria-labelledby="gallery-title">
+  <header class="section-head">
+    <div class="label" aria-hidden="true">[ 04 ] // archivio fotografico</div>
+    <h2 class="reveal" id="gallery-title">Gallery<em>.</em></h2>
+  </header>
+
+  <div class="gallery-grid reveal" role="list" aria-label="Galleria fotografica">
+    <div class="gallery-tile w2 h2" role="listitem" aria-label="Reading a Milano">
+      <div class="gcap"><span>// reading · Milano</span><span class="gid" aria-hidden="true">img_001</span></div>
+    </div>
+    <div class="gallery-tile" role="listitem" aria-label="Ritratto">
+      <div class="gcap"><span>// ritratto</span><span class="gid" aria-hidden="true">img_002</span></div>
+    </div>
+    <div class="gallery-tile" role="listitem" aria-label="Firmacopie">
+      <div class="gcap"><span>// firmacopie</span><span class="gid" aria-hidden="true">img_003</span></div>
+    </div>
+    <div class="gallery-tile" role="listitem" aria-label="Festival a Mantova">
+      <div class="gcap"><span>// festival · Mantova</span><span class="gid" aria-hidden="true">img_004</span></div>
+    </div>
+    <div class="gallery-tile w2" role="listitem" aria-label="Backstage">
+      <div class="gcap"><span>// backstage</span><span class="gid" aria-hidden="true">img_005</span></div>
+    </div>
+    <div class="gallery-tile" role="listitem" aria-label="Studio">
+      <div class="gcap"><span>// studio</span><span class="gid" aria-hidden="true">img_006</span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= NEWSLETTER ================= -->
+<section class="newsletter" id="newsletter" aria-labelledby="newsletter-title">
+  <div class="newsletter-inner reveal">
+    <div>
+      <span class="kicker" aria-hidden="true">// signal</span>
+      <h3 id="newsletter-title">Resta nel <em>perimetro.</em></h3>
+      <p>
+        Iscriviti alla newsletter di Rosario Di Leva: anteprime, estratti, date
+        degli eventi e contenuti riservati ai lettori. Niente rumore, solo segnale.
+      </p>
+    </div>
+
+    <form class="newsletter-form" id="newsletter-form" novalidate>
+      <div class="field">
+        <label for="nl-email" class="sr-only">Indirizzo email</label>
+        <input id="nl-email" type="email" name="email" required placeholder="inserisci · indirizzo@email" autocomplete="email" />
+        <button class="submit" type="submit">Iscrivimi</button>
+      </div>
+      <div class="legal">
+        Iscrivendoti accetti la <a href="#contatti">privacy policy</a>. Nessuno spam,
+        cancellazione in un clic.
+      </div>
+    </form>
+  </div>
+</section>
+
+
+<!-- ================= CONTATTI ================= -->
+<section class="section" id="contatti" aria-labelledby="contatti-title">
+  <header class="section-head">
+    <div class="label" aria-hidden="true">[ 05 ] // canali</div>
+    <h2 class="reveal" id="contatti-title">Contatti<em>.</em></h2>
+  </header>
+
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <h3>Per stampa, eventi, <em>diritti.</em></h3>
+      <p>
+        Per richieste editoriali, interviste, presentazioni, ufficio stampa o
+        cessione dei diritti, scrivi a uno dei canali qui sotto oppure usa il
+        modulo. Risposta entro 5 giorni lavorativi.
+      </p>
+
+      <div class="contact-channels" role="list">
+        <div class="channel" role="listitem">
+          <span class="ctitle">// generale</span>
+          <a class="cval" href="mailto:info@rosariodileva.it">info@rosariodileva.it</a>
+        </div>
+        <div class="channel" role="listitem">
+          <span class="ctitle">// ufficio stampa</span>
+          <a class="cval" href="mailto:press@rosariodileva.it">press@rosariodileva.it</a>
+        </div>
+        <div class="channel" role="listitem">
+          <span class="ctitle">// agente · diritti</span>
+          <a class="cval" href="mailto:agente@rosariodileva.it">agente@rosariodileva.it</a>
+        </div>
+        <div class="channel" role="listitem">
+          <span class="ctitle">// social</span>
+          <span class="cval">@rosariodileva · IG / X / LinkedIn</span>
+        </div>
+      </div>
+    </div>
+
+    <form class="contact-form reveal delay-1" id="contact-form" novalidate>
+      <label for="cname">Nome</label>
+      <input id="cname" type="text" name="name" required placeholder="Mario Rossi" autocomplete="name" />
+
+      <label for="cemail">Email</label>
+      <input id="cemail" type="email" name="email" required placeholder="indirizzo@email" autocomplete="email" />
+
+      <label for="csubject">Oggetto <span class="optional">(opzionale)</span></label>
+      <input id="csubject" type="text" name="subject" placeholder="Richiesta intervista, evento, diritti…" />
+
+      <label for="cmsg">Messaggio</label>
+      <textarea id="cmsg" name="message" required placeholder="Scrivi qui il tuo messaggio…"></textarea>
+
+      <button class="send" type="submit">
+        Invia messaggio <span aria-hidden="true" style="color: rgba(255,255,255,0.6)">↗</span>
+      </button>
+    </form>
+  </div>
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="mark"><b>Rosario</b> <em>Di Leva</em></div>
+      <p>
+        Autore di techno-thriller. Sito ufficiale.<br/>
+        Per restare aggiornato sui prossimi romanzi e sulle date, iscriviti alla newsletter.
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h5>// naviga</h5>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#biografia">Biografia</a></li>
+        <li><a href="#libri">Libri</a></li>
+        <li><a href="#eventi">Eventi</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>// extra</h5>
+      <ul>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+        <li><a href="#contatti">Contatti</a></li>
+        <li><a href="#contatti">Press kit</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>// social</h5>
+      <ul>
+        <li><a href="#" aria-label="Instagram di Rosario Di Leva">Instagram</a></li>
+        <li><a href="#" aria-label="X / Twitter di Rosario Di Leva">X / Twitter</a></li>
+        <li><a href="#" aria-label="LinkedIn di Rosario Di Leva">LinkedIn</a></li>
+        <li><a href="#" aria-label="Goodreads di Rosario Di Leva">Goodreads</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 Rosario Di Leva · Tutti i diritti riservati</span>
+    <span class="build">// build 26.11 · v1.0</span>
+    <span>
+      <a href="#contatti" style="color:inherit;">Privacy</a> ·
+      <a href="#contatti" style="color:inherit;">Cookie</a>
+    </span>
+  </div>
+</footer>
+
+<script src="scripts.js"></script>
+</body>
+</html>
