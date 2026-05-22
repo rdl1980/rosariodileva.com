@@ -170,7 +170,7 @@
   // ── Form contatti — Web3Forms → rosario.dileva@gmail.com ─────────────────
   // Per attivare: vai su https://web3forms.com, inserisci rosario.dileva@gmail.com,
   // ricevi la access key via email e sostituiscila qui sotto.
-  const W3F_KEY = 'INSERISCI_QUI_LA_TUA_WEB3FORMS_ACCESS_KEY';
+  const W3F_KEY = '05db0ede-01d0-4e79-b952-7d8f6b18b633';
 
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
