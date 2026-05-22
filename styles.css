@@ -1634,12 +1634,11 @@ a.cval:hover { color: var(--amber); }
 .contact-cta {
   background: var(--surface);
   border: 1px solid var(--line);
-  padding: 48px 40px;
+  padding: 56px 40px 48px;
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 32px;
+  gap: 28px;
 }
 
 .contact-cta::before {
@@ -1659,7 +1658,7 @@ a.cval:hover { color: var(--amber); }
   font-family: var(--serif);
   font-size: 17px;
   line-height: 1.7;
-  margin-top: 16px;
+  margin-top: 0;
 }
 
 /* ============== Footer ============== */
