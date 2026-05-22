@@ -102,19 +102,74 @@
     });
   }
 
-  // ── Forms: dummy feedback ─────────────────────────────────────────────────
-  // Replace with real integration (Formspree, ConvertKit, etc.) before launch.
-  function handleFakeSubmit(form) {
-    form.addEventListener('submit', (ev) => {
+  // ── Newsletter — MailerLite ───────────────────────────────────────────────
+  const ML_ENDPOINT =
+    'https://assets.mailerlite.com/jsonp/2372474/forms/188206273951434134/subscribe';
+
+  const newsletterForm = document.getElementById('newsletter-form');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', async (ev) => {
       ev.preventDefault();
+      if (!newsletterForm.checkValidity()) { newsletterForm.reportValidity(); return; }
 
-      // Basic HTML5 validation
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
+      const btn = newsletterForm.querySelector('button[type="submit"]');
+      if (!btn || btn.dataset.submitting) return;
+
+      const emailInput = newsletterForm.querySelector('input[type="email"]');
+      const email = emailInput ? emailInput.value.trim() : '';
+
+      btn.dataset.submitting = '1';
+      const original = btn.innerHTML;
+      btn.innerHTML = '…';
+      btn.disabled = true;
+
+      try {
+        const body = new FormData();
+        body.append('fields[email]', email);
+        body.append('ml-submit', '1');
+        body.append('anticsrf', 'true');
+
+        const res = await fetch(ML_ENDPOINT, { method: 'POST', body });
+        const json = await res.json().catch(() => ({}));
+
+        if (json.success) {
+          btn.innerHTML = '✓ iscritto';
+          btn.style.background = 'var(--amber)';
+          btn.style.color = '#0a0b0f';
+          newsletterForm.reset();
+          setTimeout(() => {
+            btn.innerHTML = original;
+            btn.style.background = '';
+            btn.style.color = '';
+            btn.disabled = false;
+            delete btn.dataset.submitting;
+          }, 3000);
+        } else {
+          throw new Error(json.message || 'error');
+        }
+      } catch {
+        btn.innerHTML = '✗ riprova';
+        btn.style.background = '#7a1010';
+        btn.style.color = '#fff';
+        setTimeout(() => {
+          btn.innerHTML = original;
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.disabled = false;
+          delete btn.dataset.submitting;
+        }, 3000);
       }
+    });
+  }
 
-      const btn = form.querySelector('button[type="submit"]');
+  // ── Contact form — dummy feedback ─────────────────────────────────────────
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      if (!contactForm.checkValidity()) { contactForm.reportValidity(); return; }
+
+      const btn = contactForm.querySelector('button[type="submit"]');
       if (!btn || btn.dataset.submitting) return;
 
       btn.dataset.submitting = '1';
@@ -130,14 +185,9 @@
         btn.style.color = '';
         btn.disabled = false;
         delete btn.dataset.submitting;
-        form.reset();
+        contactForm.reset();
       }, 2200);
     });
   }
-
-  const newsletterForm = document.getElementById('newsletter-form');
-  const contactForm = document.getElementById('contact-form');
-  if (newsletterForm) handleFakeSubmit(newsletterForm);
-  if (contactForm) handleFakeSubmit(contactForm);
 
 })();
