@@ -823,6 +823,114 @@ body.menu-open { overflow: hidden; }
 }
 
 /* ============== Libri ============== */
+.featured-book {
+  display: grid;
+  grid-template-columns: minmax(200px, 360px) 1fr;
+  gap: 70px;
+  align-items: start;
+}
+
+.featured-thumb {
+  position: relative;
+  aspect-ratio: 2/3;
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03);
+  overflow: hidden;
+}
+
+.featured-thumb::after {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 6px;
+  background: linear-gradient(to right, rgba(0,0,0,0.5), transparent);
+}
+
+.featured-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.featured-info .meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.featured-info .meta .num { color: var(--muted); }
+
+.featured-info h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(26px, 3vw, 40px);
+  line-height: 1.1;
+  margin: 6px 0 4px;
+  color: var(--fg);
+  letter-spacing: -0.01em;
+}
+
+.featured-info h3 em { font-style: italic; color: var(--amber); }
+
+.featured-info .desc {
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--fg-dim);
+  margin: 4px 0 8px;
+  max-width: 560px;
+  text-wrap: pretty;
+}
+
+.book-details {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+  margin-top: 16px;
+  padding-top: 4px;
+  margin-bottom: 8px;
+}
+
+.bdetail {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.bdetail:last-child { border-bottom: 0; }
+
+.bdetail .bdtitle {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.bdetail .bdval {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--fg);
+  letter-spacing: 0.02em;
+}
+
+.featured-cta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+/* Legacy grid (kept for possible future multi-book restore) */
 .libri-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1574,6 +1682,8 @@ footer {
   .book-cover { justify-self: center; max-width: 320px; }
   .section-head { grid-template-columns: 1fr; gap: 20px; align-items: start; }
   .bio-grid { grid-template-columns: 1fr; gap: 50px; }
+  .featured-book { grid-template-columns: 1fr; gap: 40px; }
+  .featured-thumb { max-width: 300px; }
   .libri-grid { grid-template-columns: repeat(2, 1fr); }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .newsletter-inner { grid-template-columns: 1fr; gap: 40px; padding: 50px 40px; }
