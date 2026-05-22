@@ -496,7 +496,6 @@ body.menu-open { overflow: hidden; }
 .hero-title em {
   font-style: italic;
   color: var(--fg);
-  display: block;
 }
 
 .hero-title .glitch {
