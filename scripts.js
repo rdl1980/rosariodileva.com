@@ -103,6 +103,7 @@
   }
 
   // ── Newsletter — MailerLite ───────────────────────────────────────────────
+  // L'endpoint MailerLite richiede application/x-www-form-urlencoded, non multipart.
   const ML_ENDPOINT =
     'https://assets.mailerlite.com/jsonp/2372474/forms/188206273951434134/subscribe';
 
@@ -124,12 +125,16 @@
       btn.disabled = true;
 
       try {
-        const body = new FormData();
-        body.append('fields[email]', email);
-        body.append('ml-submit', '1');
-        body.append('anticsrf', 'true');
+        const params = new URLSearchParams();
+        params.append('fields[email]', email);
+        params.append('ml-submit', '1');
+        params.append('anticsrf', 'true');
 
-        const res = await fetch(ML_ENDPOINT, { method: 'POST', body });
+        const res = await fetch(ML_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: params.toString(),
+        });
         const json = await res.json().catch(() => ({}));
 
         if (json.success) {
@@ -162,10 +167,14 @@
     });
   }
 
-  // ── Contact form — dummy feedback ─────────────────────────────────────────
+  // ── Form contatti — Web3Forms → rosario.dileva@gmail.com ─────────────────
+  // Per attivare: vai su https://web3forms.com, inserisci rosario.dileva@gmail.com,
+  // ricevi la access key via email e sostituiscila qui sotto.
+  const W3F_KEY = 'INSERISCI_QUI_LA_TUA_WEB3FORMS_ACCESS_KEY';
+
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
-    contactForm.addEventListener('submit', (ev) => {
+    contactForm.addEventListener('submit', async (ev) => {
       ev.preventDefault();
       if (!contactForm.checkValidity()) { contactForm.reportValidity(); return; }
 
@@ -174,19 +183,49 @@
 
       btn.dataset.submitting = '1';
       const original = btn.innerHTML;
-      btn.innerHTML = '✓ inviato';
-      btn.style.background = 'var(--amber)';
-      btn.style.color = '#0a0b0f';
+      btn.innerHTML = '…';
       btn.disabled = true;
 
-      setTimeout(() => {
-        btn.innerHTML = original;
-        btn.style.background = '';
-        btn.style.color = '';
-        btn.disabled = false;
-        delete btn.dataset.submitting;
-        contactForm.reset();
-      }, 2200);
+      try {
+        const data = new FormData(contactForm);
+        data.append('access_key', W3F_KEY);
+        data.append('subject',
+          data.get('subject') || 'Nuovo messaggio dal sito rosariodileva.com');
+        data.append('from_name', 'Sito rosariodileva.com');
+
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: data,
+        });
+        const json = await res.json().catch(() => ({}));
+
+        if (json.success) {
+          btn.innerHTML = '✓ inviato';
+          btn.style.background = 'var(--amber)';
+          btn.style.color = '#0a0b0f';
+          contactForm.reset();
+          setTimeout(() => {
+            btn.innerHTML = original;
+            btn.style.background = '';
+            btn.style.color = '';
+            btn.disabled = false;
+            delete btn.dataset.submitting;
+          }, 3000);
+        } else {
+          throw new Error(json.message || 'error');
+        }
+      } catch {
+        btn.innerHTML = '✗ riprova';
+        btn.style.background = '#7a1010';
+        btn.style.color = '#fff';
+        setTimeout(() => {
+          btn.innerHTML = original;
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.disabled = false;
+          delete btn.dataset.submitting;
+        }, 3000);
+      }
     });
   }
 
