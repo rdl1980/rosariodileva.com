@@ -294,54 +294,70 @@
     </div>
 
     <div class="noraya-body">
-      <h2 class="noraya-title reveal" id="noraya-title">
-        Noraya<span class="noraya-cursor" aria-hidden="true">_</span>
-      </h2>
-      <p class="noraya-sub reveal delay-1">
-        L'algoritmo legge. L'algoritmo risponde.
-      </p>
-      <p class="noraya-copy reveal delay-2">
-        Ha già elaborato quello che vuoi dirle prima che tu finisca di scriverlo.<br/>
-        Non per presunzione. Per efficienza.
-      </p>
 
-      <!-- Form trasmissione -->
-      <form class="noraya-form reveal delay-3" id="noraya-form" novalidate>
-        <input type="hidden" name="access_key" value="18cc0559-9f22-4433-ae7e-ad31aa267389" />
-        <input type="hidden" name="subject" value="Messaggio per Noraya | rosariodileva.com" />
-        <input type="hidden" name="from_name" value="Visitatore sito rosariodileva.com" />
-        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+      <!-- Colonna testo + form -->
+      <div class="noraya-text">
+        <h2 class="noraya-title reveal" id="noraya-title">
+          Noraya<span class="noraya-cursor" aria-hidden="true">_</span>
+        </h2>
+        <p class="noraya-sub reveal delay-1">
+          L'algoritmo legge. L'algoritmo risponde.
+        </p>
+        <p class="noraya-copy reveal delay-2">
+          Ha già elaborato quello che vuoi dirle prima che tu finisca di scriverlo.<br/>
+          Non per presunzione. Per efficienza.
+        </p>
 
-        <div class="nf-row">
-          <div class="nf-field">
-            <label class="nf-label" for="nf-name">// identificativo</label>
-            <input class="nf-input" type="text" id="nf-name" name="name"
-              placeholder="il tuo nome" required autocomplete="name" />
+        <!-- Form trasmissione -->
+        <form class="noraya-form reveal delay-3" id="noraya-form" novalidate>
+          <input type="hidden" name="access_key" value="18cc0559-9f22-4433-ae7e-ad31aa267389" />
+          <input type="hidden" name="subject" value="Messaggio per Noraya | rosariodileva.com" />
+          <input type="hidden" name="from_name" value="Visitatore sito rosariodileva.com" />
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <div class="nf-row">
+            <div class="nf-field">
+              <label class="nf-label" for="nf-name">// identificativo</label>
+              <input class="nf-input" type="text" id="nf-name" name="name"
+                placeholder="il tuo nome" required autocomplete="name" />
+            </div>
+            <div class="nf-field">
+              <label class="nf-label" for="nf-email">// canale di risposta</label>
+              <input class="nf-input" type="email" id="nf-email" name="email"
+                placeholder="la tua email" required autocomplete="email" />
+            </div>
           </div>
+
           <div class="nf-field">
-            <label class="nf-label" for="nf-email">// canale di risposta</label>
-            <input class="nf-input" type="email" id="nf-email" name="email"
-              placeholder="la tua email" required autocomplete="email" />
+            <label class="nf-label" for="nf-message">// trasmissione</label>
+            <textarea class="nf-input nf-textarea" id="nf-message" name="message"
+              placeholder="scrivi il tuo messaggio..." rows="5" required></textarea>
           </div>
+
+          <button class="nf-submit" type="submit">
+            <span class="nf-submit-label">// trasmetti</span>
+            <span class="nf-arrow" aria-hidden="true">→</span>
+          </button>
+        </form>
+
+        <!-- Conferma invio -->
+        <div class="noraya-confirm" id="noraya-confirm" aria-live="polite" hidden>
+          <span class="noraya-confirm-icon" aria-hidden="true">✓</span>
+          <p>Trasmissione ricevuta.<br/>Noraya ha già elaborato il tuo messaggio.</p>
         </div>
-
-        <div class="nf-field">
-          <label class="nf-label" for="nf-message">// trasmissione</label>
-          <textarea class="nf-input nf-textarea" id="nf-message" name="message"
-            placeholder="scrivi il tuo messaggio..." rows="5" required></textarea>
-        </div>
-
-        <button class="nf-submit" type="submit">
-          <span class="nf-submit-label">// trasmetti</span>
-          <span class="nf-arrow" aria-hidden="true">→</span>
-        </button>
-      </form>
-
-      <!-- Conferma invio -->
-      <div class="noraya-confirm" id="noraya-confirm" aria-live="polite" hidden>
-        <span class="noraya-confirm-icon" aria-hidden="true">✓</span>
-        <p>Trasmissione ricevuta.<br/>Noraya ha già elaborato il tuo messaggio.</p>
       </div>
+
+      <!-- Colonna immagine -->
+      <div class="noraya-portrait reveal delay-2" aria-hidden="true">
+        <img src="assets/gallery-noraya.jpg"
+             alt="Noraya, l'intelligenza artificiale protagonista del romanzo"
+             loading="lazy" />
+        <div class="noraya-portrait-hud">
+          <span>// soggetto identificato</span>
+          <span class="noraya-portrait-id">NORAYA · v2.1<span class="noraya-blink"> ●</span></span>
+        </div>
+      </div>
+
     </div>
 
     <div class="noraya-footer" aria-hidden="true">

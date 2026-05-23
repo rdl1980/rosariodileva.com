@@ -1708,9 +1708,91 @@ a.cval:hover { color: var(--amber); }
 .noraya-blink { animation: noraya-blink 1.2s step-end infinite; }
 
 .noraya-body {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 60px;
+  align-items: start;
+}
+
+.noraya-text {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+/* ── Portrait image ─────────────────────────────────────────────────────── */
+.noraya-portrait {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(201,162,95,0.25);
+  aspect-ratio: 3 / 4;
+  align-self: stretch;
+}
+
+.noraya-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(20%) contrast(1.08) brightness(0.9);
+  transition: transform 0.7s ease, filter 0.7s ease;
+}
+
+.noraya-portrait:hover img {
+  transform: scale(1.04);
+  filter: grayscale(0%) contrast(1.05) brightness(0.95);
+}
+
+/* Scan lines */
+.noraya-portrait::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.12) 2px,
+    rgba(0,0,0,0.12) 3px
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Bottom gradient + amber tint */
+.noraya-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, transparent 55%, rgba(0,0,0,0.82) 100%),
+    linear-gradient(160deg, rgba(196,30,30,0.06) 0%, transparent 60%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* HUD caption */
+.noraya-portrait-hud {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(201,162,95,0.55);
+}
+
+.noraya-portrait-id {
+  font-size: 10px;
+  color: rgba(201,162,95,0.8);
+  letter-spacing: 0.18em;
 }
 
 .noraya-title {
@@ -1933,11 +2015,20 @@ a.cval:hover { color: var(--amber); }
   .noraya-inner { padding: 48px 40px; }
 }
 
+@media (max-width: 900px) {
+  .noraya-body { grid-template-columns: 1fr; }
+  .noraya-portrait {
+    order: -1;
+    aspect-ratio: 16 / 9;
+    align-self: auto;
+  }
+}
+
 @media (max-width: 720px) {
   .noraya-section { padding: 60px 20px; }
   .noraya-inner { padding: 32px 24px; gap: 28px; }
   .noraya-header { flex-direction: column; align-items: flex-start; gap: 8px; }
-  .noraya-cta { width: 100%; }
+  .nf-submit { width: 100%; justify-content: center; }
 }
 
 /* ── Newsletter links (sostituisce form) ─────────────────────────────────── */
