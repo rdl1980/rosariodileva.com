@@ -102,5 +102,45 @@
     });
   }
 
+  // ── Noraya form (Web3Forms AJAX) ─────────────────────────────────────────
+  const norayaForm = document.getElementById('noraya-form');
+  const norayaConfirm = document.getElementById('noraya-confirm');
+
+  if (norayaForm) {
+    norayaForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const btn = norayaForm.querySelector('.nf-submit');
+      const labelEl = btn.querySelector('.nf-submit-label');
+
+      if (!norayaForm.checkValidity()) {
+        norayaForm.reportValidity();
+        return;
+      }
+
+      btn.disabled = true;
+      labelEl.textContent = '// elaborazione...';
+
+      try {
+        const data = new FormData(norayaForm);
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: data,
+        });
+        const json = await res.json();
+
+        if (json.success) {
+          norayaForm.style.display = 'none';
+          norayaConfirm.removeAttribute('hidden');
+        } else {
+          throw new Error(json.message || 'Errore di trasmissione');
+        }
+      } catch (err) {
+        labelEl.textContent = '// errore — riprova';
+        btn.disabled = false;
+        console.error('[Noraya form]', err);
+      }
+    });
+  }
 
 })();

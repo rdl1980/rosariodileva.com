@@ -304,11 +304,44 @@
         Ha già elaborato quello che vuoi dirle prima che tu finisca di scriverlo.<br/>
         Non per presunzione. Per efficienza.
       </p>
-      <a class="noraya-cta reveal delay-3" href="mailto:noraya@rosariodileva.com">
-        <span class="noraya-cta-label">// scrivi a Noraya</span>
-        <span class="noraya-cta-addr">noraya@rosariodileva.com</span>
-        <span class="noraya-arrow" aria-hidden="true">→</span>
-      </a>
+
+      <!-- Form trasmissione -->
+      <form class="noraya-form reveal delay-3" id="noraya-form" novalidate>
+        <input type="hidden" name="access_key" value="05db0ede-01d0-4e79-b952-7d8f6b18b633" />
+        <input type="hidden" name="subject" value="Messaggio per Noraya | rosariodileva.com" />
+        <input type="hidden" name="from_name" value="Visitatore sito rosariodileva.com" />
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <div class="nf-row">
+          <div class="nf-field">
+            <label class="nf-label" for="nf-name">// identificativo</label>
+            <input class="nf-input" type="text" id="nf-name" name="name"
+              placeholder="il tuo nome" required autocomplete="name" />
+          </div>
+          <div class="nf-field">
+            <label class="nf-label" for="nf-email">// canale di risposta</label>
+            <input class="nf-input" type="email" id="nf-email" name="email"
+              placeholder="la tua email" required autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="nf-field">
+          <label class="nf-label" for="nf-message">// trasmissione</label>
+          <textarea class="nf-input nf-textarea" id="nf-message" name="message"
+            placeholder="scrivi il tuo messaggio..." rows="5" required></textarea>
+        </div>
+
+        <button class="nf-submit" type="submit">
+          <span class="nf-submit-label">// trasmetti</span>
+          <span class="nf-arrow" aria-hidden="true">→</span>
+        </button>
+      </form>
+
+      <!-- Conferma invio -->
+      <div class="noraya-confirm" id="noraya-confirm" aria-live="polite" hidden>
+        <span class="noraya-confirm-icon" aria-hidden="true">✓</span>
+        <p>Trasmissione ricevuta.<br/>Noraya ha già elaborato il tuo messaggio.</p>
+      </div>
     </div>
 
     <div class="noraya-footer" aria-hidden="true">
