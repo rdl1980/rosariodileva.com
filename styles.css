@@ -1606,6 +1606,42 @@ a.cval:hover { color: var(--amber); }
 
 .contact-form .send:hover { background: var(--crimson-hot); }
 
+.contact-form .send:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.cf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.contact-confirm {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 24px 28px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  margin-top: 8px;
+}
+
+.contact-confirm[hidden] { display: none; }
+
+.contact-confirm-icon {
+  font-size: 20px;
+  color: var(--amber);
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+
+.contact-confirm p {
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--fg-dim);
+  line-height: 1.7;
+  margin: 0;
+}
+
 /* ============== Noraya ============== */
 @keyframes noraya-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 

@@ -102,6 +102,47 @@
     });
   }
 
+  // ── Contact form (Web3Forms AJAX) ───────────────────────────────────────
+  const contactForm = document.getElementById('contact-form');
+  const contactConfirm = document.getElementById('contact-confirm');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const btn = contactForm.querySelector('.send');
+      const labelEl = btn.querySelector('.send-label');
+
+      if (!contactForm.checkValidity()) {
+        contactForm.reportValidity();
+        return;
+      }
+
+      btn.disabled = true;
+      labelEl.textContent = 'Invio in corso...';
+
+      try {
+        const data = new FormData(contactForm);
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: data,
+        });
+        const json = await res.json();
+
+        if (json.success) {
+          contactForm.style.display = 'none';
+          contactConfirm.removeAttribute('hidden');
+        } else {
+          throw new Error(json.message || 'Errore di invio');
+        }
+      } catch (err) {
+        labelEl.textContent = 'Errore — riprova';
+        btn.disabled = false;
+        console.error('[Contact form]', err);
+      }
+    });
+  }
+
   // ── Noraya form (Web3Forms AJAX) ─────────────────────────────────────────
   const norayaForm = document.getElementById('noraya-form');
   const norayaConfirm = document.getElementById('noraya-confirm');

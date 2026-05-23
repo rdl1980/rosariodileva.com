@@ -387,6 +387,42 @@
         </div>
       </div>
     </div>
+
+    <!-- Colonna destra: form -->
+    <div class="contact-form-wrap reveal">
+      <form class="contact-form" id="contact-form" novalidate>
+        <input type="hidden" name="access_key" value="05db0ede-01d0-4e79-b952-7d8f6b18b633" />
+        <input type="hidden" name="subject" value="Messaggio dal sito | rosariodileva.com" />
+        <input type="hidden" name="from_name" value="Visitatore sito rosariodileva.com" />
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <div class="cf-field">
+          <label for="cf-name">Nome</label>
+          <input type="text" id="cf-name" name="name" placeholder="Il tuo nome" required autocomplete="name" />
+        </div>
+        <div class="cf-field">
+          <label for="cf-email">Email</label>
+          <input type="email" id="cf-email" name="email" placeholder="La tua email" required autocomplete="email" />
+        </div>
+        <div class="cf-field">
+          <label for="cf-message">Messaggio</label>
+          <textarea id="cf-message" name="message" placeholder="Scrivi il tuo messaggio..." rows="5" required></textarea>
+        </div>
+
+        <button class="send" type="submit">
+          <span class="send-label">Invia messaggio</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M2 8h12M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </form>
+
+      <div class="contact-confirm" id="contact-confirm" aria-live="polite" hidden>
+        <span class="contact-confirm-icon" aria-hidden="true">✓</span>
+        <p>Messaggio inviato. Ti rispondo entro 5 giorni lavorativi.</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
