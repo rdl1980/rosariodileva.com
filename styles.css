@@ -1259,8 +1259,8 @@ body.menu-open { overflow: hidden; }
 /* ============== Gallery ============== */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 220px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 240px;
   gap: 16px;
 }
 
@@ -1287,6 +1287,22 @@ body.menu-open { overflow: hidden; }
       transparent 12px 24px),
     linear-gradient(160deg, var(--surface-2) 0%, var(--bg) 100%);
 }
+
+/* Immagine reale: riempie il tile, nasconde il pattern placeholder */
+.gallery-tile img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.gallery-tile:hover img { transform: scale(1.06); }
+.gallery-tile:hover { transform: none; } /* l'effetto è sull'img, non sul tile */
+
+.gallery-tile:has(img)::before { display: none; }
 
 .gallery-tile .gcap {
   position: absolute;
