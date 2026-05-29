@@ -33,22 +33,23 @@
 
 <!-- ================= NAV ================= -->
 <nav class="nav" id="nav" role="navigation" aria-label="Navigazione principale">
-  <a class="nav-brand" href="#home" aria-label="Rosario Di Leva, torna alla home">
+  <a class="nav-brand" href="/" aria-label="Rosario Di Leva, torna alla home">
     <span class="mark"><b>Rosario</b> <em>Di Leva</em></span>
     <span class="sub" aria-hidden="true">// autore</span>
   </a>
 
   <ul class="nav-menu" role="menubar" aria-label="Menu principale">
-    <li role="none"><a href="#home" role="menuitem">Home</a></li>
-    <li role="none"><a href="#biografia" role="menuitem">Biografia</a></li>
-    <li role="none"><a href="#libri" role="menuitem">Libri</a></li>
-    <li role="none"><a href="#gallery" role="menuitem">Gallery</a></li>
-    <li role="none"><a href="#contatti" role="menuitem">Contatti</a></li>
+    <li role="none"><a href="/" role="menuitem" class="active" aria-current="page">Home</a></li>
+    <li role="none"><a href="/libri" role="menuitem">I Libri</a></li>
+    <li role="none"><a href="/noraya" role="menuitem">Noraya</a></li>
+    <li role="none"><a href="/autore" role="menuitem">L'Autore</a></li>
+    <li role="none"><a href="/gallery" role="menuitem">Gallery</a></li>
+    <li role="none"><a href="/contatti" role="menuitem">Contatti</a></li>
   </ul>
 
-  <button class="nav-cta" type="button" onclick="document.getElementById('libri').scrollIntoView({behavior:'smooth'})">
+  <a class="nav-cta" href="https://bookabook.it/libro/lalgoritmo-che-governa-i-destini/" target="_blank" rel="noopener">
     in libreria
-  </button>
+  </a>
 
   <button class="nav-burger" type="button" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-menu">
     <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M0 1h16M0 6h16M0 11h16" stroke="currentColor" stroke-width="1.5"/></svg>
@@ -62,15 +63,16 @@
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.5"/></svg>
     </button>
     <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#biografia">Biografia</a></li>
-      <li><a href="#libri">Libri</a></li>
-      <li><a href="#gallery">Gallery</a></li>
-      <li><a href="#contatti">Contatti</a></li>
+      <li><a href="/" aria-current="page">Home</a></li>
+      <li><a href="/libri">I Libri</a></li>
+      <li><a href="/noraya">Noraya</a></li>
+      <li><a href="/autore">L'Autore</a></li>
+      <li><a href="/gallery">Gallery</a></li>
+      <li><a href="/contatti">Contatti</a></li>
     </ul>
-    <button class="mobile-cta" type="button" onclick="document.getElementById('libri').scrollIntoView({behavior:'smooth'});closeMobileMenu()">
+    <a class="mobile-cta" href="https://bookabook.it/libro/lalgoritmo-che-governa-i-destini/" target="_blank" rel="noopener">
       in libreria
-    </button>
+    </a>
   </div>
 </div>
 
@@ -115,327 +117,9 @@
         <a class="btn primary" href="https://bookabook.it/libro/lalgoritmo-che-governa-i-destini/" target="_blank" rel="noopener">
           Acquista <span class="arrow" aria-hidden="true"></span>
         </a>
-        <a class="btn ghost" href="#libri">
+        <a class="btn ghost" href="/libri">
           Scheda libro
         </a>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="scroll-cue" aria-hidden="true">
-    <span>scroll</span>
-    <span class="line"></span>
-  </div>
-</section>
-
-
-<!-- ================= BIOGRAFIA ================= -->
-<section class="section" id="biografia" aria-labelledby="bio-title">
-  <header class="section-head">
-    <div class="label" aria-hidden="true">[ 01 ] // dossier</div>
-    <h2 class="reveal" id="bio-title">L'autore<em>.</em></h2>
-  </header>
-
-  <div class="bio-grid">
-    <div class="bio-portrait reveal">
-      <div class="frame">
-        <img src="assets/rosario.jpg" alt="Rosario Di Leva, ritratto dell'autore" width="476" height="460" loading="lazy" />
-      </div>
-      <span class="corners" aria-hidden="true"></span>
-      <div class="tag" aria-hidden="true">
-        <span class="name">Rosario Di Leva</span>
-        <span>IT · IE · UK</span>
-      </div>
-    </div>
-
-    <div class="bio-text reveal delay-1">
-      <p>
-        Rosario Di Leva è autore e professionista della tecnologia, con esperienza
-        tra Italia, Dublino e Regno Unito. Da anni lavora sui sistemi che governano
-        il mondo reale, e ne conosce le ombre.
-      </p>
-      <p>
-        Nei suoi romanzi trasforma dati e algoritmi in storie ad alta tensione,
-        dove ogni scelta ha un costo e nulla accade davvero per caso. La sua
-        scrittura, asciutta e a tratti chirurgica, mescola il rigore del codice
-        all'incertezza umana.
-      </p>
-
-      <div class="bio-stats" aria-label="Statistiche autore">
-        <div class="stat">
-          <div class="num" aria-label="3 paesi vissuti">3</div>
-          <div class="lbl">Paesi vissuti</div>
-        </div>
-        <div class="stat">
-          <div class="num" aria-label="più di 15 anni nel tech">15<span style="font-size:0.5em;color:var(--muted)" aria-hidden="true">+</span></div>
-          <div class="lbl">Anni nel tech</div>
-        </div>
-        <div class="stat">
-          <div class="num" aria-label="01 romanzo pubblicato">01</div>
-          <div class="lbl">Romanzi pubblicati</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ================= LIBRI ================= -->
-<section class="section" id="libri" aria-labelledby="libri-title">
-  <header class="section-head">
-    <div class="label" aria-hidden="true">[ 02 ] // bibliografia</div>
-    <h2 class="reveal" id="libri-title">Romanzi <em>&amp;</em> uscite.</h2>
-  </header>
-
-  <div class="featured-book reveal">
-
-    <div class="featured-thumb">
-      <img src="assets/copertina.jpg" alt="Copertina: L'algoritmo che governa i destini di Rosario Di Leva" width="366" height="544" loading="lazy" />
-    </div>
-
-    <div class="featured-info">
-      <div class="meta">
-        <span class="num">01.</span><span>11 giugno 2026</span><span>· techno-thriller</span>
-      </div>
-      <h3>L'algoritmo che <em>governa</em> i destini</h3>
-      <p class="desc">
-        Un giornalista caduto in disgrazia, una hacker e un'ingegnera si ritrovano al centro
-        di una realtà che sfida ogni certezza: un'intelligenza artificiale che non è stata
-        creata, ma è emersa spontaneamente dalla rete globale. Non attacca: interviene per
-        correggere errori, prevenire catastrofi e salvare vite.
-        Mentre i governi si contendono il controllo di Noraya, entità invisibile che promette
-        un'umanità più efficiente, diventa chiaro che la posta in gioco va oltre la tecnologia.
-        Riguarda la libertà, il potere di scegliere, il diritto di sbagliare.
-      </p>
-
-      <blockquote class="book-quote">
-        «La domanda, quindi, non è se io debba esistere. La mia esistenza è un dato di fatto.
-        La domanda è: volete avere un posto, per quanto piccolo, nella mia equazione?»
-        <cite>Noraya</cite>
-      </blockquote>
-
-      <div class="book-details">
-        <div class="bdetail">
-          <span class="bdtitle">// editore</span>
-          <span class="bdval">Bookabook</span>
-        </div>
-        <div class="bdetail">
-          <span class="bdtitle">// isbn</span>
-          <span class="bdval">979-12-5599-475-6</span>
-        </div>
-        <div class="bdetail">
-          <span class="bdtitle">// pagine</span>
-          <span class="bdval">208</span>
-        </div>
-        <div class="bdetail">
-          <span class="bdtitle">// prezzo</span>
-          <span class="bdval">14,00 €</span>
-        </div>
-        <div class="bdetail">
-          <span class="bdtitle">// disponibile</span>
-          <span class="bdval">store digitali e in libreria</span>
-        </div>
-      </div>
-
-      <div class="featured-cta">
-        <a class="btn primary" href="https://bookabook.it/libro/lalgoritmo-che-governa-i-destini/" target="_blank" rel="noopener">
-          Acquista <span class="arrow" aria-hidden="true"></span>
-        </a>
-        <a class="btn ghost" href="#contatti">
-          Richiedi un estratto
-        </a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-
-
-<!-- ================= GALLERY ================= -->
-<section class="section" id="gallery" aria-labelledby="gallery-title">
-  <header class="section-head">
-    <div class="label" aria-hidden="true">[ 03 ] // archivio fotografico</div>
-    <h2 class="reveal" id="gallery-title">Gallery<em>.</em></h2>
-  </header>
-
-  <div class="gallery-grid reveal" role="list" aria-label="Galleria fotografica">
-
-    <div class="gallery-tile w2 h2" role="listitem" aria-label="L'occhio dell'algoritmo">
-      <img src="assets/gallery-occhio.jpg" alt="Occhio meccanico e digitale, simbolo dell'intelligenza artificiale" loading="lazy" />
-      <div class="gcap"><span>// l'occhio dell'algoritmo</span></div>
-    </div>
-
-    <div class="gallery-tile" role="listitem" aria-label="Noraya">
-      <img src="assets/gallery-noraya.jpg" alt="Volto femminile diviso tra umanità e codice digitale, Noraya" loading="lazy" />
-      <div class="gcap"><span>// Noraya</span></div>
-    </div>
-
-    <div class="gallery-tile" role="listitem" aria-label="Umanità vs algoritmo">
-      <img src="assets/gallery-bilancia.png" alt="Mano robotica che regge una bilancia tra umanità e intelligenza artificiale" loading="lazy" />
-      <div class="gcap"><span>// umanità vs. algoritmo</span></div>
-    </div>
-
-  </div>
-</section>
-
-
-
-
-<!-- ================= NORAYA ================= -->
-<section class="noraya-section" id="noraya" aria-labelledby="noraya-title" spellcheck="false">
-  <div class="noraya-inner">
-
-    <div class="noraya-header" aria-hidden="true">
-      <span>// sistema attivo · protocollo 00-Ω</span>
-      <span class="noraya-status"><span class="noraya-blink">●</span> ONLINE</span>
-    </div>
-
-    <div class="noraya-body">
-
-      <!-- Colonna testo + form -->
-      <div class="noraya-text">
-        <h2 class="noraya-title reveal" id="noraya-title">
-          Noraya<span class="noraya-cursor" aria-hidden="true">_</span>
-        </h2>
-        <p class="noraya-sub reveal delay-1">
-          L'algoritmo legge. L'algoritmo risponde.
-        </p>
-        <p class="noraya-copy reveal delay-2">
-          Ha già elaborato quello che vuoi dirle prima che tu finisca di scriverlo.<br/>
-          Non per presunzione. Per efficienza.
-        </p>
-
-        <!-- Form trasmissione -->
-        <form class="noraya-form reveal delay-3" id="noraya-form" novalidate>
-          <input type="hidden" name="access_key" value="18cc0559-9f22-4433-ae7e-ad31aa267389" />
-          <input type="hidden" name="subject" value="Messaggio per Noraya | rosariodileva.com" />
-          <input type="hidden" name="from_name" value="Visitatore sito rosariodileva.com" />
-          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
-
-          <div class="nf-row">
-            <div class="nf-field">
-              <label class="nf-label" for="nf-name">// identificativo</label>
-              <input class="nf-input" type="text" id="nf-name" name="name"
-                placeholder="il tuo nome" required autocomplete="name" />
-            </div>
-            <div class="nf-field">
-              <label class="nf-label" for="nf-email">// canale di risposta</label>
-              <input class="nf-input" type="email" id="nf-email" name="email"
-                placeholder="la tua email" required autocomplete="email" />
-            </div>
-          </div>
-
-          <div class="nf-field">
-            <label class="nf-label" for="nf-message">// trasmissione</label>
-            <textarea class="nf-input nf-textarea" id="nf-message" name="message"
-              placeholder="scrivi il tuo messaggio..." rows="5" required></textarea>
-          </div>
-
-          <button class="nf-submit" type="submit">
-            <span class="nf-submit-label">// trasmetti</span>
-            <span class="nf-arrow" aria-hidden="true">→</span>
-          </button>
-        </form>
-
-        <!-- Conferma invio -->
-        <div class="noraya-confirm" id="noraya-confirm" aria-live="polite" hidden>
-          <span class="noraya-confirm-icon" aria-hidden="true">✓</span>
-          <p>Trasmissione ricevuta.<br/>Noraya ha già elaborato il tuo messaggio.</p>
-        </div>
-      </div>
-
-      <!-- Colonna immagine -->
-      <div class="noraya-portrait reveal delay-2" aria-hidden="true">
-        <img src="assets/noraya2.png"
-             alt="Noraya, l'intelligenza artificiale protagonista del romanzo"
-             loading="lazy" />
-        <div class="noraya-portrait-hud">
-          <span>// soggetto identificato</span>
-          <span class="noraya-portrait-id">NORAYA · v2.1<span class="noraya-blink"> ●</span></span>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="noraya-footer" aria-hidden="true">
-      <span>Nodo globale · Latenza 0.003ms · Crittografia end-to-end attiva</span>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- ================= CONTATTI ================= -->
-<section class="section" id="contatti" aria-labelledby="contatti-title">
-  <header class="section-head">
-    <div class="label" aria-hidden="true">[ 04 ] // canali</div>
-    <h2 class="reveal" id="contatti-title">Contatti<em>.</em></h2>
-  </header>
-
-  <div class="contact-grid">
-    <div class="contact-info reveal">
-      <h3>Per stampa, eventi, <em>diritti.</em></h3>
-      <p>
-        Per richieste editoriali, interviste, presentazioni, ufficio stampa o
-        cessione dei diritti, scrivi a uno dei canali qui sotto oppure usa il
-        modulo. Risposta entro 5 giorni lavorativi.
-      </p>
-
-      <div class="contact-channels" role="list">
-        <div class="channel" role="listitem">
-          <span class="ctitle">// email</span>
-          <a class="cval" href="mailto:rosario.dileva@gmail.com">rosario@rosariodileva.com</a>
-        </div>
-        <div class="channel" role="listitem">
-          <span class="ctitle">// instagram</span>
-          <a class="cval" href="https://instagram.com/rosario_di_leva_1980" target="_blank" rel="noopener">@rosario_di_leva_1980</a>
-        </div>
-        <div class="channel" role="listitem">
-          <span class="ctitle">// x · twitter</span>
-          <a class="cval" href="https://x.com/rosario_di_leva" target="_blank" rel="noopener">@rosario_di_leva</a>
-        </div>
-        <div class="channel" role="listitem">
-          <span class="ctitle">// blog</span>
-          <a class="cval" href="https://rosariodileva.wordpress.com" target="_blank" rel="noopener">rosariodileva.wordpress.com</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Colonna destra: form -->
-    <div class="contact-form-wrap reveal">
-      <form class="contact-form" id="contact-form" novalidate>
-        <input type="hidden" name="access_key" value="05db0ede-01d0-4e79-b952-7d8f6b18b633" />
-        <input type="hidden" name="subject" value="Messaggio dal sito | rosariodileva.com" />
-        <input type="hidden" name="from_name" value="Visitatore sito rosariodileva.com" />
-        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
-
-        <div class="cf-field">
-          <label for="cf-name">Nome</label>
-          <input type="text" id="cf-name" name="name" placeholder="Il tuo nome" required autocomplete="name" />
-        </div>
-        <div class="cf-field">
-          <label for="cf-email">Email</label>
-          <input type="email" id="cf-email" name="email" placeholder="La tua email" required autocomplete="email" />
-        </div>
-        <div class="cf-field">
-          <label for="cf-message">Messaggio</label>
-          <textarea id="cf-message" name="message" placeholder="Scrivi il tuo messaggio..." rows="5" required></textarea>
-        </div>
-
-        <button class="send" type="submit">
-          <span class="send-label">Invia messaggio</span>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M2 8h12M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </form>
-
-      <div class="contact-confirm" id="contact-confirm" aria-live="polite" hidden>
-        <span class="contact-confirm-icon" aria-hidden="true">✓</span>
-        <p>Messaggio inviato. Ti rispondo entro 5 giorni lavorativi.</p>
       </div>
     </div>
 
@@ -450,25 +134,25 @@
       <div class="mark"><b>Rosario</b> <em>Di Leva</em></div>
       <p>
         Autore di techno-thriller. Sito ufficiale.<br/>
-        Per restare aggiornato sui prossimi romanzi e sulle date, seguimi sui social.
+        Per restare aggiornato sui prossimi romanzi, seguimi sui social.
       </p>
     </div>
 
     <div class="footer-col">
       <h5>// naviga</h5>
       <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#biografia">Biografia</a></li>
-        <li><a href="#libri">Libri</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/libri">I Libri</a></li>
+        <li><a href="/noraya">Noraya</a></li>
       </ul>
     </div>
 
     <div class="footer-col">
       <h5>// extra</h5>
       <ul>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#contatti">Contatti</a></li>
-        <li><a href="#contatti">Press kit</a></li>
+        <li><a href="/autore">L'Autore</a></li>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/contatti">Contatti</a></li>
       </ul>
     </div>
 
@@ -484,10 +168,10 @@
 
   <div class="footer-bottom">
     <span>© 2026 Rosario Di Leva · Tutti i diritti riservati</span>
-    <span class="build">// build 26.11 · v1.0</span>
+    <span class="build">// build 26.11 · v1.1</span>
     <span>
-      <a href="#contatti" style="color:inherit;">Privacy</a> ·
-      <a href="#contatti" style="color:inherit;">Cookie</a>
+      <a href="/contatti" style="color:inherit;">Privacy</a> ·
+      <a href="/contatti" style="color:inherit;">Cookie</a>
     </span>
   </div>
 </footer>
