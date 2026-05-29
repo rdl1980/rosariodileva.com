@@ -243,11 +243,13 @@ button {
   align-items: center;
   justify-content: center;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.25s ease;
 }
 
 .mobile-menu.open {
   opacity: 1;
+  pointer-events: auto;
 }
 
 .mobile-menu-inner {
