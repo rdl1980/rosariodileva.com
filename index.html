@@ -33,22 +33,23 @@
 
 <!-- ================= NAV ================= -->
 <nav class="nav" id="nav" role="navigation" aria-label="Navigazione principale">
-  <a class="nav-brand" href="#home" aria-label="Rosario Di Leva, torna alla home">
+  <a class="nav-brand" href="/" aria-label="Rosario Di Leva, torna alla home">
     <span class="mark"><b>Rosario</b> <em>Di Leva</em></span>
     <span class="sub" aria-hidden="true">// autore</span>
   </a>
 
   <ul class="nav-menu" role="menubar" aria-label="Menu principale">
     <li role="none"><a href="#home" role="menuitem">Home</a></li>
-    <li role="none"><a href="#biografia" role="menuitem">Biografia</a></li>
-    <li role="none"><a href="#libri" role="menuitem">Libri</a></li>
+    <li role="none"><a href="/libri" role="menuitem">I Libri</a></li>
+    <li role="none"><a href="#noraya" role="menuitem">Noraya</a></li>
+    <li role="none"><a href="#biografia" role="menuitem">L'Autore</a></li>
     <li role="none"><a href="#gallery" role="menuitem">Gallery</a></li>
     <li role="none"><a href="#contatti" role="menuitem">Contatti</a></li>
   </ul>
 
-  <button class="nav-cta" type="button" onclick="document.getElementById('libri').scrollIntoView({behavior:'smooth'})">
+  <a class="nav-cta" href="/libri">
     in libreria
-  </button>
+  </a>
 
   <button class="nav-burger" type="button" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-menu">
     <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M0 1h16M0 6h16M0 11h16" stroke="currentColor" stroke-width="1.5"/></svg>
@@ -63,14 +64,15 @@
     </button>
     <ul>
       <li><a href="#home">Home</a></li>
-      <li><a href="#biografia">Biografia</a></li>
-      <li><a href="#libri">Libri</a></li>
+      <li><a href="/libri">I Libri</a></li>
+      <li><a href="#noraya">Noraya</a></li>
+      <li><a href="#biografia">L'Autore</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#contatti">Contatti</a></li>
     </ul>
-    <button class="mobile-cta" type="button" onclick="document.getElementById('libri').scrollIntoView({behavior:'smooth'});closeMobileMenu()">
+    <a class="mobile-cta" href="/libri">
       in libreria
-    </button>
+    </a>
   </div>
 </div>
 
