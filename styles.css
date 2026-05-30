@@ -2761,3 +2761,158 @@ footer {
   .bd-divider { padding: 0 20px; }
   .bd-question, .bd-why { padding: 20px 24px; }
 }
+
+/* ================================================================
+   NEWSLETTER STRIP (sopra il footer, tutte le pagine)
+   ================================================================ */
+
+.nl-strip {
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 60px 40px;
+}
+
+.nl-strip-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 48px;
+}
+
+.nl-strip-copy .label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--amber);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.nl-strip-title {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+
+.nl-strip-title em { font-style: italic; color: var(--amber); }
+
+.nl-strip-copy p {
+  color: var(--fg-dim);
+  font-size: 15px;
+  max-width: 440px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.nl-features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nl-feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--fg-dim);
+  letter-spacing: 0.04em;
+}
+
+.nl-feature-check {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--amber);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--amber);
+  font-size: 10px;
+}
+
+/* Newsletter full page */
+.nl-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 60px 40px 100px;
+}
+
+.nl-page-description {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--fg-dim);
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+
+.nl-page-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.nl-page-feature {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 20px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.nl-page-feature-icon {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--amber);
+  padding-top: 3px;
+  flex-shrink: 0;
+}
+
+.nl-page-feature-text strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.nl-page-feature-text span {
+  font-size: 13px;
+  color: var(--fg-dim);
+}
+
+.nl-page-cta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.nl-page-note {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 860px) {
+  .nl-strip-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .nl-page-features {
+    grid-template-columns: 1fr;
+  }
+  .nl-strip { padding: 48px 20px; }
+  .nl-page { padding: 40px 20px 80px; }
+}
