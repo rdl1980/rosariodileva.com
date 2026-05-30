@@ -186,6 +186,89 @@
 
 })();
 
+// ── Lightbox (gallery) ───────────────────────────────────────────────────────
+(function () {
+  'use strict';
+
+  const tiles = [...document.querySelectorAll('.gallery-tile[data-src]')];
+  if (!tiles.length) return;
+
+  // Build overlay DOM
+  const overlay = document.createElement('div');
+  overlay.id = 'lb-overlay';
+  overlay.className = 'lb-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.setAttribute('aria-label', 'Visualizzatore immagini');
+  overlay.innerHTML =
+    '<button class="lb-close" aria-label="Chiudi">✕</button>' +
+    '<div class="lb-img-wrap"><img class="lb-img" src="" alt="" /></div>' +
+    '<button class="lb-prev" aria-label="Immagine precedente">←</button>' +
+    '<button class="lb-next" aria-label="Immagine successiva">→</button>' +
+    '<div class="lb-caption" aria-live="polite"></div>' +
+    '<div class="lb-counter" aria-hidden="true"></div>';
+  document.body.appendChild(overlay);
+
+  const img     = overlay.querySelector('.lb-img');
+  const caption = overlay.querySelector('.lb-caption');
+  const counter = overlay.querySelector('.lb-counter');
+  const btnClose = overlay.querySelector('.lb-close');
+  const btnPrev  = overlay.querySelector('.lb-prev');
+  const btnNext  = overlay.querySelector('.lb-next');
+
+  let current = 0;
+
+  function show(index) {
+    current = ((index % tiles.length) + tiles.length) % tiles.length;
+    const tile = tiles[current];
+    img.src = tile.dataset.src;
+    img.alt = tile.dataset.alt || '';
+    caption.textContent = tile.dataset.caption || '';
+    counter.textContent = (current + 1) + ' / ' + tiles.length;
+  }
+
+  function open(index) {
+    show(index);
+    overlay.classList.add('lb-open');
+    document.body.style.overflow = 'hidden';
+    btnClose.focus();
+  }
+
+  function close() {
+    overlay.classList.remove('lb-open');
+    document.body.style.overflow = '';
+    tiles[current].focus();
+  }
+
+  // Wire tiles
+  tiles.forEach(function (tile, i) {
+    tile.setAttribute('tabindex', '0');
+    tile.setAttribute('role', 'button');
+    tile.setAttribute('aria-label', 'Apri immagine: ' + (tile.dataset.caption || ''));
+    tile.addEventListener('click', function () { open(i); });
+    tile.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); }
+    });
+  });
+
+  btnClose.addEventListener('click', close);
+  btnPrev.addEventListener('click',  function () { show(current - 1); });
+  btnNext.addEventListener('click',  function () { show(current + 1); });
+
+  // Close on backdrop click
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) close();
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function (e) {
+    if (!overlay.classList.contains('lb-open')) return;
+    if (e.key === 'Escape')     close();
+    if (e.key === 'ArrowLeft')  show(current - 1);
+    if (e.key === 'ArrowRight') show(current + 1);
+  });
+}());
+
 // ── Cookie consent banner ────────────────────────────────────────────────────
 (function () {
   'use strict';
