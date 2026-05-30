@@ -64,6 +64,12 @@
 }
 </script>
 
+<!-- Theme color -->
+<meta name="theme-color" content="#0a0b0f" />
+
+<!-- Preload LCP image -->
+<link rel="preload" as="image" href="assets/copertina.jpg" />
+
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -136,7 +142,7 @@
 
     <!-- COVER (left) -->
     <div class="book-cover reveal">
-      <img src="assets/copertina.jpg" alt="Copertina: L'algoritmo che governa i destini di Rosario Di Leva, Bookabook 2026" width="366" height="544" />
+      <img src="assets/copertina.jpg" alt="Copertina: L'algoritmo che governa i destini di Rosario Di Leva, Bookabook 2026" width="366" height="544" fetchpriority="high" decoding="async" />
     </div>
 
     <!-- COPY (right) -->
@@ -144,6 +150,19 @@
       <div class="hero-tag reveal" aria-hidden="true">
         <span class="dot"></span>
         <span>// disponibile dall'11 giugno 2026</span>
+      </div>
+
+      <div class="hero-countdown reveal" id="hero-countdown" aria-label="Conto alla rovescia al lancio">
+        <div class="hcd-label">// lancio in</div>
+        <div class="hcd-timer" aria-hidden="true">
+          <div class="hcd-unit"><span class="hcd-num" id="hcd-days">--</span><span class="hcd-sub">giorni</span></div>
+          <span class="hcd-sep">:</span>
+          <div class="hcd-unit"><span class="hcd-num" id="hcd-hours">--</span><span class="hcd-sub">ore</span></div>
+          <span class="hcd-sep">:</span>
+          <div class="hcd-unit"><span class="hcd-num" id="hcd-mins">--</span><span class="hcd-sub">min</span></div>
+          <span class="hcd-sep">:</span>
+          <div class="hcd-unit"><span class="hcd-num" id="hcd-secs">--</span><span class="hcd-sub">sec</span></div>
+        </div>
       </div>
 
       <h1 class="hero-title reveal delay-1" id="hero-title">
@@ -255,8 +274,8 @@
     <span>© 2026 Rosario Di Leva · Tutti i diritti riservati</span>
     <span class="build">// build 26.11 · v1.1</span>
     <span>
-      <a href="/contatti" style="color:inherit;">Privacy</a> ·
-      <a href="/contatti" style="color:inherit;">Cookie</a>
+      <a href="/privacy" style="color:inherit;">Privacy</a> ·
+      <a href="/privacy" style="color:inherit;">Cookie</a>
     </span>
   </div>
 </footer>
