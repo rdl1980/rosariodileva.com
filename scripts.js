@@ -186,6 +186,44 @@
 
 })();
 
+// ── Countdown lancio ──────────────────────────────────────────────────────────
+(function () {
+  'use strict';
+
+  var wrap = document.getElementById('hero-countdown');
+  if (!wrap) return;
+
+  // 11 giugno 2026 mezzanotte ora italiana (UTC+2)
+  var LAUNCH = new Date('2026-06-11T00:00:00+02:00').getTime();
+
+  var elDays  = document.getElementById('hcd-days');
+  var elHours = document.getElementById('hcd-hours');
+  var elMins  = document.getElementById('hcd-mins');
+  var elSecs  = document.getElementById('hcd-secs');
+  var heroTag = document.querySelector('.hero-tag span:last-child');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function tick() {
+    var diff = LAUNCH - Date.now();
+
+    if (diff <= 0) {
+      wrap.innerHTML = '<div class="hcd-live">// ora disponibile</div>';
+      if (heroTag) heroTag.textContent = '// ora disponibile';
+      return;
+    }
+
+    elDays.textContent  = pad(Math.floor(diff / 86400000));
+    elHours.textContent = pad(Math.floor((diff % 86400000) / 3600000));
+    elMins.textContent  = pad(Math.floor((diff % 3600000)  / 60000));
+    elSecs.textContent  = pad(Math.floor((diff % 60000)    / 1000));
+
+    setTimeout(tick, 1000);
+  }
+
+  tick();
+}());
+
 // ── Back to top ───────────────────────────────────────────────────────────────
 (function () {
   'use strict';
