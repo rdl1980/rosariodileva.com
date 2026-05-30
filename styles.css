@@ -2676,6 +2676,64 @@ footer {
   margin-top: 8px;
 }
 
+/* Store links */
+.bd-stores {
+  margin-top: 28px;
+}
+
+.bd-stores-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.bd-stores-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.bd-store-btn {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  padding: 8px 18px;
+  border: 1px solid var(--line);
+  color: var(--fg-dim);
+  transition: border-color 0.18s ease, color 0.18s ease;
+  white-space: nowrap;
+}
+
+.bd-store-btn:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+/* Hero store links */
+.hero-stores {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.hero-stores a {
+  color: var(--fg-dim);
+  transition: color 0.15s;
+}
+
+.hero-stores a:hover { color: var(--amber); }
+
+.hero-stores-sep { color: var(--line); }
+
 /* Divisore inter-libro */
 .bd-divider {
   display: flex;
