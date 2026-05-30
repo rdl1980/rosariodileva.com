@@ -186,6 +186,56 @@
 
 })();
 
+// ── Back to top ───────────────────────────────────────────────────────────────
+(function () {
+  'use strict';
+
+  var btn = document.createElement('button');
+  btn.id = 'back-to-top';
+  btn.setAttribute('aria-label', 'Torna in cima');
+  btn.textContent = '↑';
+  document.body.appendChild(btn);
+
+  window.addEventListener('scroll', function () {
+    btn.classList.toggle('btt-visible', window.scrollY > 400);
+  }, { passive: true });
+
+  btn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}());
+
+// ── Share — copia link ────────────────────────────────────────────────────────
+(function () {
+  'use strict';
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.bd-share-copy');
+    if (!btn) return;
+
+    var url = btn.dataset.url || window.location.href;
+    navigator.clipboard.writeText(url).then(function () {
+      var orig = btn.textContent;
+      btn.textContent = '// link copiato ✓';
+      btn.classList.add('copied');
+      setTimeout(function () {
+        btn.textContent = orig;
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(function () {
+      // fallback per browser senza clipboard API
+      var ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    });
+  });
+}());
+
 // ── Lightbox (gallery) ───────────────────────────────────────────────────────
 (function () {
   'use strict';
