@@ -2916,3 +2916,84 @@ footer {
   .nl-strip { padding: 48px 20px; }
   .nl-page { padding: 40px 20px 80px; }
 }
+
+/* ================================================================
+   COOKIE BANNER
+   ================================================================ */
+
+#cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  padding: 14px 40px;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#cookie-banner.ck-visible {
+  transform: translateY(0);
+}
+
+.ck-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.ck-text {
+  font-size: 13px;
+  color: var(--fg-dim);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.ck-text a {
+  color: var(--amber);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ck-btns {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ck-accept,
+.ck-reject {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  padding: 8px 18px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+
+.ck-accept {
+  background: var(--crimson);
+  color: #fff;
+}
+
+.ck-accept:hover { background: var(--crimson-hot); }
+
+.ck-reject {
+  background: transparent;
+  color: var(--fg-dim);
+  border: 1px solid var(--line);
+}
+
+.ck-reject:hover { border-color: var(--muted); color: var(--fg); }
+
+@media (max-width: 720px) {
+  #cookie-banner { padding: 14px 20px; }
+  .ck-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
