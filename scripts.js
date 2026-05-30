@@ -185,3 +185,42 @@
   }
 
 })();
+
+// ── Cookie consent banner ────────────────────────────────────────────────────
+(function () {
+  'use strict';
+
+  const CONSENT_KEY = 'rdl-cookie-consent';
+  if (localStorage.getItem(CONSENT_KEY)) return;
+
+  const banner = document.createElement('div');
+  banner.id = 'cookie-banner';
+  banner.setAttribute('role', 'dialog');
+  banner.setAttribute('aria-label', 'Consenso cookie');
+  banner.innerHTML =
+    '<div class="ck-inner">' +
+      '<p class="ck-text">Questo sito usa <strong>Google Fonts</strong> (servizio esterno) per la tipografia. ' +
+      'Nessun cookie di profilazione. ' +
+      '<a href="/contatti">Privacy policy</a>.</p>' +
+      '<div class="ck-btns">' +
+        '<button class="ck-accept" type="button">Accetta</button>' +
+        '<button class="ck-reject" type="button">Solo necessari</button>' +
+      '</div>' +
+    '</div>';
+
+  document.body.appendChild(banner);
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      banner.classList.add('ck-visible');
+    });
+  });
+
+  function dismiss(choice) {
+    localStorage.setItem(CONSENT_KEY, choice);
+    banner.classList.remove('ck-visible');
+    banner.addEventListener('transitionend', function () { banner.remove(); }, { once: true });
+  }
+
+  banner.querySelector('.ck-accept').addEventListener('click', function () { dismiss('accepted'); });
+  banner.querySelector('.ck-reject').addEventListener('click', function () { dismiss('rejected'); });
+}());
