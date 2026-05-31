@@ -488,10 +488,168 @@
 
   function dismiss(choice) {
     localStorage.setItem(CONSENT_KEY, choice);
+    // Aggiorna Google Consent Mode v2
+    if (typeof gtag === 'function') {
+      gtag('consent', 'update', {
+        analytics_storage: choice === 'accepted' ? 'granted' : 'denied'
+      });
+    }
     banner.classList.remove('ck-visible');
     banner.addEventListener('transitionend', function () { banner.remove(); }, { once: true });
   }
 
   banner.querySelector('.ck-accept').addEventListener('click', function () { dismiss('accepted'); });
   banner.querySelector('.ck-reject').addEventListener('click', function () { dismiss('rejected'); });
+}());
+
+// ── GA4 Event tracking (#25) ─────────────────────────────────────────────────
+(function () {
+  'use strict';
+
+  function track(eventName, params) {
+    if (typeof gtag === 'function') gtag('event', eventName, params || {});
+  }
+
+  document.addEventListener('click', function (e) {
+    var el = e.target;
+
+    // Acquisto — Bookabook (nav CTA, bottoni primari)
+    var bk = el.closest('a[href*="bookabook.it"]');
+    if (bk) { track('purchase_intent', { store: 'bookabook', location: bk.className }); return; }
+
+    // Acquisto — Amazon
+    var amz = el.closest('a[href*="amazon.it"]');
+    if (amz) { track('purchase_intent', { store: 'amazon' }); return; }
+
+    // Acquisto — Feltrinelli
+    var felt = el.closest('a[href*="lafeltrinelli.it"]');
+    if (felt) { track('purchase_intent', { store: 'feltrinelli' }); return; }
+
+    // Acquisto — IBS
+    var ibs = el.closest('a[href*="ibs.it"]');
+    if (ibs) { track('purchase_intent', { store: 'ibs' }); return; }
+
+    // Acquisto — Libreria Universitaria
+    var lu = el.closest('a[href*="libreriauniversitaria.it"]');
+    if (lu) { track('purchase_intent', { store: 'libreria_universitaria' }); return; }
+
+    // Newsletter form submit
+    var nlBtn = el.closest('#nl-strip-form button[type="submit"]');
+    if (nlBtn) { track('newsletter_signup_attempt'); return; }
+
+    // Noraya form submit
+    var nfBtn = el.closest('#noraya-form button[type="submit"]');
+    if (nfBtn) { track('noraya_contact_attempt'); return; }
+
+    // Social links
+    var ig = el.closest('a[href*="instagram.com"]');
+    if (ig) { track('social_click', { platform: 'instagram' }); return; }
+
+    var tw = el.closest('a[href*="x.com"], a[href*="twitter.com"]');
+    if (tw) { track('social_click', { platform: 'x_twitter' }); return; }
+
+    var sub = el.closest('a[href*="substack.com"]');
+    if (sub) { track('social_click', { platform: 'substack' }); return; }
+  });
+
+  // Track newsletter form submit (l'evento submit, non il click del bottone)
+  document.addEventListener('submit', function (e) {
+    if (e.target && e.target.id === 'nl-strip-form') {
+      var val = e.target.querySelector('[name="email"]');
+      if (val && val.value.trim()) track('newsletter_signup', { method: 'inline_form' });
+    }
+    if (e.target && e.target.id === 'contact-form') track('contact_form_submit');
+    if (e.target && e.target.id === 'noraya-form') track('noraya_contact_submit');
+  });
+}());
+
+// ── Substack custom widget (#41) ─────────────────────────────────────────────
+(function () {
+  'use strict';
+  if (!document.getElementById('custom-substack-embed')) return;
+  window.CustomSubstackWidget = {
+    substackUrl: 'rosariodileva.substack.com',
+    placeholder:  'la tua email',
+    buttonText:   'Iscriviti',
+    theme:        'custom',
+    colors: {
+      primary: '#c9a25f',
+      input:   '#14161c',
+      email:   '#e8e6e1',
+      text:    '#e8e6e1'
+    }
+  };
+  var s = document.createElement('script');
+  s.src = 'https://substackapi.com/widget.js';
+  s.async = true;
+  document.body.appendChild(s);
+}());
+
+// ── Substack RSS preview (#28) ────────────────────────────────────────────────
+(function () {
+  'use strict';
+
+  var container = document.getElementById('substack-posts');
+  if (!container) return;
+
+  var RSS_URL = 'https://rosariodileva.substack.com/feed';
+  // Usa un proxy CORS pubblico per il feed RSS
+  var PROXY   = 'https://api.allorigins.win/get?url=' + encodeURIComponent(RSS_URL);
+
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function formatDate(str) {
+    try {
+      var d = new Date(str);
+      return d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+    } catch (e) { return str || ''; }
+  }
+
+  function renderPosts(items) {
+    if (!items.length) {
+      container.innerHTML = '<p class="substack-preview-empty">// nessun articolo disponibile al momento.</p>';
+      return;
+    }
+    var html = items.slice(0, 3).map(function (item) {
+      return (
+        '<article class="sp-card">' +
+          '<a class="sp-card-link" href="' + escHtml(item.link) + '" target="_blank" rel="noopener">' +
+            '<div class="sp-card-date">' + escHtml(item.date) + '</div>' +
+            '<h3 class="sp-card-title">' + escHtml(item.title) + '</h3>' +
+            (item.desc ? '<p class="sp-card-desc">' + escHtml(item.desc) + '</p>' : '') +
+          '</a>' +
+        '</article>'
+      );
+    }).join('');
+    container.innerHTML = html;
+  }
+
+  fetch(PROXY)
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      var xml = (new DOMParser()).parseFromString(data.contents, 'text/xml');
+      var nodes = Array.from(xml.querySelectorAll('item'));
+      var items = nodes.map(function (n) {
+        var descRaw = (n.querySelector('description') || {}).textContent || '';
+        // Strip HTML tags from description
+        var tmp = document.createElement('div');
+        tmp.innerHTML = descRaw;
+        var plain = (tmp.textContent || '').trim().slice(0, 120);
+        if (plain.length === 120) plain += '…';
+        return {
+          title: (n.querySelector('title') || {}).textContent || '',
+          link:  (n.querySelector('link') || {}).textContent || '',
+          date:  formatDate((n.querySelector('pubDate') || {}).textContent || ''),
+          desc:  plain
+        };
+      });
+      renderPosts(items);
+    })
+    .catch(function () {
+      // Rimuovi silenziosamente la sezione in caso di errore di rete
+      var section = document.getElementById('substack-preview');
+      if (section) section.style.display = 'none';
+    });
 }());
