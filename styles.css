@@ -2963,6 +2963,35 @@ footer {
   letter-spacing: 0.04em;
 }
 
+/* nl-strip inline email form (feature 16) */
+.nl-strip-form {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.nl-strip-input {
+  flex: 1 1 200px;
+  min-width: 180px;
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0 14px;
+  height: 44px;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--fg);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.nl-strip-input::placeholder { color: var(--muted); }
+
+.nl-strip-input:focus {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 2px rgba(201, 162, 95, .15);
+}
+
 @media (max-width: 860px) {
   .nl-strip-inner {
     grid-template-columns: 1fr;
@@ -2973,6 +3002,8 @@ footer {
   }
   .nl-strip { padding: 48px 20px; }
   .nl-page { padding: 40px 20px 80px; }
+  .nl-strip-form { flex-direction: column; }
+  .nl-strip-input { width: 100%; min-width: 0; }
 }
 
 /* ================================================================

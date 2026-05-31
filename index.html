@@ -189,7 +189,7 @@
         <a class="btn primary" href="https://bookabook.it/libro/lalgoritmo-che-governa-i-destini/" target="_blank" rel="noopener">
           Acquista <span class="arrow" aria-hidden="true"></span>
         </a>
-        <a class="btn ghost" href="/libri">
+        <a class="btn ghost" href="/algoritmo">
           Scheda libro
         </a>
       </div>
@@ -223,9 +223,14 @@
       <div class="nl-feature"><span class="nl-feature-check">✓</span> Zero spam</div>
       <div class="nl-feature"><span class="nl-feature-check">✓</span> Contenuti esclusivi</div>
     </div>
-    <a class="btn primary" href="https://rosariodileva.substack.com" target="_blank" rel="noopener">
-      Iscriviti su Substack <span class="arrow" aria-hidden="true"></span>
-    </a>
+    <form class="nl-strip-form" id="nl-strip-form" novalidate>
+      <input class="nl-strip-input" type="email" name="email"
+             placeholder="la tua email" required autocomplete="email"
+             aria-label="Indirizzo email per iscriverti alla newsletter" />
+      <button class="btn primary" type="submit">
+        Iscriviti <span class="arrow" aria-hidden="true"></span>
+      </button>
+    </form>
   </div>
 </section>
 

@@ -17,6 +17,8 @@
 <meta property="og:title" content="Diario di un giovane calciatore — Rosario Di Leva" />
 <meta property="og:description" content="Il sogno di diventare calciatore e la paura di non essere abbastanza. Narrativa sportiva, Amazon 2026." />
 <meta property="og:image" content="https://rosariodileva.com/assets/copertina-diario.jpg" />
+<meta property="og:image:width" content="366" />
+<meta property="og:image:height" content="544" />
 <meta property="og:image:alt" content="Copertina: Diario di un giovane calciatore di Rosario Di Leva" />
 
 <!-- Twitter Card -->
@@ -38,7 +40,14 @@
       "datePublished": "2026-03-10",
       "inLanguage": "it",
       "genre": "Narrativa sportiva",
-      "url": "https://www.amazon.it/dp/B0GS63SXDP"
+      "url": "https://www.amazon.it/dp/B0GS63SXDP",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.5",
+        "reviewCount": "8",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
     },
     {
       "@type": "BreadcrumbList",
@@ -212,9 +221,14 @@
       <div class="nl-feature"><span class="nl-feature-check">✓</span> Zero spam</div>
       <div class="nl-feature"><span class="nl-feature-check">✓</span> Contenuti esclusivi</div>
     </div>
-    <a class="btn primary" href="https://rosariodileva.substack.com" target="_blank" rel="noopener">
-      Iscriviti su Substack <span class="arrow" aria-hidden="true"></span>
-    </a>
+    <form class="nl-strip-form" id="nl-strip-form" novalidate>
+      <input class="nl-strip-input" type="email" name="email"
+             placeholder="la tua email" required autocomplete="email"
+             aria-label="Indirizzo email per iscriverti alla newsletter" />
+      <button class="btn primary" type="submit">
+        Iscriviti <span class="arrow" aria-hidden="true"></span>
+      </button>
+    </form>
   </div>
 </section>
 

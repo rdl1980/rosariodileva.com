@@ -440,6 +440,23 @@
   });
 }());
 
+// ── Newsletter strip form ─────────────────────────────────────────────────────
+(function () {
+  'use strict';
+
+  var form = document.getElementById('nl-strip-form');
+  if (!form) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var input = form.querySelector('[name="email"]');
+    var email = input ? input.value.trim() : '';
+    if (!email) { input && input.focus(); return; }
+    var url = 'https://rosariodileva.substack.com/subscribe?email=' + encodeURIComponent(email);
+    window.open(url, '_blank', 'noopener,noreferrer');
+  });
+}());
+
 // ── Cookie consent banner ────────────────────────────────────────────────────
 (function () {
   'use strict';
