@@ -29,28 +29,32 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Rosario Di Leva",
-  "url": "https://rosariodileva.com",
-  "image": "https://rosariodileva.com/assets/rosario.jpg",
-  "jobTitle": "Autore",
-  "description": "Autore di techno-thriller. Professionista della tecnologia tra Italia, Dublino e Regno Unito.",
-  "nationality": { "@type": "Country", "name": "Italy" },
-  "sameAs": [
-    "https://instagram.com/rosario_di_leva_1980",
-    "https://x.com/rosario_di_leva",
-    "https://rosariodileva.wordpress.com",
-    "https://rosariodileva.substack.com"
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rosariodileva.com" },
-    { "@type": "ListItem", "position": 2, "name": "L'Autore", "item": "https://rosariodileva.com/autore" }
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://rosariodileva.com/autore#author",
+      "name": "Rosario Di Leva",
+      "url": "https://rosariodileva.com",
+      "image": "https://rosariodileva.com/assets/rosario.jpg",
+      "jobTitle": "Autore",
+      "description": "Autore di techno-thriller. Professionista della tecnologia tra Italia, Dublino e Regno Unito.",
+      "nationality": { "@type": "Country", "name": "Italy" },
+      "knowsAbout": ["Intelligenza artificiale", "Techno-thriller", "Narratologia", "Tecnologia"],
+      "sameAs": [
+        "https://www.instagram.com/rosario_di_leva_1980",
+        "https://x.com/rosario_di_leva",
+        "https://rosariodileva.wordpress.com",
+        "https://rosariodileva.substack.com",
+        "https://bookabook.it/libro/lalgoritmo-che-governa-i-destini/"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rosariodileva.com" },
+        { "@type": "ListItem", "position": 2, "name": "L'Autore", "item": "https://rosariodileva.com/autore" }
+      ]
+    }
   ]
 }
 </script>
@@ -108,6 +112,13 @@
     <a class="mobile-cta" href="https://bookabook.it/libro/lalgoritmo-che-governa-i-destini/" target="_blank" rel="noopener">in libreria</a>
   </div>
 </div>
+
+<nav class="breadcrumb" aria-label="Percorso di navigazione">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item" aria-current="page">L'Autore</li>
+  </ol>
+</nav>
 
 <header class="page-header">
   <div class="page-header-inner">
