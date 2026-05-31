@@ -299,6 +299,47 @@
   });
 }());
 
+// ── Share — Web Share API (Instagram · TikTok) ───────────────────────────────
+(function () {
+  'use strict';
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.bd-share-native');
+    if (!btn) return;
+
+    var url   = btn.dataset.url   || window.location.href;
+    var title = btn.dataset.title || document.title;
+    var text  = btn.dataset.text  || '';
+
+    if (navigator.share) {
+      navigator.share({ title: title, text: text, url: url }).catch(function () {
+        // l'utente ha annullato — non fare nulla
+      });
+    } else {
+      // Fallback desktop: copia il link con feedback visivo
+      var orig = btn.textContent;
+      navigator.clipboard.writeText(url).then(function () {
+        btn.textContent = '// link copiato ✓';
+        btn.classList.add('copied');
+        setTimeout(function () {
+          btn.textContent = orig;
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(function () {
+        var ta = document.createElement('textarea');
+        ta.value = url;
+        ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none;';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        btn.textContent = '// link copiato ✓';
+        setTimeout(function () { btn.textContent = orig; }, 2000);
+      });
+    }
+  });
+}());
+
 // ── Lightbox (gallery) ───────────────────────────────────────────────────────
 (function () {
   'use strict';
