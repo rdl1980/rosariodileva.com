@@ -648,8 +648,9 @@
       renderPosts(items);
     })
     .catch(function () {
-      // Rimuovi silenziosamente la sezione in caso di errore di rete
-      var section = document.getElementById('substack-preview');
-      if (section) section.style.display = 'none';
+      var container = document.getElementById('substack-posts');
+      if (container) {
+        container.innerHTML = '<p class="substack-preview-empty">// impossibile caricare gli articoli al momento.</p>';
+      }
     });
 }());
