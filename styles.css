@@ -1331,7 +1331,7 @@ body.menu-open { overflow: hidden; }
 /* ============== Newsletter ============== */
 .newsletter {
   position: relative;
-  margin: 40px auto;
+  margin: 60px auto 0;
   max-width: var(--maxw);
   padding: 0 40px;
 }
@@ -1459,6 +1459,50 @@ body.menu-open { overflow: hidden; }
 .newsletter-form .legal a {
   color: var(--amber);
   border-bottom: 1px solid var(--amber-dim);
+}
+
+.substack-preview {
+  margin: 60px auto 0;
+  padding: 0 40px;
+}
+
+.substack-preview-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 60px;
+}
+
+.substack-preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.substack-preview-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--amber);
+}
+
+.substack-preview-grid {
+  display: grid;
+  gap: 24px;
+}
+
+@media (max-width: 720px) {
+  .substack-preview {
+    padding: 0 20px;
+  }
+  .substack-preview-inner {
+    padding: 40px 24px;
+  }
 }
 
 /* ============== Contatti ============== */
