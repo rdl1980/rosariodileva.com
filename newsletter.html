@@ -164,15 +164,21 @@
     </div>
   </div>
 
-  <!-- Substack custom embed widget (#41) -->
-  <div class="nl-substack-embed reveal delay-2" id="nl-substack-embed">
-    <div id="custom-substack-embed"></div>
-  </div>
   <div class="nl-page-cta reveal delay-2" style="margin-top:12px">
     <span class="nl-page-note">// gratis per sempre · disiscrizione in un clic</span>
     <a class="nl-page-note" href="https://rosariodileva.substack.com" target="_blank" rel="noopener" style="color:var(--fg-dim)">Apri su Substack →</a>
   </div>
 
+  <section class="substack-preview reveal delay-3" id="substack-preview" aria-label="Ultimi articoli dalla newsletter" aria-live="polite">
+    <div class="substack-preview-inner">
+      <div class="substack-preview-header">
+        <span class="substack-preview-label">// dal loop · substack</span>
+        <a class="substack-preview-all" href="https://rosariodileva.substack.com" target="_blank" rel="noopener">tutti gli articoli →</a>
+      </div>
+      <div class="substack-preview-grid" id="substack-posts" aria-label="Ultimi post">
+        <!-- JS popola questa sezione leggendo il feed RSS -->
+        <p class="substack-preview-loading" aria-live="polite">// caricamento...</p>
+      </div>
   <section class="nl-feed reveal delay-3" aria-label="Anteprima feed Substack">
     <div class="nl-feed-inner">
       <iframe src="https://rosariodileva.substack.com/embed" width="100%" height="560" frameborder="0" scrolling="no" title="Feed newsletter Substack"></iframe>
