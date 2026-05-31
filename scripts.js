@@ -186,6 +186,31 @@
 
 })();
 
+// ── Reading progress bar ──────────────────────────────────────────────────────
+(function () {
+  'use strict';
+
+  var bar = document.createElement('div');
+  bar.id = 'reading-progress';
+  bar.setAttribute('role', 'progressbar');
+  bar.setAttribute('aria-label', 'Avanzamento lettura');
+  bar.setAttribute('aria-valuenow', '0');
+  bar.setAttribute('aria-valuemin', '0');
+  bar.setAttribute('aria-valuemax', '100');
+  document.body.prepend(bar);
+
+  function update() {
+    var scrollTop  = window.scrollY;
+    var docHeight  = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0;
+    bar.style.width = pct + '%';
+    bar.setAttribute('aria-valuenow', Math.round(pct));
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}());
+
 // ── Countdown lancio ──────────────────────────────────────────────────────────
 (function () {
   'use strict';
