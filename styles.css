@@ -3008,15 +3008,6 @@ footer {
   min-height: 560px;
   border: 0;
 }
-  margin-top: 48px;
-}
-
-.nl-feed-inner {
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.08);
-}
 
 .nl-feed iframe {
   width: 100%;
@@ -3187,7 +3178,10 @@ footer {
    SUBSTACK WIDGET EMBED (#41)
    ================================================================ */
 
-.nl-substack-embed { margin: 32px 0 0; }
+.nl-substack-embed {
+  margin: 32px 0 0;
+  display: none;
+}
 
 /* ================================================================
    COOKIE BANNER
