@@ -3007,6 +3007,52 @@ footer {
 }
 
 /* ================================================================
+   BREADCRUMB
+   ================================================================ */
+
+.breadcrumb {
+  padding: 10px 40px;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+}
+
+.breadcrumb-list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 6px;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+.breadcrumb-item { display: flex; align-items: center; gap: 6px; }
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: '/';
+  color: var(--muted);
+  opacity: 0.4;
+}
+
+.breadcrumb-item a {
+  color: var(--fg-dim);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.breadcrumb-item a:hover { color: var(--amber); }
+
+.breadcrumb-item[aria-current="page"] { color: var(--fg); }
+
+@media (max-width: 600px) {
+  .breadcrumb { padding: 8px 20px; }
+}
+
+/* ================================================================
    COOKIE BANNER
    ================================================================ */
 
@@ -3429,6 +3475,40 @@ footer {
   justify-content: center;
   flex-wrap: wrap;
 }
+
+.not-found-links {
+  margin-top: 48px;
+  text-align: left;
+  display: inline-block;
+}
+
+.not-found-links-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--amber);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.not-found-links ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.not-found-links a {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--fg-dim);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.not-found-links a::before { content: '// '; color: var(--muted); }
+.not-found-links a:hover { color: var(--amber); }
 
 /* =========================================================
    PRIVACY PAGE
