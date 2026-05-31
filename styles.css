@@ -2963,6 +2963,23 @@ footer {
   letter-spacing: 0.04em;
 }
 
+.nl-feed {
+  margin-top: 48px;
+}
+
+.nl-feed-inner {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.08);
+}
+
+.nl-feed iframe {
+  width: 100%;
+  min-height: 560px;
+  border: 0;
+}
+
 @media (max-width: 860px) {
   .nl-strip-inner {
     grid-template-columns: 1fr;
