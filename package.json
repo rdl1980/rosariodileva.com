@@ -1,0 +1,27 @@
+{
+  "name": "sito-rosario-di-leva",
+  "version": "1.0.0",
+  "description": "Il sito di Rosario Di Leva",
+  "main": "playwright.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rdl1980/rosariodileva.com.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rdl1980/rosariodileva.com/issues"
+  },
+  "homepage": "https://github.com/rdl1980/rosariodileva.com#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.60.0"
+  }
+}
