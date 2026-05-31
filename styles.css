@@ -2992,6 +2992,39 @@ footer {
   box-shadow: 0 0 0 2px rgba(201, 162, 95, .15);
 }
 
+.nl-feed {
+  margin-top: 48px;
+}
+
+.nl-feed-inner {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.08);
+}
+
+.nl-feed iframe {
+  width: 100%;
+  min-height: 560px;
+  border: 0;
+}
+  margin-top: 48px;
+}
+
+.nl-feed-inner {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.08);
+}
+
+.nl-feed iframe {
+  width: 100%;
+  min-height: 560px;
+  border: 0;
+>>>>>>> 917c07c (Add Substack feed embed to newsletter page)
+}
+
 @media (max-width: 860px) {
   .nl-strip-inner {
     grid-template-columns: 1fr;
