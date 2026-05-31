@@ -1,0 +1,12 @@
+{
+  "name": "rosariodileva-com",
+  "version": "1.0.0",
+  "description": "Sito ufficiale di Rosario Di Leva",
+  "private": true,
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0"
+  }
+}
