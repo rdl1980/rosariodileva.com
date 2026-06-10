@@ -364,23 +364,32 @@
   const tiles = [...document.querySelectorAll('.gallery-tile[data-src]')];
   if (!tiles.length) return;
 
+  // Helpers
+  function isVideo(src) {
+    return /\.(mp4|webm|ogv)$/i.test(src);
+  }
+
   // Build overlay DOM
   const overlay = document.createElement('div');
   overlay.id = 'lb-overlay';
   overlay.className = 'lb-overlay';
   overlay.setAttribute('role', 'dialog');
   overlay.setAttribute('aria-modal', 'true');
-  overlay.setAttribute('aria-label', 'Visualizzatore immagini');
+  overlay.setAttribute('aria-label', 'Visualizzatore media');
   overlay.innerHTML =
     '<button class="lb-close" aria-label="Chiudi">✕</button>' +
-    '<div class="lb-img-wrap"><img class="lb-img" src="" alt="" /></div>' +
-    '<button class="lb-prev" aria-label="Immagine precedente">←</button>' +
-    '<button class="lb-next" aria-label="Immagine successiva">→</button>' +
+    '<div class="lb-img-wrap">' +
+      '<img class="lb-img" src="" alt="" style="display:none" />' +
+      '<video class="lb-video" style="display:none" controls><source src="" /></video>' +
+    '</div>' +
+    '<button class="lb-prev" aria-label="Elemento precedente">←</button>' +
+    '<button class="lb-next" aria-label="Elemento successivo">→</button>' +
     '<div class="lb-caption" aria-live="polite"></div>' +
     '<div class="lb-counter" aria-hidden="true"></div>';
   document.body.appendChild(overlay);
 
   const img     = overlay.querySelector('.lb-img');
+  const video   = overlay.querySelector('.lb-video');
   const caption = overlay.querySelector('.lb-caption');
   const counter = overlay.querySelector('.lb-counter');
   const btnClose = overlay.querySelector('.lb-close');
@@ -392,7 +401,20 @@
   function show(index) {
     current = ((index % tiles.length) + tiles.length) % tiles.length;
     const tile = tiles[current];
-    img.src = tile.dataset.src;
+    const src = tile.dataset.src;
+    const isVid = isVideo(src);
+
+    if (isVid) {
+      img.style.display = 'none';
+      video.style.display = 'block';
+      video.querySelector('source').src = src;
+      video.load();
+    } else {
+      video.style.display = 'none';
+      img.style.display = 'block';
+      img.src = src;
+    }
+
     img.alt = tile.dataset.alt || '';
     caption.textContent = tile.dataset.caption || '';
     counter.textContent = (current + 1) + ' / ' + tiles.length;
