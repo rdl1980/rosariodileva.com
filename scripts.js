@@ -732,3 +732,14 @@
     });
   });
 }());
+
+// ── Crossfade copertina hero ─────────────────────────────────────────────────
+(function () {
+  'use strict';
+  var cover = document.querySelector('.book-cover');
+  if (!cover || !cover.querySelector('.cover-alt')) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  setInterval(function () {
+    cover.classList.toggle('show-alt');
+  }, 5000);
+}());
