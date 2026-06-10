@@ -374,7 +374,7 @@ body.menu-open { overflow: hidden; }
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 1.4s ease;
+  transition: opacity 0.35s ease;
 }
 .book-cover.show-alt .cover-alt { opacity: 1; }
 
