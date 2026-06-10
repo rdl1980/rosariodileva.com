@@ -1290,15 +1290,19 @@ body.menu-open { overflow: hidden; }
     linear-gradient(160deg, var(--surface-2) 0%, var(--bg) 100%);
 }
 
-/* Immagine reale: riempie il tile, nasconde il pattern placeholder */
+/* Immagine reale: centrata nel tile, non tagliata */
 .gallery-tile img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  padding: 12px;
+  box-sizing: border-box;
   display: block;
   transition: transform 0.5s ease;
+  background: var(--surface);
 }
 
 .gallery-tile:hover img { transform: scale(1.06); }
