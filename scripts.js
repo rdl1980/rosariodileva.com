@@ -741,5 +741,5 @@
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   setInterval(function () {
     cover.classList.toggle('show-alt');
-  }, 500);
+  }, 3000);
 }());
