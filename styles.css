@@ -3427,6 +3427,106 @@ footer {
   letter-spacing: .12em;
 }
 
+/* ── Banner post-lancio: "Noraya è qui." ── */
+.hcd-live-banner {
+  position: relative;
+  display: inline-block;
+  padding: 16px 24px 18px;
+  background:
+    linear-gradient(160deg, rgba(201, 162, 95, 0.07), transparent 60%),
+    var(--surface);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--amber);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.hlb-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: .62rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.hlb-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #58d68d;
+  box-shadow: 0 0 10px rgba(88, 214, 141, .8);
+  animation: pulse 1.6s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.hlb-status { color: #58d68d; }
+.hlb-sep    { color: var(--muted-2); }
+.hlb-out    { color: var(--amber); }
+
+.hlb-title {
+  position: relative;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: 1.05;
+  color: var(--fg);
+}
+
+/* Glitch layers: lampeggi brevi ogni ~5s */
+.hlb-title::before,
+.hlb-title::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  pointer-events: none;
+  opacity: 0;
+}
+.hlb-title::before { color: var(--crimson); animation: hlb-glitch-a 5s infinite; }
+.hlb-title::after  { color: var(--amber);   animation: hlb-glitch-b 5s infinite; }
+
+@keyframes hlb-glitch-a {
+  0%, 91%, 100% { opacity: 0; transform: none; }
+  92%   { opacity: .65; transform: translate(-2px, 1px); }
+  93.5% { opacity: 0; }
+  95%   { opacity: .5; transform: translate(2px, -1px); }
+  96%   { opacity: 0; }
+}
+@keyframes hlb-glitch-b {
+  0%, 90%, 100% { opacity: 0; transform: none; }
+  91%   { opacity: .5; transform: translate(2px, -1px); }
+  92.5% { opacity: 0; }
+  94%   { opacity: .4; transform: translate(-1px, 1px); }
+  95.5% { opacity: 0; }
+}
+
+/* Lama di scansione che attraversa il banner */
+.hcd-live-banner::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 60px;
+  left: -80px;
+  background: linear-gradient(to right, transparent, rgba(201, 162, 95, 0.12), transparent);
+  animation: hlb-sweep 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes hlb-sweep {
+  0%, 55%   { left: -80px; }
+  85%, 100% { left: calc(100% + 20px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hlb-dot,
+  .hlb-title::before,
+  .hlb-title::after,
+  .hcd-live-banner::after { animation: none; }
+}
+
 @media (max-width: 480px) {
   .hcd-unit { min-width: 46px; padding: 8px 8px 6px; }
   .hcd-num  { font-size: 1.3rem; }

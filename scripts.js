@@ -229,12 +229,46 @@
 
   function pad(n) { return String(n).padStart(2, '0'); }
 
+  // Banner post-lancio: sostituisce il countdown quando il libro è fuori
+  function renderLiveBanner() {
+    wrap.innerHTML =
+      '<div class="hcd-live-banner" role="status">' +
+        '<div class="hlb-top">' +
+          '<span class="hlb-dot" aria-hidden="true"></span>' +
+          '<span class="hlb-status">sistema online</span>' +
+          '<span class="hlb-sep" aria-hidden="true">—</span>' +
+          '<span class="hlb-out">fuori ovunque</span>' +
+        '</div>' +
+        '<div class="hlb-title" data-text="Noraya è qui.">Noraya è qui.</div>' +
+      '</div>';
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // Scramble-in: il titolo si "decodifica" carattere per carattere
+    var title = wrap.querySelector('.hlb-title');
+    var FINAL = 'Noraya è qui.';
+    var CHARS = '<>\\|[]{}#$%&*+=~abcdefghjkmnpqrstuvwxyz0123456789';
+    var frame = 0;
+    var total = FINAL.length + 8;
+    var timer = setInterval(function () {
+      var out = '';
+      for (var i = 0; i < FINAL.length; i++) {
+        var ch = FINAL[i];
+        if (ch === ' ') { out += ch; continue; }
+        out += (i < frame - 4) ? ch : CHARS[Math.floor(Math.random() * CHARS.length)];
+      }
+      title.textContent = out;
+      frame++;
+      if (frame > total) { clearInterval(timer); title.textContent = FINAL; }
+    }, 40);
+  }
+
   function tick() {
     var diff = LAUNCH - Date.now();
 
     if (diff <= 0) {
-      wrap.innerHTML = '<div class="hcd-live">// ora disponibile</div>';
-      if (heroTag) heroTag.textContent = '// ora disponibile';
+      renderLiveBanner();
+      if (heroTag) heroTag.textContent = '// fuori ora · ovunque';
       return;
     }
 
