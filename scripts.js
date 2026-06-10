@@ -399,6 +399,7 @@
   let current = 0;
 
   function show(index) {
+    video.pause();
     current = ((index % tiles.length) + tiles.length) % tiles.length;
     const tile = tiles[current];
     const src = tile.dataset.src;
@@ -428,6 +429,7 @@
   }
 
   function close() {
+    video.pause();
     overlay.classList.remove('lb-open');
     document.body.style.overflow = '';
     tiles[current].focus();
@@ -675,4 +677,58 @@
         container.innerHTML = '<p class="substack-preview-empty">// impossibile caricare gli articoli al momento.</p>';
       }
     });
+}());
+
+// ── FX: raggio di scansione (pagine libro) ───────────────────────────────────
+(function () {
+  'use strict';
+  if (!document.body.classList.contains('fx-scan')) return;
+  var beam = document.createElement('div');
+  beam.className = 'fx-scanbeam';
+  beam.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(beam);
+}());
+
+// ── FX: scramble text al passaggio del mouse ─────────────────────────────────
+(function () {
+  'use strict';
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var CHARS = '<>\|[]{}#$%&*+=~abcdefghjkmnpqrstuvwxyz0123456789';
+  var SELECTOR = '.nav-menu a, .label, .hcd-label, .bd-stores-label, ' +
+                 '.bd-genesis-label, .substack-preview-label, ' +
+                 'footer .footer-col h5, .gcap span';
+
+  document.querySelectorAll(SELECTOR).forEach(function (el) {
+    // Solo elementi di puro testo, una sola volta
+    if (el.children.length || el.dataset.scrambleBound) return;
+    el.dataset.scrambleBound = '1';
+
+    var original = el.textContent;
+    if (!original.trim()) return;
+    var running = false;
+
+    el.addEventListener('mouseenter', function () {
+      if (running) return;
+      running = true;
+      var frame = 0;
+      var total = original.length + 6;
+      var timer = setInterval(function () {
+        var out = '';
+        for (var i = 0; i < original.length; i++) {
+          var ch = original[i];
+          // Spazi e "//" restano fissi: l'identità del prefisso non si tocca
+          if (ch === ' ' || ch === '/') { out += ch; continue; }
+          out += (i < frame - 3) ? ch : CHARS[Math.floor(Math.random() * CHARS.length)];
+        }
+        el.textContent = out;
+        frame++;
+        if (frame > total) {
+          clearInterval(timer);
+          el.textContent = original;
+          running = false;
+        }
+      }, 28);
+    });
+  });
 }());
