@@ -4149,3 +4149,231 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .fx-scanbeam { display: none; }
 }
+
+/* =========================================================
+   LEAD MAGNET: capitolo uno (landing page)
+   ========================================================= */
+
+.lm-brand {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 22px 40px;
+}
+
+.lm-brand a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.lm-brand .mark {
+  font-family: var(--serif);
+  font-size: 19px;
+  letter-spacing: 0.01em;
+}
+.lm-brand .mark b  { font-weight: 600; }
+.lm-brand .mark em { font-style: italic; color: var(--amber); }
+
+.lm-brand .sub {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+.lm-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 110px 40px 60px;
+}
+
+.lm-inner {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 64px;
+  align-items: center;
+  max-width: 980px;
+}
+
+.lm-cover {
+  position: relative;
+  box-shadow:
+    0 40px 60px -20px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(255,255,255,0.04),
+    -20px 0 60px -30px rgba(196, 30, 30, 0.35);
+}
+
+.lm-cover img { width: 100%; height: auto; display: block; }
+
+.lm-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.lm-eyebrow .dot {
+  width: 6px; height: 6px;
+  background: var(--crimson);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--crimson);
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.lm-eyebrow span:last-child {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.lm-title {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(34px, 4.6vw, 60px);
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  margin: 0 0 20px;
+  color: var(--fg);
+  text-wrap: balance;
+}
+
+.lm-title em { font-style: italic; color: var(--amber); }
+
+.lm-sub {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--fg-dim);
+  max-width: 52ch;
+  margin: 0 0 24px;
+}
+
+.lm-points {
+  list-style: none;
+  margin: 0 0 28px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lm-points li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--fg-dim);
+}
+
+.lm-check {
+  color: var(--amber);
+  font-family: var(--mono);
+  flex-shrink: 0;
+}
+
+.lm-form {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+  max-width: 440px;
+}
+
+.lm-input {
+  flex: 1 1 200px;
+  min-width: 180px;
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0 14px;
+  height: 46px;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--fg);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.lm-input::placeholder { color: var(--muted); }
+
+.lm-input:focus {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 2px rgba(201, 162, 95, .15);
+}
+
+.lm-confirm {
+  max-width: 440px;
+  padding: 18px 22px;
+  background:
+    linear-gradient(160deg, rgba(201, 162, 95, 0.07), transparent 60%),
+    var(--surface);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--amber);
+  border-radius: 3px;
+}
+
+.lm-confirm-label {
+  font-family: var(--mono);
+  font-size: .62rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 8px;
+}
+
+.lm-confirm p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--fg-dim);
+}
+
+.lm-confirm-hint {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.lm-note {
+  margin: 18px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.lm-note a {
+  color: var(--fg-dim);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.lm-note a:hover { color: var(--amber); }
+
+.lm-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px 40px 32px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lm-footer a:hover { color: var(--amber); }
+
+@media (max-width: 860px) {
+  .lm-page { padding: 96px 24px 40px; }
+  .lm-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    max-width: 460px;
+  }
+  .lm-cover { max-width: 200px; margin: 0 auto; }
+  .lm-form { flex-direction: column; }
+  .lm-brand { padding: 18px 24px; }
+}

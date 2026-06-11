@@ -6,7 +6,7 @@
   // ── Nav scroll state ──────────────────────────────────────────────────────
   const nav = document.querySelector('.nav');
   function onScroll() {
-    nav.classList.toggle('scrolled', window.scrollY > 30);
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 30);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
@@ -776,4 +776,31 @@
   setInterval(function () {
     cover.classList.toggle('show-alt');
   }, 3000);
+}());
+
+// ── Lead magnet: capitolo uno ────────────────────────────────────────────────
+(function () {
+  'use strict';
+  var form = document.getElementById('lm-form');
+  if (!form) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var input = form.querySelector('[name="email"]');
+    var email = input ? input.value.trim() : '';
+    if (!email) { input && input.focus(); return; }
+
+    var url = 'https://rosariodileva.substack.com/subscribe?email=' + encodeURIComponent(email);
+    window.open(url, '_blank', 'noopener,noreferrer');
+
+    var confirmEl = document.getElementById('lm-confirm');
+    if (confirmEl) {
+      form.hidden = true;
+      confirmEl.hidden = false;
+    }
+
+    if (typeof gtag === 'function') {
+      gtag('event', 'lead_magnet_submit', { event_category: 'newsletter', event_label: 'capitolo-uno' });
+    }
+  });
 }());
