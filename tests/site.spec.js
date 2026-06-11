@@ -240,7 +240,9 @@ test.describe('F34 - Google Consent Mode v2', () => {
   const slugs = ['', 'algoritmo', 'contatti', 'newsletter', 'autore', 'diario'];
   for (const slug of slugs) {
     test((slug || 'index') + ': HTML ha consent default denied', async ({ page }) => {
-      await page.goto(url(slug));
+      // domcontentloaded: il test legge solo l'HTML inline, non deve attendere
+      // le risorse esterne (widget Substack, GA) che in CI possono essere lente
+      await page.goto(url(slug), { waitUntil: 'domcontentloaded' });
       const html = await page.content();
       expect(html).toContain("analytics_storage: 'denied'");
       expect(html).toContain('wait_for_update: 500');
