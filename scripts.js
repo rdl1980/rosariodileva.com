@@ -302,34 +302,64 @@
   });
 }());
 
-// ── Share — copia link ────────────────────────────────────────────────────────
+// ── Share — copia link e Web Share API (Instagram / TikTok) ──────────────────
 (function () {
   'use strict';
 
-  document.addEventListener('click', function (e) {
-    var btn = e.target.closest('.bd-share-copy');
-    if (!btn) return;
-
-    var url = btn.dataset.url || window.location.href;
-    navigator.clipboard.writeText(url).then(function () {
-      var orig = btn.textContent;
+  function copyToClipboard(url, btn) {
+    var orig = btn.textContent;
+    function feedback() {
       btn.textContent = '// link copiato ✓';
       btn.classList.add('copied');
       setTimeout(function () {
         btn.textContent = orig;
         btn.classList.remove('copied');
       }, 2000);
-    }).catch(function () {
-      // fallback per browser senza clipboard API
-      var ta = document.createElement('textarea');
-      ta.value = url;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-    });
+    }
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(feedback).catch(function () {
+        fallbackCopy(url);
+        feedback();
+      });
+    } else {
+      fallbackCopy(url);
+      feedback();
+    }
+  }
+
+  function fallbackCopy(url) {
+    var ta = document.createElement('textarea');
+    ta.value = url;
+    ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+
+  document.addEventListener('click', function (e) {
+
+    // Copia link
+    var copyBtn = e.target.closest('.bd-share-copy');
+    if (copyBtn) {
+      copyToClipboard(copyBtn.dataset.url || window.location.href, copyBtn);
+      return;
+    }
+
+    // Web Share API — Instagram, TikTok, qualsiasi app nativa
+    var nativeBtn = e.target.closest('.bd-share-native');
+    if (!nativeBtn) return;
+
+    var url   = nativeBtn.dataset.url   || window.location.href;
+    var title = nativeBtn.dataset.title || document.title;
+    var text  = nativeBtn.dataset.text  || '';
+
+    if (navigator.share) {
+      navigator.share({ title: title, text: text, url: url }).catch(function () {});
+    } else {
+      // Desktop: nessuna Web Share API — copia il link come fallback
+      copyToClipboard(url, nativeBtn);
+    }
   });
 }());
 
