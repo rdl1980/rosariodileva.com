@@ -4377,3 +4377,455 @@ footer {
   .lm-form { flex-direction: column; }
   .lm-brand { padding: 18px 24px; }
 }
+
+/* =========================================================
+   DOSSIER PERSONAGGI
+   ========================================================= */
+
+.dossier-section {
+  padding-top: 40px;
+}
+
+.dossier-intro {
+  max-width: 560px;
+  margin-bottom: 40px;
+}
+
+.dossier-intro-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 10px;
+}
+
+.dossier-intro p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--fg-dim);
+  margin: 0;
+}
+
+.dossier-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.dossier-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  overflow: hidden;
+  transition: border-color .25s ease;
+}
+
+.dossier-card:hover { border-color: rgba(201, 162, 95, .4); }
+.dossier-card.dossier-open { border-color: var(--amber); }
+
+.dossier-card-noraya { border-left: 2px solid var(--amber); }
+
+.dossier-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 14px 18px;
+  background: transparent;
+  border: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dossier-photo {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.dossier-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+  filter: saturate(.85);
+}
+
+.dossier-id { flex: 1; min-width: 0; }
+
+.dossier-file {
+  display: block;
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+
+.dossier-name {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0 0 3px;
+  color: var(--fg);
+}
+
+.dossier-role {
+  display: block;
+  font-family: var(--mono);
+  font-size: .62rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.dossier-toggle {
+  font-family: var(--mono);
+  font-size: 1.2rem;
+  color: var(--muted);
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  transition: color .2s, border-color .2s;
+}
+
+.dossier-card:hover .dossier-toggle {
+  color: var(--amber);
+  border-color: var(--amber);
+}
+
+.dossier-body {
+  padding: 4px 18px 20px;
+  border-top: 1px dashed var(--line);
+  margin: 0 0;
+}
+
+.dossier-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin: 14px 0 14px;
+}
+
+.dossier-meta div { display: flex; flex-direction: column; gap: 2px; }
+
+.dossier-meta dt {
+  font-family: var(--mono);
+  font-size: .58rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.dossier-meta dd {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--fg-dim);
+}
+
+.dossier-profile {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--fg-dim);
+  margin: 0 0 14px;
+}
+
+.dossier-quote {
+  margin: 0 0 16px;
+  padding-left: 14px;
+  border-left: 2px solid var(--amber);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: var(--fg);
+}
+
+.dossier-eval {
+  background: rgba(201, 162, 95, .05);
+  border: 1px dashed rgba(201, 162, 95, .3);
+  border-radius: 2px;
+  padding: 12px 14px;
+}
+
+.dossier-eval-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: .58rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 6px;
+}
+
+.dossier-threat {
+  display: block;
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--crimson);
+  margin-bottom: 6px;
+}
+
+.dossier-eval p {
+  margin: 0;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--fg-dim);
+}
+
+.dossier-cta {
+  margin-top: 48px;
+  text-align: center;
+}
+
+.dossier-cta p {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .12em;
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+
+.dossier-cta .btn { margin: 0 6px 10px; }
+
+@media (max-width: 760px) {
+  .dossier-grid { grid-template-columns: 1fr; }
+}
+
+/* =========================================================
+   QUIZ: QUALE PERSONAGGIO SEI
+   ========================================================= */
+
+.quiz-section { padding-top: 40px; }
+
+.quiz-app {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.quiz-intro {
+  text-align: center;
+  padding: 30px 20px 10px;
+}
+
+.quiz-intro-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 14px;
+}
+
+.quiz-intro p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--fg-dim);
+  max-width: 46ch;
+  margin: 0 auto 26px;
+}
+
+.quiz-progress { margin-bottom: 26px; }
+
+.quiz-progress-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: .64rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.quiz-progress-bar {
+  height: 2px;
+  background: var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.quiz-progress-fill {
+  height: 100%;
+  width: 0;
+  background: var(--amber);
+  transition: width .4s ease;
+}
+
+.quiz-question {
+  font-family: var(--serif);
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--fg);
+  margin: 0 0 24px;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-option {
+  width: 100%;
+  text-align: left;
+  padding: 14px 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--fg-dim);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: border-color .2s, color .2s, background .2s, transform .15s;
+}
+
+.quiz-option:hover {
+  border-color: var(--amber);
+  color: var(--fg);
+  background: rgba(201, 162, 95, .06);
+  transform: translateX(4px);
+}
+
+.quiz-result-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.quiz-result-card {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  background: var(--surface);
+  border: 1px solid var(--amber);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 26px;
+}
+
+.quiz-result-rare .quiz-result-card {
+  box-shadow: 0 0 50px rgba(201, 162, 95, .18);
+}
+
+.quiz-result-photo {
+  min-height: 240px;
+  background: var(--bg);
+}
+
+.quiz-result-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
+.quiz-result-body { padding: 22px 24px 22px 0; }
+
+.quiz-result-file {
+  display: block;
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.quiz-result-name {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3.4vw, 36px);
+  font-weight: 600;
+  line-height: 1.05;
+  margin: 0 0 4px;
+  color: var(--fg);
+}
+
+.quiz-result-role {
+  display: block;
+  font-family: var(--mono);
+  font-size: .64rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 14px;
+}
+
+.quiz-result-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--fg-dim);
+  margin: 0 0 16px;
+}
+
+.quiz-result-quote {
+  margin: 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--amber);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--fg);
+}
+
+.quiz-share { text-align: center; margin-bottom: 22px; }
+
+.quiz-share-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: .62rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.quiz-share-btns {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.quiz-result-ctas {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+}
+
+@media (max-width: 640px) {
+  .quiz-result-card { grid-template-columns: 1fr; }
+  .quiz-result-photo { max-height: 280px; }
+  .quiz-result-body { padding: 0 20px 20px; }
+}

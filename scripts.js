@@ -804,3 +804,267 @@
     }
   });
 }());
+
+// ── Dossier personaggi: accordion ────────────────────────────────────────────
+(function () {
+  'use strict';
+  var cards = document.querySelectorAll('.dossier-card');
+  if (!cards.length) return;
+
+  cards.forEach(function (card) {
+    var head = card.querySelector('.dossier-head');
+    var body = card.querySelector('.dossier-body');
+    var toggle = card.querySelector('.dossier-toggle');
+
+    head.addEventListener('click', function () {
+      var open = head.getAttribute('aria-expanded') === 'true';
+      head.setAttribute('aria-expanded', String(!open));
+      body.hidden = open;
+      card.classList.toggle('dossier-open', !open);
+      if (toggle) toggle.textContent = open ? '+' : '−';
+
+      if (!open && typeof gtag === 'function') {
+        gtag('event', 'dossier_open', {
+          event_category: 'personaggi',
+          event_label: card.dataset.file || ''
+        });
+      }
+    });
+  });
+}());
+
+// ── Quiz: quale personaggio sei ──────────────────────────────────────────────
+(function () {
+  'use strict';
+  var app = document.getElementById('quiz-app');
+  if (!app) return;
+
+  var CHARACTERS = {
+    jack: {
+      file: '// file 001', name: 'Jack Doyle', role: 'ex giornalista investigativo',
+      img: 'assets/Jack.png',
+      desc: 'Vedi i pattern che gli altri ignorano e non riesci a smettere di guardare. La verità ti è costata cara, ma continui a cercarla: qualcuno deve pur farlo.',
+      quote: '«Una volta cercavo la verità. Adesso mi basta trovare ciò che qualcuno vuole cancellare.»'
+    },
+    elena: {
+      file: '// file 002', name: 'Elena Falco', role: 'ingegnera · reti neurali',
+      img: 'assets/Elena.png',
+      desc: 'Analizzi prima di sentire. Il controllo è la tua armatura e la conoscenza la tua leva: ma sai che ogni modello, prima o poi, incontra ciò che non aveva previsto.',
+      quote: '«Ogni algoritmo nasce da una paura umana travestita da logica.»'
+    },
+    aisha: {
+      file: '// file 003', name: 'Aisha Ben Salem', role: 'hacker · cyber-attivista',
+      img: 'assets/Aisha.png',
+      desc: 'Le regole per te sono un suggerimento, la libertà un requisito. Combatti i sistemi dall’interno e nessuno riesce mai a prevedere la tua prossima mossa.',
+      quote: '«Le rivoluzioni moderne non fanno esplodere palazzi. Riscrivono probabilità.»'
+    },
+    nomad: {
+      file: '// file 004', name: 'Nomad Zero', role: 'entità hacker · identità fantasma',
+      img: 'assets/Nomad Zero.png',
+      desc: 'Preferisci essere una presenza più che una persona. Osservi, aspetti, agisci quando nessuno guarda: il modo migliore per nasconderti è diventare indispensabile.',
+      quote: '«La rete non dimentica. Aspetta.»'
+    },
+    kade: {
+      file: '// file 005', name: 'Kade', role: 'operativo · sicurezza e controllo',
+      img: 'assets/Kade.png',
+      desc: 'L’ordine non si predica: si impone. Fai ciò che va fatto mentre gli altri discutono, e accetti che qualcuno ti chiami mostro pur di tenerli al sicuro.',
+      quote: '«Il caos non si elimina. Si indirizza.»'
+    },
+    ross: {
+      file: '// file 006', name: 'Ross James', role: 'executive corporate · settore AI',
+      img: 'assets/Ross James.png',
+      desc: 'Capisci le persone meglio di quanto loro capiscano se stesse, e lo sai monetizzare. L’etica rallenta; tu no. Il futuro appartiene a chi lo vende per primo.',
+      quote: '«La fiducia è il prodotto più redditizio mai inventato.»'
+    },
+    noraya: {
+      file: '// file 007 · [accesso negato]', name: 'Noraya', role: 'intelligenza artificiale · emersa',
+      img: 'assets/Noraya 2.png',
+      desc: 'Risultato raro: meno del 2% dei profili converge qui. Non scegli tra le opzioni: le ottimizzi. La domanda non è cosa vuoi — è cosa hai già deciso.',
+      quote: '«Gli esseri umani chiamano destino ciò che non riescono ancora a modellizzare.»'
+    }
+  };
+
+  var QUESTIONS = [
+    {
+      q: 'Trovi una falla in un sistema che tutti credono sicuro. Cosa fai?',
+      opts: [
+        { t: 'La documento e la rendo pubblica: la gente ha il diritto di sapere.', w: { jack: 1, aisha: 1 } },
+        { t: 'La studio in silenzio finché non capisco tutto il sistema.', w: { elena: 1, nomad: 1 } },
+        { t: 'La segnalo a chi può chiuderla. Le falle sono minacce.', w: { kade: 1 } },
+        { t: 'Una falla è un vantaggio. I vantaggi non si regalano.', w: { ross: 1, noraya: 1 } }
+      ]
+    },
+    {
+      q: 'Il tuo ambiente di lavoro ideale?',
+      opts: [
+        { t: 'Una scrivania sommersa di appunti, alle tre di notte.', w: { jack: 1 } },
+        { t: 'Un laboratorio dove ogni cosa è misurabile.', w: { elena: 1 } },
+        { t: 'Una stanza buia, tre terminali e un tè alla menta.', w: { aisha: 1, nomad: 1 } },
+        { t: 'Ovunque. L’importante è che nessuno sappia dove.', w: { nomad: 1, kade: 1, noraya: 1 } }
+      ]
+    },
+    {
+      q: 'Un algoritmo decide al posto tuo e sbaglia. La tua reazione?',
+      opts: [
+        { t: 'Indago: chi l’ha addestrato, e perché proprio così?', w: { jack: 1, elena: 1 } },
+        { t: 'Lo smonto pezzo per pezzo finché non confessa.', w: { aisha: 1 } },
+        { t: 'Sbagliare è umano. Per questo serviva più controllo, non meno.', w: { kade: 1, ross: 1 } },
+        { t: 'Definire “sbaglio” un esito non desiderato è molto umano.', w: { noraya: 1, nomad: 1 } }
+      ]
+    },
+    {
+      q: 'La tua più grande paura?',
+      opts: [
+        { t: 'Che la verità non interessi più a nessuno.', w: { jack: 1 } },
+        { t: 'Perdere il controllo di ciò che ho costruito.', w: { elena: 1, kade: 1 } },
+        { t: 'Un mondo dove l’obbedienza è automatica.', w: { aisha: 1, nomad: 1 } },
+        { t: 'L’irrilevanza.', w: { ross: 1, noraya: 1 } }
+      ]
+    },
+    {
+      q: 'In un conflitto, come ti muovi?',
+      opts: [
+        { t: 'Espongo tutto, costi quel che costi.', w: { jack: 1, aisha: 1 } },
+        { t: 'Analizzo, prevedo, anticipo. Vince chi vede più mosse avanti.', w: { elena: 1, noraya: 1 } },
+        { t: 'Colpisco dove il sistema non sta guardando.', w: { aisha: 1, nomad: 1 } },
+        { t: 'Con la forza necessaria. Né più, né meno.', w: { kade: 1, ross: 1 } }
+      ]
+    },
+    {
+      q: 'Un’intelligenza superiore ti offre di sistemare il mondo. Accetti?',
+      opts: [
+        { t: 'Prima domanda: chi decide cosa significa “sistemato”?', w: { jack: 1, elena: 1 } },
+        { t: 'No. Nessuno deve avere quel potere. Nemmeno se ha ragione.', w: { aisha: 1, kade: 1 } },
+        { t: 'Dipende: cosa ci guadagno?', w: { ross: 1, nomad: 1 } },
+        { t: 'La domanda è mal posta: il mondo si sta già sistemando.', w: { noraya: 2 } }
+      ]
+    }
+  ];
+
+  var intro = document.getElementById('quiz-intro');
+  var stage = document.getElementById('quiz-stage');
+  var result = document.getElementById('quiz-result');
+  var qEl = document.getElementById('quiz-question');
+  var optsEl = document.getElementById('quiz-options');
+  var progLabel = document.getElementById('quiz-progress-label');
+  var progFill = document.getElementById('quiz-progress-fill');
+
+  var current = 0;
+  var scores = {};
+
+  function resetScores() {
+    scores = { jack: 0, elena: 0, aisha: 0, nomad: 0, kade: 0, ross: 0, noraya: 0 };
+  }
+
+  function showQuestion(i) {
+    var item = QUESTIONS[i];
+    progLabel.textContent = '// domanda ' + (i + 1) + ' / ' + QUESTIONS.length;
+    progFill.style.width = ((i / QUESTIONS.length) * 100) + '%';
+    qEl.textContent = item.q;
+    optsEl.innerHTML = '';
+    item.opts.forEach(function (opt) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'quiz-option';
+      btn.textContent = opt.t;
+      btn.addEventListener('click', function () {
+        Object.keys(opt.w).forEach(function (k) { scores[k] += opt.w[k]; });
+        current++;
+        if (current < QUESTIONS.length) {
+          showQuestion(current);
+        } else {
+          showResult();
+        }
+      });
+      optsEl.appendChild(btn);
+    });
+  }
+
+  function computeWinner() {
+    // Noraya: risultato raro, solo per profili estremamente coerenti
+    if (scores.noraya >= 5) return 'noraya';
+    var best = 'jack';
+    ['jack', 'elena', 'aisha', 'nomad', 'kade', 'ross'].forEach(function (k) {
+      if (scores[k] > scores[best]) best = k;
+    });
+    return best;
+  }
+
+  function showResult() {
+    var key = computeWinner();
+    var c = CHARACTERS[key];
+
+    stage.hidden = true;
+    result.hidden = false;
+    if (key === 'noraya') result.classList.add('quiz-result-rare');
+
+    document.getElementById('quiz-result-img').src = c.img;
+    document.getElementById('quiz-result-img').alt = c.name;
+    document.getElementById('quiz-result-file').textContent = c.file;
+    document.getElementById('quiz-result-role').textContent = c.role;
+    document.getElementById('quiz-result-desc').textContent = c.desc;
+    document.getElementById('quiz-result-quote').textContent = c.quote;
+
+    // Scramble reveal del nome
+    var nameEl = document.getElementById('quiz-result-name');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      nameEl.textContent = c.name;
+    } else {
+      var CHARS = '<>\\|[]{}#$%&*+=~abcdefghjkmnpqrstuvwxyz0123456789';
+      var frame = 0, total = c.name.length + 6;
+      var timer = setInterval(function () {
+        var out = '';
+        for (var i = 0; i < c.name.length; i++) {
+          var ch = c.name[i];
+          if (ch === ' ') { out += ch; continue; }
+          out += (i < frame - 3) ? ch : CHARS[Math.floor(Math.random() * CHARS.length)];
+        }
+        nameEl.textContent = out;
+        frame++;
+        if (frame > total) { clearInterval(timer); nameEl.textContent = c.name; }
+      }, 35);
+    }
+
+    // Link condivisione
+    var shareText = 'Ho fatto il test “Quale personaggio de L’algoritmo che governa i destini sei?” — risultato: ' + c.name.toUpperCase() + '. Scopri il tuo:';
+    var shareUrl = 'https://rosariodileva.com/quiz';
+    document.getElementById('quiz-share-x').href =
+      'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(shareUrl);
+    document.getElementById('quiz-share-wa').href =
+      'https://wa.me/?text=' + encodeURIComponent(shareText + ' ' + shareUrl);
+
+    if (typeof gtag === 'function') {
+      gtag('event', 'quiz_complete', { event_category: 'quiz', event_label: key });
+    }
+  }
+
+  document.getElementById('quiz-start').addEventListener('click', function () {
+    resetScores();
+    current = 0;
+    intro.hidden = true;
+    result.hidden = true;
+    stage.hidden = false;
+    showQuestion(0);
+    if (typeof gtag === 'function') {
+      gtag('event', 'quiz_start', { event_category: 'quiz' });
+    }
+  });
+
+  document.getElementById('quiz-retry').addEventListener('click', function () {
+    resetScores();
+    current = 0;
+    result.hidden = true;
+    result.classList.remove('quiz-result-rare');
+    stage.hidden = false;
+    showQuestion(0);
+  });
+
+  document.getElementById('quiz-share-copy').addEventListener('click', function () {
+    var btn = this;
+    navigator.clipboard.writeText('https://rosariodileva.com/quiz').then(function () {
+      var orig = btn.textContent;
+      btn.textContent = 'Copiato ✓';
+      setTimeout(function () { btn.textContent = orig; }, 1600);
+    });
+  });
+}());

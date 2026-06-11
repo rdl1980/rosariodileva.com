@@ -302,3 +302,90 @@ test.describe('F41 - Substack custom widget', () => {
     expect(config?.colors?.primary).toBe('#c9a25f');
   });
 });
+
+// ── F2: Dossier personaggi ────────────────────────────────────────────────────
+test.describe('F2 - Dossier personaggi', () => {
+  test('personaggi: 7 fascicoli presenti', async ({ page }) => {
+    await page.goto(url('personaggi'));
+    await expect(page.locator('.dossier-card')).toHaveCount(7);
+  });
+  test('personaggi: accordion apre e chiude il fascicolo', async ({ page }) => {
+    await page.goto(url('personaggi'));
+    const head = page.locator('.dossier-card[data-file="002"] .dossier-head');
+    const body = page.locator('.dossier-card[data-file="002"] .dossier-body');
+    await expect(head).toHaveAttribute('aria-expanded', 'false');
+    await head.click();
+    await expect(head).toHaveAttribute('aria-expanded', 'true');
+    await expect(body).toBeVisible();
+    await expect(body.locator('.dossier-threat')).toContainText('risorsa critica');
+    await head.click();
+    await expect(head).toHaveAttribute('aria-expanded', 'false');
+  });
+  test('personaggi: breadcrumb a 3 livelli', async ({ page }) => {
+    await page.goto(url('personaggi'));
+    await expect(page.locator('nav.breadcrumb .breadcrumb-item')).toHaveCount(3);
+  });
+  test('personaggi: Book schema con 7 character', async ({ page }) => {
+    await page.goto(url('personaggi'));
+    const data = await page.evaluate(() =>
+      JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent)
+    );
+    const book = data['@graph'].find(n => n['@type'] === 'Book');
+    expect(book.character.length).toBe(7);
+  });
+  test('nav: voce Personaggi presente su index', async ({ page }) => {
+    await page.goto(url(''));
+    await expect(page.locator('.nav-menu a[href="/personaggi"]')).toHaveText('Personaggi');
+  });
+});
+
+// ── F4: Quiz quale personaggio sei ───────────────────────────────────────────
+test.describe('F4 - Quiz personaggio', () => {
+  test('quiz: intro visibile, stage e risultato nascosti', async ({ page }) => {
+    await page.goto(url('quiz'));
+    await expect(page.locator('#quiz-intro')).toBeVisible();
+    await expect(page.locator('#quiz-stage')).toBeHidden();
+    await expect(page.locator('#quiz-result')).toBeHidden();
+  });
+  test('quiz: percorso completo produce un risultato', async ({ page }) => {
+    await page.goto(url('quiz'));
+    await page.click('#quiz-start');
+    for (let i = 0; i < 6; i++) {
+      await expect(page.locator('#quiz-progress-label')).toContainText('domanda ' + (i + 1) + ' / 6');
+      await page.locator('.quiz-option').first().click();
+    }
+    await expect(page.locator('#quiz-result')).toBeVisible();
+    await page.waitForTimeout(900); // scramble reveal
+    const name = await page.locator('#quiz-result-name').textContent();
+    expect(name.length).toBeGreaterThan(2);
+    await expect(page.locator('#quiz-share-x')).toHaveAttribute('href', /twitter\.com/);
+    await expect(page.locator('#quiz-share-wa')).toHaveAttribute('href', /wa\.me/);
+  });
+  test('quiz: percorso estremo produce Noraya (risultato raro)', async ({ page }) => {
+    await page.goto(url('quiz'));
+    await page.click('#quiz-start');
+    const picks = [3, 3, 3, 3, 1, 3];
+    for (const idx of picks) {
+      await page.locator('.quiz-option').nth(idx).click();
+    }
+    await page.waitForTimeout(900);
+    await expect(page.locator('#quiz-result-name')).toHaveText('Noraya');
+    const rare = await page.evaluate(() =>
+      document.getElementById('quiz-result').classList.contains('quiz-result-rare')
+    );
+    expect(rare).toBe(true);
+  });
+  test('quiz: rifai il test riparte dalla prima domanda', async ({ page }) => {
+    await page.goto(url('quiz'));
+    await page.click('#quiz-start');
+    for (let i = 0; i < 6; i++) await page.locator('.quiz-option').first().click();
+    await page.click('#quiz-retry');
+    await expect(page.locator('#quiz-progress-label')).toContainText('domanda 1 / 6');
+  });
+  test('sitemap: contiene /personaggi e /quiz', async ({ page }) => {
+    await page.goto(BASE + '/sitemap.xml');
+    const body = await page.content();
+    expect(body).toContain('/personaggi');
+    expect(body).toContain('/quiz');
+  });
+});
