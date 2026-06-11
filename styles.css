@@ -813,6 +813,17 @@ body.menu-open { overflow: hidden; }
   font-style: italic;
 }
 
+.dossier-intro p {
+  font-family: var(--serif);
+  font-size: 21px;
+  line-height: 1.55;
+  color: var(--fg);
+  margin: 0;
+  text-wrap: pretty;
+  white-space: normal;
+  overflow-wrap: normal;
+}
+
 .bio-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
