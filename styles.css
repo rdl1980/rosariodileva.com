@@ -4829,3 +4829,64 @@ footer {
   .quiz-result-photo { max-height: 280px; }
   .quiz-result-body { padding: 0 20px 20px; }
 }
+
+/* ── Spotify playlist strip ──────────────────────────────── */
+.spotify-strip {
+  padding: 4rem 2rem;
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.spotify-strip-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.spotify-strip-label {
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: .6rem;
+}
+.spotify-strip-title {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 500;
+  margin: 0 0 .4rem;
+  color: var(--fg);
+}
+.spotify-strip-sub {
+  font-size: .875rem;
+  color: var(--fg-dim);
+  margin: 0 0 1.5rem;
+}
+
+/* In-article version (algoritmo.html) */
+.bd-spotify {
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--line);
+}
+.bd-spotify-label {
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: .6rem;
+}
+.bd-spotify-title {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  font-weight: 500;
+  margin: 0 0 .4rem;
+  color: var(--fg);
+}
+.bd-spotify-sub {
+  font-size: .875rem;
+  color: var(--fg-dim);
+  margin: 0 0 1.25rem;
+}
