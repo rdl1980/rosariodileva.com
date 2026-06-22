@@ -148,6 +148,20 @@
           Non per presunzione. Per efficienza.
         </p>
 
+        <!-- Messaggio vocale di Noraya -->
+        <div class="noraya-audio reveal delay-2">
+          <div class="noraya-audio-head" aria-hidden="true">
+            <span class="noraya-audio-label">// trasmissione vocale in entrata</span>
+            <span class="noraya-audio-id">NORAYA · 00-Ω<span class="noraya-blink"> ●</span></span>
+          </div>
+          <audio class="noraya-audio-player" controls preload="none"
+                 aria-label="Messaggio audio di Noraya">
+            <source src="assets/noraya speech.mp3" type="audio/mpeg" />
+            Il tuo browser non supporta la riproduzione audio.
+          </audio>
+          <p class="noraya-audio-hint">Premi play. Sta parlando con te.</p>
+        </div>
+
         <!-- Form trasmissione -->
         <form class="noraya-form reveal delay-3" id="noraya-form" novalidate>
           <input type="hidden" name="access_key" value="18cc0559-9f22-4433-ae7e-ad31aa267389" />

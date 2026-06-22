@@ -808,6 +808,24 @@
   }, 3000);
 }());
 
+// ── Rotazione copertine (scheda libro) ───────────────────────────────────────
+(function () {
+  'use strict';
+  var frame = document.getElementById('bd-cover-rotate');
+  if (!frame) return;
+  var rots = frame.querySelectorAll('.cover-rot');
+  if (!rots.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var states = rots.length + 1; // base + ogni copertina alternativa
+  var i = 0;
+  setInterval(function () {
+    i = (i + 1) % states;
+    rots.forEach(function (img, idx) {
+      img.classList.toggle('is-active', idx === i - 1);
+    });
+  }, 3000);
+}());
+
 // ── Lead magnet: capitolo uno ────────────────────────────────────────────────
 (function () {
   'use strict';
