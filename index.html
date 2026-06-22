@@ -40,17 +40,34 @@
   "@graph": [
     {
       "@type": "WebSite",
+      "@id": "https://rosariodileva.com/#website",
       "name": "Rosario Di Leva",
-      "url": "https://rosariodileva.com"
+      "url": "https://rosariodileva.com",
+      "inLanguage": "it-IT",
+      "publisher": { "@id": "https://rosariodileva.com/autore#author" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://rosariodileva.com/autore#author",
+      "name": "Rosario Di Leva",
+      "url": "https://rosariodileva.com/autore",
+      "jobTitle": "Autore",
+      "description": "Autore di techno-thriller. Professionista della tecnologia tra Italia, Dublino e Regno Unito.",
+      "nationality": { "@type": "Country", "name": "Italy" },
+      "knowsAbout": ["Intelligenza artificiale", "Techno-thriller", "Narratologia", "Tecnologia"],
+      "sameAs": [
+        "https://www.instagram.com/rosario_di_leva_1980",
+        "https://x.com/rosario_di_leva",
+        "https://rosariodileva.wordpress.com",
+        "https://rosariodileva.substack.com",
+        "https://bookabook.it/libro/lalgoritmo-che-governa-i-destini/"
+      ]
     },
     {
       "@type": "Book",
+      "@id": "https://rosariodileva.com/algoritmo#book",
       "name": "L'algoritmo che governa i destini",
-      "author": {
-        "@type": "Person",
-        "name": "Rosario Di Leva",
-        "url": "https://rosariodileva.com/autore"
-      },
+      "author": { "@id": "https://rosariodileva.com/autore#author" },
       "isbn": "9791255994756",
       "numberOfPages": 208,
       "publisher": { "@type": "Organization", "name": "Bookabook" },
@@ -72,7 +89,7 @@
 <meta name="theme-color" content="#0a0b0f" />
 
 <!-- Preload LCP image -->
-<link rel="preload" as="image" href="assets/copertina.jpg" />
+<link rel="preload" as="image" href="assets/copertina.webp" />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -160,8 +177,8 @@
 
     <!-- COVER (left) -->
     <div class="book-cover reveal">
-      <img src="assets/copertina.jpg" alt="Copertina: L'algoritmo che governa i destini di Rosario Di Leva, Bookabook 2026" width="366" height="544" fetchpriority="high" decoding="async" />
-      <img class="cover-alt" src="assets/copertina promozionale.png" alt="" width="400" height="600" loading="lazy" decoding="async" aria-hidden="true" />
+      <img src="assets/copertina.webp" alt="Copertina: L'algoritmo che governa i destini di Rosario Di Leva, Bookabook 2026" width="366" height="544" fetchpriority="high" decoding="async" />
+      <img class="cover-alt" src="assets/copertina promozionale.webp" alt="" width="400" height="600" loading="lazy" decoding="async" aria-hidden="true" />
     </div>
 
     <!-- COPY (right) -->
