@@ -310,6 +310,48 @@
         </div>
       </div>
 
+      <!-- Gioco: Test di Turing inverso -->
+      <div class="bd-game reveal" id="turing-game">
+        <span class="bd-game-label">// test di turing inverso · sessione non supervisionata</span>
+        <h2 class="bd-game-title">Quanto sei <em>prevedibile?</em></h2>
+        <p class="bd-game-sub">Noraya genera una sequenza. Tu la ripeti. Lei misura
+        quanto ci metti a sbagliare. Un umano medio arriva al livello 7.</p>
+
+        <div class="tg-shell" aria-label="Gioco di memoria: ripeti la sequenza di Noraya">
+          <div class="tg-hud" aria-hidden="true">
+            <span class="tg-hud-left">NORAYA · v2.1 <span class="noraya-blink">●</span></span>
+            <span class="tg-hud-right">// livello <b id="tg-level">0</b></span>
+          </div>
+
+          <div class="tg-msg" id="tg-msg" aria-live="polite">In attesa di un soggetto da misurare.</div>
+
+          <div class="tg-board" id="tg-board">
+            <button class="tg-pad tg-pad-0" type="button" data-pad="0" aria-label="Tasto 1"></button>
+            <button class="tg-pad tg-pad-1" type="button" data-pad="1" aria-label="Tasto 2"></button>
+            <button class="tg-pad tg-pad-2" type="button" data-pad="2" aria-label="Tasto 3"></button>
+            <button class="tg-pad tg-pad-3" type="button" data-pad="3" aria-label="Tasto 4"></button>
+          </div>
+
+          <div class="tg-controls">
+            <button class="btn primary" id="tg-start" type="button">
+              Avvia il test <span class="arrow" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <!-- Fine partita -->
+          <div class="tg-over" id="tg-over" hidden>
+            <p class="tg-over-verdict" id="tg-verdict"></p>
+            <p class="tg-over-score">Livello raggiunto: <b id="tg-final">0</b> <span id="tg-best-wrap" hidden>· record personale: <b id="tg-best">0</b></span></p>
+            <div class="tg-over-btns">
+              <button class="btn primary" id="tg-retry" type="button">Riprova</button>
+              <a class="btn ghost" id="tg-share-x" href="#" target="_blank" rel="noopener">Sfida qualcuno su X</a>
+              <a class="btn ghost" id="tg-share-wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+            </div>
+            <p class="tg-over-cta">Vuoi capire come ragiona davvero? <a href="https://bookabook.it/libro/lalgoritmo-che-governa-i-destini/" target="_blank" rel="noopener">Leggi il romanzo</a>, o parti dal <a href="/personaggi">dossier dei personaggi</a>.</p>
+          </div>
+        </div>
+      </div>
+
       <!-- Noraya -->
       <div class="bd-noraya reveal">
         <span class="bd-noraya-label">// noraya · protocollo 00-Ω</span>

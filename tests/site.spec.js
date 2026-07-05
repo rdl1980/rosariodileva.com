@@ -391,3 +391,37 @@ test.describe('F4 - Quiz personaggio', () => {
     expect(body).toContain('/quiz');
   });
 });
+
+// ─────────────────────────────────────────────────────────────
+// F5 — Gioco "Test di Turing inverso" (/algoritmo)
+// ─────────────────────────────────────────────────────────────
+test.describe('F5 - Turing game', () => {
+  test('algoritmo: sezione gioco presente con 4 pad e stato iniziale', async ({ page }) => {
+    await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#turing-game')).toBeVisible();
+    await expect(page.locator('.tg-pad')).toHaveCount(4);
+    await expect(page.locator('#tg-start')).toBeVisible();
+    await expect(page.locator('#tg-over')).toBeHidden();
+  });
+  test('gioco: partita deterministica, errore produce game over con verdetto', async ({ page }) => {
+    await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
+    // sequenza deterministica: sempre pad 0
+    await page.evaluate(() => { Math.random = () => 0; });
+    await page.click('#tg-start');
+    // round 1: aspetta "ripeti" e completa col pad giusto
+    await expect(page.locator('#tg-msg')).toHaveText('// ripeti.', { timeout: 5000 });
+    await page.click('.tg-pad-0');
+    // round 2: aspetta conferma round 1, poi la nuova fase "ripeti", e sbaglia col pad 1
+    await expect(page.locator('#tg-msg')).toHaveText('// registrato.', { timeout: 5000 });
+    await expect(page.locator('#tg-level')).toHaveText('2', { timeout: 5000 });
+    await expect(page.locator('#tg-msg')).toHaveText('// ripeti.', { timeout: 8000 });
+    await page.click('.tg-pad-1');
+    await expect(page.locator('#tg-over')).toBeVisible();
+    await expect(page.locator('#tg-final')).toHaveText('1');
+    await expect(page.locator('#tg-verdict')).toContainText('stampanti');
+    // link condivisione popolati
+    const href = await page.locator('#tg-share-x').getAttribute('href');
+    expect(href).toContain('x.com/intent/tweet');
+    expect(href).toContain('livello%201');
+  });
+});

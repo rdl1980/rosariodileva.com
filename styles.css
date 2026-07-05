@@ -5082,6 +5082,129 @@ footer {
   .eventi-meta { grid-template-columns: 1fr; gap: .8rem; }
 }
 
+/* ── Gioco: Test di Turing inverso (algoritmo.html) ──────── */
+.bd-game {
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--line);
+}
+.bd-game-label {
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: .6rem;
+}
+.bd-game-title {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  font-weight: 500;
+  margin: 0 0 .4rem;
+  color: var(--fg);
+}
+.bd-game-sub {
+  font-size: .875rem;
+  color: var(--fg-dim);
+  margin: 0 0 1.25rem;
+  max-width: 46ch;
+}
+
+.tg-shell {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1.2rem 1.2rem 1.5rem;
+  max-width: 420px;
+}
+.tg-hud {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: .65rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .9rem;
+}
+.tg-hud b { color: var(--amber); }
+
+.tg-msg {
+  font-family: var(--mono);
+  font-size: .78rem;
+  line-height: 1.5;
+  color: var(--fg-dim);
+  min-height: 2.4em;
+  margin-bottom: 1rem;
+  border-left: 2px solid var(--crimson);
+  padding-left: .7rem;
+}
+
+.tg-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 1.2rem;
+}
+.tg-pad {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition: transform .08s ease, filter .12s ease, box-shadow .12s ease;
+  opacity: .82;
+}
+.tg-pad:active { transform: scale(.96); }
+.tg-pad[disabled] { cursor: default; }
+.tg-pad-0 { background: linear-gradient(145deg, #7e1414, #c41e1e); }
+.tg-pad-1 { background: linear-gradient(145deg, #8a6f3d, #c9a25f); }
+.tg-pad-2 { background: linear-gradient(145deg, #1d3a5f, #2e6da4); }
+.tg-pad-3 { background: linear-gradient(145deg, #1e4d36, #2e8a5c); }
+.tg-pad.lit {
+  opacity: 1;
+  filter: brightness(1.7);
+  box-shadow: 0 0 26px rgba(255,255,255,.22);
+}
+
+.tg-controls { text-align: center; }
+
+.tg-over { text-align: center; padding-top: .4rem; }
+.tg-over-verdict {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--fg);
+  margin: 0 0 .5rem;
+}
+.tg-over-score {
+  font-family: var(--mono);
+  font-size: .75rem;
+  letter-spacing: .06em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+}
+.tg-over-score b { color: var(--amber); }
+.tg-over-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.tg-over-cta {
+  font-size: .82rem;
+  color: var(--fg-dim);
+  margin: 0;
+}
+.tg-over-cta a { color: var(--amber); text-decoration: none; }
+.tg-over-cta a:hover { text-decoration: underline; }
+
+@media (max-width: 480px) {
+  .tg-shell { max-width: 100%; }
+}
+
 /* ── Messaggio vocale di Noraya (noraya.html) ────────────── */
 .noraya-audio {
   margin: 1.75rem 0;

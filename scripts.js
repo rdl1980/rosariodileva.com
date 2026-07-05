@@ -1116,3 +1116,172 @@
     });
   });
 }());
+
+// ── Gioco: Test di Turing inverso (algoritmo.html) ──────────────────────────
+(function () {
+  'use strict';
+  var board = document.getElementById('tg-board');
+  if (!board) return;
+
+  var pads     = Array.prototype.slice.call(board.querySelectorAll('.tg-pad'));
+  var startBtn = document.getElementById('tg-start');
+  var retryBtn = document.getElementById('tg-retry');
+  var msgEl    = document.getElementById('tg-msg');
+  var levelEl  = document.getElementById('tg-level');
+  var overEl   = document.getElementById('tg-over');
+  var verdictEl= document.getElementById('tg-verdict');
+  var finalEl  = document.getElementById('tg-final');
+  var bestEl   = document.getElementById('tg-best');
+  var bestWrap = document.getElementById('tg-best-wrap');
+  var shareX   = document.getElementById('tg-share-x');
+  var shareWa  = document.getElementById('tg-share-wa');
+
+  var seq = [], pos = 0, level = 0, playing = false, accepting = false;
+  var BEST_KEY = 'rdl-turing-best';
+
+  // Web Audio: quattro toni, zero asset
+  var actx = null;
+  var FREQS = [220, 293.66, 369.99, 440];
+  function beep(i, dur) {
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      var o = actx.createOscillator();
+      var g = actx.createGain();
+      o.type = 'sine';
+      o.frequency.value = FREQS[i];
+      g.gain.setValueAtTime(0.0001, actx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.18, actx.currentTime + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime + dur / 1000);
+      o.connect(g); g.connect(actx.destination);
+      o.start(); o.stop(actx.currentTime + dur / 1000 + 0.05);
+    } catch (e) { /* audio non disponibile: il gioco resta giocabile */ }
+  }
+
+  // Messaggi in-character durante il gioco
+  var TAUNT_MID = [
+    'Sequenza registrata. La tua latenza media è… accettabile.',
+    'Stai memorizzando per posizione, non per suono. Prevedibile.',
+    'Interessante. Sbagli sempre dopo il terzo elemento. Quasi sempre.',
+    'Il tuo pattern di esitazione è già nel mio archivio.',
+    'Un processore farebbe questo in 0.0003 secondi. Continua pure.'
+  ];
+
+  function verdictFor(lv) {
+    if (lv <= 3)  return '"Ho visto stampanti con più memoria. Ma apprezzo il coraggio."';
+    if (lv <= 6)  return '"Nella media della tua specie. È un’osservazione, non un complimento."';
+    if (lv <= 9)  return '"Sopra la media. Se fossi un algoritmo, saresti quasi efficiente."';
+    if (lv <= 12) return '"Notevole, per un sistema biologico che dimentica dove mette le chiavi."';
+    return '"Impressionante. Sei sicuro di essere umano? Verifica in corso…"';
+  }
+
+  function setMsg(t) { msgEl.textContent = t; }
+  function setLevel(n) { levelEl.textContent = n; }
+
+  function light(i, dur) {
+    var pad = pads[i];
+    pad.classList.add('lit');
+    beep(i, dur);
+    setTimeout(function () { pad.classList.remove('lit'); }, dur);
+  }
+
+  function speedFor(lv) {
+    // Da 620ms a 260ms: accelerazione progressiva
+    return Math.max(260, 620 - lv * 30);
+  }
+
+  function playSeq() {
+    accepting = false;
+    var dur = speedFor(level);
+    var i = 0;
+    setMsg('// osserva.');
+    var timer = setInterval(function () {
+      light(seq[i], dur * 0.7);
+      i++;
+      if (i >= seq.length) {
+        clearInterval(timer);
+        setTimeout(function () {
+          accepting = true;
+          setMsg('// ripeti.');
+        }, dur);
+      }
+    }, dur);
+  }
+
+  function nextRound() {
+    level++;
+    setLevel(level);
+    seq.push(Math.floor(Math.random() * 4));
+    pos = 0;
+    if (level > 1 && level % 3 === 0) {
+      setMsg(TAUNT_MID[(level / 3 - 1) % TAUNT_MID.length]);
+      setTimeout(playSeq, 1600);
+    } else {
+      setTimeout(playSeq, 600);
+    }
+  }
+
+  function gameOver() {
+    playing = false;
+    accepting = false;
+    var score = level - 1; // ultimo livello completato
+    finalEl.textContent = score;
+    verdictEl.textContent = verdictFor(score);
+
+    var best = 0;
+    try {
+      best = parseInt(localStorage.getItem(BEST_KEY) || '0', 10);
+      if (score > best) { best = score; localStorage.setItem(BEST_KEY, String(best)); }
+    } catch (e) {}
+    if (best > 0) { bestWrap.hidden = false; bestEl.textContent = best; }
+
+    var shareText = 'Noraya mi ha misurato: livello ' + score +
+      ' nel Test di Turing inverso. Un umano medio arriva a 7. Tu?';
+    var pageUrl = 'https://rosariodileva.com/algoritmo#turing-game';
+    shareX.href = 'https://x.com/intent/tweet?text=' + encodeURIComponent(shareText) +
+      '&url=' + encodeURIComponent(pageUrl);
+    shareWa.href = 'https://wa.me/?text=' + encodeURIComponent(shareText + ' ' + pageUrl);
+
+    board.hidden = true;
+    overEl.hidden = false;
+    setMsg('// test concluso. profilo aggiornato.');
+    if (typeof gtag === 'function') {
+      gtag('event', 'game_over', { event_category: 'turing_game', value: score });
+    }
+  }
+
+  function startGame() {
+    seq = []; level = 0; pos = 0; playing = true;
+    overEl.hidden = true;
+    board.hidden = false;
+    startBtn.hidden = true;
+    setMsg('// calibrazione completata. iniziamo.');
+    if (typeof gtag === 'function') {
+      gtag('event', 'game_start', { event_category: 'turing_game' });
+    }
+    setTimeout(nextRound, 700);
+  }
+
+  pads.forEach(function (pad, i) {
+    pad.addEventListener('click', function () {
+      if (!playing || !accepting) return;
+      light(i, 240);
+      if (i === seq[pos]) {
+        pos++;
+        if (pos >= seq.length) {
+          accepting = false;
+          setMsg('// registrato.');
+          setTimeout(nextRound, 650);
+        }
+      } else {
+        gameOver();
+      }
+    });
+  });
+
+  startBtn.addEventListener('click', startGame);
+  retryBtn.addEventListener('click', function () {
+    startBtn.hidden = false;
+    startGame();
+    startBtn.hidden = true;
+  });
+}());
