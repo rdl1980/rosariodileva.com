@@ -5205,6 +5205,129 @@ footer {
   .tg-shell { max-width: 100%; }
 }
 
+/* ── Area stampa (stampa.html) ───────────────────────────── */
+.press-section { padding: 3rem 2rem 5rem; }
+.press-inner { max-width: 900px; margin: 0 auto; }
+
+.press-label {
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: .6rem;
+}
+
+.press-hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2.5rem;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 2.2rem;
+  margin-bottom: 3rem;
+}
+.press-hero-title {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 500;
+  margin: 0 0 .6rem;
+  color: var(--fg);
+}
+.press-hero-copy p { color: var(--fg-dim); font-size: .92rem; margin: 0 0 1.4rem; max-width: 46ch; }
+.press-hero-cover img {
+  width: 140px;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 20px 40px -18px rgba(0,0,0,.8);
+}
+
+.press-block { margin-bottom: 3rem; padding-top: 2.2rem; border-top: 1px solid var(--line); }
+.press-block-title {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+  font-weight: 500;
+  margin: 0 0 1.1rem;
+  color: var(--fg);
+}
+.press-synopsis { color: var(--fg-dim); font-size: .95rem; line-height: 1.7; margin: 0 0 1rem; }
+.press-synopsis strong { color: var(--fg); }
+
+.press-data {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .9rem 1.5rem;
+  margin: 0 0 1.4rem;
+  padding: 1.1rem 0;
+  border-top: 1px dashed var(--line);
+  border-bottom: 1px dashed var(--line);
+}
+.press-data-item { display: flex; flex-direction: column; gap: .2rem; }
+.press-data-k {
+  font-family: var(--mono);
+  font-size: .62rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.press-data-v { font-size: .9rem; color: var(--fg); font-weight: 500; }
+
+.press-quote {
+  margin: 1.4rem 0 0;
+  padding: 1rem 1.2rem;
+  border-left: 2px solid var(--crimson);
+  background: rgba(196,30,30,.04);
+}
+.press-quote p { font-family: var(--serif); font-style: italic; font-size: 1.05rem; color: var(--fg); margin: 0 0 .4rem; }
+.press-quote cite { font-family: var(--mono); font-size: .7rem; color: var(--muted); font-style: normal; }
+
+.press-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1rem;
+}
+.press-card {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  padding: 1.1rem 1.2rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: border-color .15s ease, transform .15s ease;
+}
+.press-card:hover { border-color: var(--amber-dim); transform: translateY(-2px); }
+.press-card-type {
+  font-family: var(--mono);
+  font-size: .62rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+.press-card-name { font-size: .95rem; font-weight: 600; color: var(--fg); }
+.press-card-note { font-size: .78rem; color: var(--muted); }
+
+.press-release p { color: var(--fg-dim); font-size: .95rem; line-height: 1.7; margin: 0 0 .9rem; }
+
+.press-contact {
+  text-align: center;
+  padding: 2rem;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+}
+.press-contact p { color: var(--fg-dim); margin: 0 0 1.2rem; }
+
+@media (max-width: 720px) {
+  .press-hero { grid-template-columns: 1fr; }
+  .press-hero-cover { display: none; }
+  .press-data { grid-template-columns: 1fr 1fr; }
+}
+
 /* ── Messaggio vocale di Noraya (noraya.html) ────────────── */
 .noraya-audio {
   margin: 1.75rem 0;

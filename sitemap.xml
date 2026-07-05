@@ -61,6 +61,12 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://rosariodileva.com/stampa</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://rosariodileva.com/contatti</loc>
     <lastmod>2026-06-23</lastmod>
     <changefreq>yearly</changefreq>

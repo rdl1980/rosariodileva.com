@@ -425,3 +425,28 @@ test.describe('F5 - Turing game', () => {
     expect(href).toContain('livello%201');
   });
 });
+
+// ─────────────────────────────────────────────────────────────
+// F6 — Area stampa (/stampa)
+// ─────────────────────────────────────────────────────────────
+test.describe('F6 - Area stampa', () => {
+  test('stampa: pagina carica con press kit e materiali', async ({ page }) => {
+    await page.goto(url('stampa'), { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('h1')).toContainText('Area');
+    await expect(page.locator('a[href="assets/stampa/press-kit.zip"]')).toBeVisible();
+    await expect(page.locator('.press-card')).toHaveCount(6);
+  });
+  test('stampa: download raggiungibili e footer link presente ovunque', async ({ page }) => {
+    const files = [
+      'assets/stampa/press-kit.zip',
+      'assets/stampa/copertina-hd.jpg',
+      'assets/stampa/scheda-libro.pdf',
+    ];
+    for (const f of files) {
+      const res = await page.request.head(BASE + '/' + encodeURI(f));
+      expect(res.status(), f).toBe(200);
+    }
+    await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('footer a[href="/stampa"]')).toHaveCount(1);
+  });
+});
