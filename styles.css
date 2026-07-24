@@ -5082,6 +5082,48 @@ footer {
   .eventi-meta { grid-template-columns: 1fr; gap: .8rem; }
 }
 
+/* ── Eco recensione (home) ───────────────────────────────── */
+.hero-review {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 2rem 1rem;
+}
+.hero-review-inner {
+  display: block;
+  text-align: center;
+  padding: 1.6rem 1.8rem;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: border-color .18s ease, transform .18s ease;
+}
+.hero-review-inner:hover { border-color: var(--amber-dim); transform: translateY(-2px); }
+.hero-review-stars {
+  display: block;
+  color: var(--amber);
+  font-size: 1rem;
+  letter-spacing: .15em;
+  margin-bottom: .7rem;
+}
+.hero-review-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  line-height: 1.5;
+  color: var(--fg);
+  margin: 0 0 .8rem;
+}
+.hero-review-cite {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hero-review-more { color: var(--amber-dim); }
+.hero-review-inner:hover .hero-review-more { color: var(--amber); }
+
 /* ── Recensioni (algoritmo.html) ─────────────────────────── */
 .bd-reviews {
   margin-top: 2.5rem;
