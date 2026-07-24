@@ -450,3 +450,28 @@ test.describe('F6 - Area stampa', () => {
     await expect(page.locator('footer a[href="/stampa"]')).toHaveCount(1);
   });
 });
+
+// ─────────────────────────────────────────────────────────────
+// F7 — Recensioni (/algoritmo)
+// ─────────────────────────────────────────────────────────────
+test.describe('F7 - Recensioni', () => {
+  test('algoritmo: 3 card recensione, stelle solo su Amazon', async ({ page }) => {
+    await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.review-card')).toHaveCount(3);
+    await expect(page.locator('.review-stars')).toHaveCount(1);
+    await expect(page.locator('#recensioni')).toContainText('Valerio Di Rosa');
+    await expect(page.locator('#recensioni')).toContainText('Marianna Borriello');
+    await expect(page.locator('#recensioni')).toContainText('La Penna nel Cassetto');
+  });
+  test('algoritmo: Book schema ha 3 Review, rating solo sul primo', async ({ page }) => {
+    await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
+    const data = await page.evaluate(() =>
+      JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent)
+    );
+    const book = data['@graph'].find(n => n['@type'] === 'Book');
+    expect(book.review.length).toBe(3);
+    const rated = book.review.filter(r => r.reviewRating);
+    expect(rated.length).toBe(1);
+    expect(rated[0].reviewRating.ratingValue).toBe('5');
+  });
+});

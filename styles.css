@@ -5082,6 +5082,79 @@ footer {
   .eventi-meta { grid-template-columns: 1fr; gap: .8rem; }
 }
 
+/* ── Recensioni (algoritmo.html) ─────────────────────────── */
+.bd-reviews {
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--line);
+}
+.bd-reviews-label {
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: .6rem;
+}
+.bd-reviews-title {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  font-weight: 500;
+  margin: 0 0 1.5rem;
+  color: var(--fg);
+}
+.bd-reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+.review-card {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1.3rem 1.4rem;
+}
+.review-stars {
+  color: var(--amber);
+  font-size: 1rem;
+  letter-spacing: .1em;
+}
+.review-badge {
+  font-family: var(--mono);
+  font-size: .62rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--crimson-hot);
+}
+.review-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  color: var(--fg);
+  margin: 0;
+  flex: 1;
+}
+.review-meta {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+  padding-top: .6rem;
+  border-top: 1px dashed var(--line);
+}
+.review-author { font-weight: 600; font-size: .9rem; color: var(--fg); }
+.review-source {
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--muted);
+}
+.review-source a { color: var(--amber-dim); text-decoration: none; }
+.review-source a:hover { text-decoration: underline; color: var(--amber); }
+
 /* ── Gioco: Test di Turing inverso (algoritmo.html) ──────── */
 .bd-game {
   margin-top: 2.5rem;
