@@ -1285,3 +1285,41 @@
     startBtn.hidden = true;
   });
 }());
+
+// ── Instagram embed con caricamento rispettoso del consenso (contatti.html) ──
+(function () {
+  'use strict';
+  var facade = document.getElementById('ig-facade');
+  if (!facade) return;
+  var embeds  = document.getElementById('ig-embeds');
+  var loadBtn = document.getElementById('ig-load');
+  var loaded  = false;
+
+  function loadInstagram() {
+    if (loaded) return;
+    loaded = true;
+    if (embeds) embeds.hidden = false;
+    facade.hidden = true;
+    if (window.instgrm && window.instgrm.Embeds) {
+      window.instgrm.Embeds.process();
+    } else {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.instagram.com/embed.js';
+      s.onload = function () {
+        if (window.instgrm && window.instgrm.Embeds) window.instgrm.Embeds.process();
+      };
+      document.body.appendChild(s);
+    }
+    if (typeof gtag === 'function') {
+      gtag('event', 'instagram_load', { event_category: 'social' });
+    }
+  }
+
+  if (loadBtn) loadBtn.addEventListener('click', loadInstagram);
+
+  // Auto-carica se l'utente ha già accettato i cookie dal banner
+  try {
+    if (localStorage.getItem('rdl-cookie-consent') === 'accepted') loadInstagram();
+  } catch (e) {}
+}());

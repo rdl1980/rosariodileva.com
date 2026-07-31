@@ -475,3 +475,32 @@ test.describe('F7 - Recensioni', () => {
     expect(rated[0].reviewRating.ratingValue).toBe('5');
   });
 });
+
+// ─────────────────────────────────────────────────────────────
+// F8 — Instagram embed con gating del consenso (/contatti)
+// ─────────────────────────────────────────────────────────────
+test.describe('F8 - Instagram embed', () => {
+  test('contatti: senza consenso mostra la facciata, nessuno script IG', async ({ page }) => {
+    await page.goto(url('contatti'), { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#ig-facade')).toBeVisible();
+    await expect(page.locator('#ig-embeds')).toBeHidden();
+    await expect(page.locator('.instagram-media')).toHaveCount(3);
+    const script = await page.locator('script[src*="instagram.com/embed.js"]').count();
+    expect(script).toBe(0);
+  });
+  test('contatti: click "Mostra i post" carica lo script e rivela gli embed', async ({ page }) => {
+    await page.goto(url('contatti'), { waitUntil: 'domcontentloaded' });
+    await page.click('#ig-load');
+    await expect(page.locator('#ig-facade')).toBeHidden();
+    await expect(page.locator('#ig-embeds')).toBeVisible();
+    const script = await page.locator('script[src*="instagram.com/embed.js"]').count();
+    expect(script).toBe(1);
+  });
+  test('contatti: con consenso pregresso auto-carica gli embed', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('rdl-cookie-consent','accepted'));
+    await page.goto(url('contatti'), { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#ig-facade')).toBeHidden();
+    const script = await page.locator('script[src*="instagram.com/embed.js"]').count();
+    expect(script).toBe(1);
+  });
+});

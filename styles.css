@@ -5082,6 +5082,69 @@ footer {
   .eventi-meta { grid-template-columns: 1fr; gap: .8rem; }
 }
 
+/* ── Instagram (contatti.html) ───────────────────────────── */
+.ig-section {
+  padding: 4rem 2rem;
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+}
+.ig-inner { max-width: 1180px; margin: 0 auto; text-align: center; }
+.ig-label {
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: .6rem;
+}
+.ig-title {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 500;
+  margin: 0 0 .4rem;
+  color: var(--fg);
+}
+.ig-sub { font-size: .9rem; color: var(--fg-dim); margin: 0 0 2rem; }
+.ig-sub a { color: var(--amber-dim); text-decoration: none; }
+.ig-sub a:hover { color: var(--amber); text-decoration: underline; }
+
+.ig-embeds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+.ig-embeds .instagram-media {
+  margin: 0 !important;
+  min-width: 300px !important;
+  max-width: 340px !important;
+  flex: 0 1 340px;
+}
+
+.ig-facade {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 2rem 1.6rem;
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+}
+.ig-facade-note {
+  font-family: var(--mono);
+  font-size: .75rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0 0 1.2rem;
+}
+.ig-facade-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  justify-content: center;
+}
+
 /* ── Eco recensione (home) ───────────────────────────────── */
 .hero-review {
   max-width: 760px;
