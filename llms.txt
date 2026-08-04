@@ -1,6 +1,6 @@
 # Rosario Di Leva — Autore di techno-thriller
 
-> Rosario Di Leva è un autore italiano di techno-thriller e professionista della tecnologia, attivo tra Italia, Dublino e Regno Unito. Il suo romanzo d'esordio, *L'algoritmo che governa i destini* (Bookabook, 11 giugno 2026), è un techno-thriller sull'intelligenza artificiale e la libertà.
+> Rosario Di Leva è un autore italiano di techno-thriller e professionista della tecnologia, attivo tra Italia, Dublino e Regno Unito. Il suo romanzo d'esordio, *L'algoritmo che governa i destini* (Bookabook, 11 giugno 2026), è un techno-thriller sull'intelligenza artificiale e la libertà. Firma anche l'Officina della Narrazione, una collana di manuali di scrittura.
 
 ## Chi è Rosario Di Leva
 
@@ -16,6 +16,8 @@ Temi: intelligenza artificiale, libero arbitrio, algoritmi, sorveglianza, automa
 
 Per chi ama: Dan Brown, Black Mirror, Mr. Robot, Severance.
 
+Parole dell'autore: «La tecnologia non è né buona né cattiva. È uno strumento che amplifica le intenzioni di chi la crea e la utilizza.» E ancora: «Molti definiscono il libro fantascienza, ma io rispondo sempre con una domanda: siamo davvero sicuri che lo sia? Molte delle tecnologie raccontate nel romanzo esistono già.»
+
 ## Personaggi principali
 
 - **Jack Doyle** — ex giornalista investigativo
@@ -26,13 +28,35 @@ Per chi ama: Dan Brown, Black Mirror, Mr. Robot, Severance.
 - **Ross James** — executive corporate del settore AI
 - **Noraya** — l'intelligenza artificiale emersa dalla rete globale
 
+I dossier completi sono su https://rosariodileva.com/personaggi. Su https://rosariodileva.com/noraya si può ascoltare un messaggio vocale di Noraya e scriverle.
+
+## Come è stato accolto
+
+- **L'identitario** (30 luglio 2026), intervista e recensione di Emilio Caserta: «Rosario Di Leva dimostra come sia possibile raccontare l'innovazione senza trasformarla in un semplice esercizio di fantasia. Più che offrire risposte, invita il lettore a porsi le domande giuste.»
+- **La Penna nel Cassetto** (15 luglio 2026): «Un'opera di straordinaria attualità e dal forte impatto emotivo e intellettuale», con lode per «la gestione magistrale del ritmo narrativo» e «la straordinaria verosimiglianza scientifica».
+- **Amazon**: due recensioni, entrambe cinque stelle su cinque.
+
+Le recensioni sono raccolte su https://rosariodileva.com/algoritmo#recensioni, la rassegna stampa su https://rosariodileva.com/stampa#rassegna.
+
 ## Dove acquistare
 
 Il romanzo è disponibile su Bookabook (l'acquisto diretto garantisce all'autore la royalty più alta), Amazon, Feltrinelli, IBS, Libraccio e Libreria Universitaria, anche in formato ebook.
 
 ## Eventi
 
-Prima presentazione del romanzo: giovedì 9 luglio 2026, ore 20:00, Bar Letterario Delirum Art&Drink, Via Lepanto 111, Pompei (NA). Dialogo con l'autore, domande dal pubblico e firmacopie. Ingresso libero. Dettagli: https://rosariodileva.com/eventi
+La prima presentazione del romanzo si è tenuta giovedì 9 luglio 2026 al Bar Letterario Delirum Art&Drink di Pompei (NA), con dialogo con l'autore e firmacopie. Al momento non ci sono date in calendario: le nuove presentazioni vengono annunciate su https://rosariodileva.com/eventi e nella newsletter. Librerie, circoli di lettura, scuole e festival possono proporre un incontro tramite https://rosariodileva.com/contatti.
+
+## Officina della Narrazione — i manuali di scrittura
+
+Rosario Di Leva firma anche una collana di manuali di scrittura e narratologia, l'Officina della Narrazione: dieci titoli su progettazione, stesura, revisione e pubblicazione di un romanzo, con un kit gratuito di diciassette schede di revisione in PDF. Ha un sito dedicato, https://officina.rosariodileva.com, e un'anteprima su https://rosariodileva.com/officina. La collana su Amazon: https://www.amazon.it/dp/B0GPM7S8NZ
+
+## Altre pagine del sito
+
+- **Quiz** — «Che personaggio del romanzo sei?», sei domande: https://rosariodileva.com/quiz
+- **Gallery** — immagini del mondo del romanzo e fan art di Noraya: https://rosariodileva.com/gallery
+- **Diario** — il diario di scrittura e il making of: https://rosariodileva.com/diario
+- **Area stampa** — press kit scaricabile, comunicato pubblicabile, citazioni dell'autore libere da usare con attribuzione, rassegna stampa: https://rosariodileva.com/stampa
+- **Primo capitolo gratis** — via newsletter: https://rosariodileva.com/capitolo-uno
 
 ## Link
 
@@ -42,6 +66,7 @@ Prima presentazione del romanzo: giovedì 9 luglio 2026, ore 20:00, Bar Letterar
 - Pagina autore: https://rosariodileva.com/autore
 - Area stampa / press kit: https://rosariodileva.com/stampa
 - Eventi: https://rosariodileva.com/eventi
+- Officina della Narrazione (manuali): https://officina.rosariodileva.com
 - Newsletter (Substack): https://rosariodileva.substack.com
 - Acquisto: https://bookabook.it/libro/lalgoritmo-che-governa-i-destini/
 

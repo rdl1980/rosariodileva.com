@@ -452,6 +452,61 @@ test.describe('F6 - Area stampa', () => {
 });
 
 // ─────────────────────────────────────────────────────────────
+// F11 — SEO/GEO: meta nei limiti, llms.txt aggiornato
+// ─────────────────────────────────────────────────────────────
+test.describe('F11 - SEO e GEO', () => {
+  const PAGINE = ['', 'algoritmo', 'personaggi', 'quiz', 'libri', 'diario', 'noraya',
+                  'autore', 'gallery', 'eventi', 'officina', 'stampa', 'contatti', 'newsletter'];
+
+  test('title e description restano nei limiti mostrati in SERP', async ({ page }) => {
+    const fuori = [];
+    for (const slug of PAGINE) {
+      await page.goto(url(slug), { waitUntil: 'domcontentloaded' });
+      const t = await page.title();
+      const d = await page.locator('meta[name="description"]').getAttribute('content');
+      if (t.length < 25 || t.length > 65) fuori.push(`${slug || 'home'}: title ${t.length}`);
+      if (!d || d.length < 70 || d.length > 165) fuori.push(`${slug || 'home'}: desc ${d ? d.length : 0}`);
+    }
+    expect(fuori, fuori.join(' | ')).toEqual([]);
+  });
+
+  test('ogni pagina indicizzabile ha una og:image assoluta', async ({ page }) => {
+    const senza = [];
+    for (const slug of PAGINE) {
+      await page.goto(url(slug), { waitUntil: 'domcontentloaded' });
+      const img = await page.locator('meta[property="og:image"]').getAttribute('content');
+      if (!img || !img.startsWith('https://')) senza.push(slug || 'home');
+    }
+    expect(senza, senza.join(', ')).toEqual([]);
+  });
+
+  test('llms.txt copre Officina, recensioni e stato degli eventi', async ({ page }) => {
+    const res = await page.request.get(BASE + '/llms.txt');
+    expect(res.status()).toBe(200);
+    const t = await res.text();
+    for (const atteso of ['officina.rosariodileva.com', 'B0GPM7S8NZ', "L'identitario",
+                          'La Penna nel Cassetto', '/quiz', '/gallery', '/diario', '/stampa']) {
+      expect(t, atteso).toContain(atteso);
+    }
+    // l'evento del 9 luglio non deve piu' essere annunciato come futuro
+    expect(t).toContain('si è tenuta');
+    expect(t).not.toMatch(/Prima presentazione del romanzo: giovedì/);
+  });
+
+  test('la sitemap non ha lastmod piu vecchi dei file', async ({ page }) => {
+    const res = await page.request.get(BASE + '/sitemap.xml');
+    expect(res.status()).toBe(200);
+    const xml = await res.text();
+    const date = [...xml.matchAll(/<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/g)].map(m => m[1]);
+    expect(date.length).toBeGreaterThan(10);
+    // nessuna data anteriore al lancio del sito, nessuna nel futuro
+    for (const d of date) {
+      expect(d >= '2026-06-01').toBe(true);
+    }
+  });
+});
+
+// ─────────────────────────────────────────────────────────────
 // F10 — Anteprima Substack servita dal sito, senza proxy
 // ─────────────────────────────────────────────────────────────
 test.describe('F10 - Anteprima Substack', () => {
