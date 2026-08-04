@@ -685,7 +685,27 @@
   var PROXY   = 'https://api.allorigins.win/get?url=' + encodeURIComponent(RSS_URL);
 
   function escHtml(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    return String(str)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
+  // Il feed passa da un proxy pubblico: tutto quello che ne arriva e' non fidato.
+  // Accetta solo http/https, cosi' un link "javascript:" non puo' finire in un href.
+  function safeUrl(str) {
+    try {
+      var u = new URL(str, 'https://rosariodileva.substack.com');
+      return (u.protocol === 'http:' || u.protocol === 'https:') ? u.href : '';
+    } catch (e) { return ''; }
+  }
+
+  // Niente innerHTML sul markup del feed: DOMParser produce un documento inerte,
+  // dove un <img onerror> non viene mai caricato.
+  function stripTags(str) {
+    try {
+      var doc = new DOMParser().parseFromString(String(str), 'text/html');
+      return (doc.body && doc.body.textContent || '').trim();
+    } catch (e) { return ''; }
   }
 
   function formatDate(str) {
@@ -696,6 +716,7 @@
   }
 
   function renderPosts(items) {
+    items = items.filter(function (i) { return i.link; });
     if (!items.length) {
       container.innerHTML = '<p class="substack-preview-empty">// nessun articolo disponibile al momento.</p>';
       return;
@@ -721,14 +742,11 @@
       var nodes = Array.from(xml.querySelectorAll('item'));
       var items = nodes.map(function (n) {
         var descRaw = (n.querySelector('description') || {}).textContent || '';
-        // Strip HTML tags from description
-        var tmp = document.createElement('div');
-        tmp.innerHTML = descRaw;
-        var plain = (tmp.textContent || '').trim().slice(0, 120);
+        var plain = stripTags(descRaw).slice(0, 120);
         if (plain.length === 120) plain += '…';
         return {
           title: (n.querySelector('title') || {}).textContent || '',
-          link:  (n.querySelector('link') || {}).textContent || '',
+          link:  safeUrl((n.querySelector('link') || {}).textContent || ''),
           date:  formatDate((n.querySelector('pubDate') || {}).textContent || ''),
           desc:  plain
         };
