@@ -3,6 +3,12 @@ name: Substack feed
 # Il feed Substack non manda header CORS, quindi il browser non puo' leggerlo
 # direttamente. Invece di passare da un proxy pubblico (che e' una dipendenza non
 # fidata e cade), lo scarichiamo qui e committiamo un JSON servito dal sito stesso.
+#
+# Avvertenza: Substack risponde 403 agli IP dei runner GitHub, sia sull'RSS sia
+# sull'archivio. Finche' resta cosi', questo job gira, non trova nulla di nuovo
+# ed esce pulito: assets/substack.json committato continua a servire la home.
+# Per aggiornarlo davvero, lanciare lo script da una macchina normale:
+#     python .github/scripts/fetch-substack.py
 
 on:
   schedule:

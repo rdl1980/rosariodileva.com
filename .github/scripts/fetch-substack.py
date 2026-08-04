@@ -133,8 +133,14 @@ def main():
             print("  %s non disponibile: %s" % (nome, e))
 
     if not voci:
+        # Substack sta dietro una protezione anti-bot che rifiuta gli IP dei
+        # runner. Non e' un errore nostro e non rompe niente: il JSON gia'
+        # committato resta valido e la home continua a mostrarlo. Usciamo con
+        # successo per non riempire di notifiche rosse una cosa che funziona.
         print("Nessuna fonte raggiungibile: lascio assets/substack.json com'e'.")
-        return 1
+        print("Per aggiornarlo da una macchina che raggiunge Substack:")
+        print("    python .github/scripts/fetch-substack.py")
+        return 0
 
     os.makedirs("assets", exist_ok=True)
     with open(OUT, "w", encoding="utf-8", newline="\n") as f:
