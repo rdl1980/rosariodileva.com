@@ -455,31 +455,50 @@ test.describe('F6 - Area stampa', () => {
 // F7 — Recensioni (/algoritmo)
 // ─────────────────────────────────────────────────────────────
 test.describe('F7 - Recensioni', () => {
-  test('algoritmo: 3 card recensione, stelle solo sulle due di Amazon', async ({ page }) => {
+  test('algoritmo: 4 card recensione, stelle solo sulle due di Amazon', async ({ page }) => {
     await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('.review-card')).toHaveCount(3);
+    await expect(page.locator('.review-card')).toHaveCount(4);
     await expect(page.locator('.review-stars')).toHaveCount(2);
     await expect(page.locator('#recensioni')).toContainText('Valerio Di Rosa');
     await expect(page.locator('#recensioni')).toContainText('Marianna Borriello');
     await expect(page.locator('#recensioni')).toContainText('La Penna nel Cassetto');
+    await expect(page.locator('#recensioni')).toContainText("L'identitario");
   });
   test('algoritmo: link a tutte le recensioni Amazon', async ({ page }) => {
     await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
     const more = page.locator('.bd-reviews-more a').first();
     await expect(more).toHaveAttribute('href', /amazon\.it\/product-reviews\/B0H1F48YCT/);
   });
-  test('algoritmo: Book schema ha 3 Review, rating sulle due Amazon', async ({ page }) => {
+  test('algoritmo: Book schema ha 4 Review, rating sulle due Amazon', async ({ page }) => {
     await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
     const data = await page.evaluate(() =>
       JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent)
     );
     const book = data['@graph'].find(n => n['@type'] === 'Book');
-    expect(book.review.length).toBe(3);
+    expect(book.review.length).toBe(4);
     const rated = book.review.filter(r => r.reviewRating);
     expect(rated.length).toBe(2);
     rated.forEach(r => expect(r.reviewRating.ratingValue).toBe('5'));
-    expect(book.review.some(r => r.reviewRating)).toBe(true);
     expect(book.aggregateRating).toBeUndefined();
+    const testate = book.review.filter(r => r.author['@type'] === 'Organization');
+    expect(testate.length).toBe(2);
+    testate.forEach(r => expect(r.url).toMatch(/^https:\/\//));
+  });
+  test('stampa: rassegna con i due articoli e link esterni corretti', async ({ page }) => {
+    await page.goto(url('stampa'), { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#rassegna')).toBeVisible();
+    const items = page.locator('.press-news-item');
+    await expect(items).toHaveCount(2);
+    await expect(page.locator('#rassegna')).toContainText("L'identitario");
+    await expect(page.locator('#rassegna')).toContainText('Emilio Caserta');
+    for (const link of await page.locator('.press-news-link').all()) {
+      expect(await link.getAttribute('href')).toMatch(/^https:\/\//);
+      expect(await link.getAttribute('rel')).toContain('noopener');
+    }
+  });
+  test('algoritmo: il link alla rassegna punta a /stampa#rassegna', async ({ page }) => {
+    await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.bd-reviews-more a[href="/stampa#rassegna"]')).toHaveCount(1);
   });
 });
 
