@@ -673,16 +673,18 @@
   document.body.appendChild(s);
 }());
 
-// ── Substack RSS preview (#28) ────────────────────────────────────────────────
+// ── Anteprima Substack (#28) ───────────────────────────────────
+// I post arrivano da assets/substack.json, aggiornato due volte al giorno dalla
+// GitHub Action "Substack feed". Nessun proxy di terze parti in mezzo: il feed
+// Substack non manda header CORS e un proxy pubblico sarebbe sia un punto di
+// rottura sia una fonte non fidata dentro la pagina.
 (function () {
   'use strict';
 
   var container = document.getElementById('substack-posts');
   if (!container) return;
 
-  var RSS_URL = 'https://rosariodileva.substack.com/feed';
-  // Usa un proxy CORS pubblico per il feed RSS
-  var PROXY   = 'https://api.allorigins.win/get?url=' + encodeURIComponent(RSS_URL);
+  var FEED_JSON = '/assets/substack.json';
 
   function escHtml(str) {
     return String(str)
@@ -690,75 +692,45 @@
       .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
 
-  // Il feed passa da un proxy pubblico: tutto quello che ne arriva e' non fidato.
-  // Accetta solo http/https, cosi' un link "javascript:" non puo' finire in un href.
+  // Difesa in profondita': anche se il JSON venisse manomesso, un "javascript:"
+  // non puo' finire in un href.
   function safeUrl(str) {
     try {
-      var u = new URL(str, 'https://rosariodileva.substack.com');
+      var u = new URL(String(str), 'https://rosariodileva.substack.com');
       return (u.protocol === 'http:' || u.protocol === 'https:') ? u.href : '';
     } catch (e) { return ''; }
   }
 
-  // Niente innerHTML sul markup del feed: DOMParser produce un documento inerte,
-  // dove un <img onerror> non viene mai caricato.
-  function stripTags(str) {
-    try {
-      var doc = new DOMParser().parseFromString(String(str), 'text/html');
-      return (doc.body && doc.body.textContent || '').trim();
-    } catch (e) { return ''; }
-  }
-
-  function formatDate(str) {
-    try {
-      var d = new Date(str);
-      return d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
-    } catch (e) { return str || ''; }
+  function messaggio(testo) {
+    container.innerHTML = '<p class="substack-preview-empty">// ' + escHtml(testo) + '</p>';
   }
 
   function renderPosts(items) {
-    items = items.filter(function (i) { return i.link; });
+    items = items.filter(function (i) { return i && safeUrl(i.link); });
     if (!items.length) {
-      container.innerHTML = '<p class="substack-preview-empty">// nessun articolo disponibile al momento.</p>';
+      messaggio('nessun articolo disponibile al momento.');
       return;
     }
-    var html = items.slice(0, 3).map(function (item) {
+    container.innerHTML = items.slice(0, 3).map(function (item) {
       return (
         '<article class="sp-card">' +
-          '<a class="sp-card-link" href="' + escHtml(item.link) + '" target="_blank" rel="noopener">' +
-            '<div class="sp-card-date">' + escHtml(item.date) + '</div>' +
-            '<h3 class="sp-card-title">' + escHtml(item.title) + '</h3>' +
+          '<a class="sp-card-link" href="' + escHtml(safeUrl(item.link)) + '" target="_blank" rel="noopener">' +
+            '<div class="sp-card-date">' + escHtml(item.date || '') + '</div>' +
+            '<h3 class="sp-card-title">' + escHtml(item.title || '') + '</h3>' +
             (item.desc ? '<p class="sp-card-desc">' + escHtml(item.desc) + '</p>' : '') +
           '</a>' +
         '</article>'
       );
     }).join('');
-    container.innerHTML = html;
   }
 
-  fetch(PROXY)
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      var xml = (new DOMParser()).parseFromString(data.contents, 'text/xml');
-      var nodes = Array.from(xml.querySelectorAll('item'));
-      var items = nodes.map(function (n) {
-        var descRaw = (n.querySelector('description') || {}).textContent || '';
-        var plain = stripTags(descRaw).slice(0, 120);
-        if (plain.length === 120) plain += '…';
-        return {
-          title: (n.querySelector('title') || {}).textContent || '',
-          link:  safeUrl((n.querySelector('link') || {}).textContent || ''),
-          date:  formatDate((n.querySelector('pubDate') || {}).textContent || ''),
-          desc:  plain
-        };
-      });
-      renderPosts(items);
+  fetch(FEED_JSON, { cache: 'no-cache' })
+    .then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      return r.json();
     })
-    .catch(function () {
-      var container = document.getElementById('substack-posts');
-      if (container) {
-        container.innerHTML = '<p class="substack-preview-empty">// impossibile caricare gli articoli al momento.</p>';
-      }
-    });
+    .then(function (data) { renderPosts((data && data.posts) || []); })
+    .catch(function () { messaggio('impossibile caricare gli articoli al momento.'); });
 }());
 
 // ── FX: raggio di scansione (pagine libro) ───────────────────────────────────

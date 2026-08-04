@@ -5001,6 +5001,30 @@ footer {
 }
 .eventi-archive-text { color: var(--fg-dim); font-size: .875rem; margin: 0; }
 
+/* Blocco "prossime date" e archivio */
+.eventi-next {
+  padding: 2.5rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  margin-bottom: 3rem;
+}
+.eventi-next .eventi-teaser { max-width: 62ch; }
+@media (max-width: 640px) {
+  .eventi-next { padding: 1.6rem 1.4rem; margin-bottom: 2rem; }
+}
+.eventi-archive-head {
+  margin-bottom: 1rem;
+  color: var(--muted-2);
+}
+/* Un evento concluso resta consultabile, ma non si annuncia piu' */
+.eventi-past { opacity: .92; }
+.eventi-past .eventi-card-photo--poster img { filter: saturate(.9); }
+.eventi-card-badge--past {
+  border-color: var(--muted-2);
+  color: var(--muted);
+}
+
 /* Card photo come locandina intera (no crop) */
 .eventi-card-photo--poster { background: var(--bg-2); }
 .eventi-card-photo--poster img {

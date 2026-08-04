@@ -1,0 +1,39 @@
+name: Substack feed
+
+# Il feed Substack non manda header CORS, quindi il browser non puo' leggerlo
+# direttamente. Invece di passare da un proxy pubblico (che e' una dipendenza non
+# fidata e cade), lo scarichiamo qui e committiamo un JSON servito dal sito stesso.
+
+on:
+  schedule:
+    - cron: "17 5,17 * * *"   # due volte al giorno
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: substack-feed
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    name: Aggiorna assets/substack.json
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Scarica e converte il feed
+        run: python3 .github/scripts/fetch-substack.py
+
+      - name: Commit se e' cambiato qualcosa
+        run: |
+          if git diff --quiet -- assets/substack.json; then
+            echo "Nessuna novita' nel feed."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/substack.json
+          git commit -m "chore: aggiorna l'anteprima Substack"
+          git push

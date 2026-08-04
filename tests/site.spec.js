@@ -452,6 +452,69 @@ test.describe('F6 - Area stampa', () => {
 });
 
 // ─────────────────────────────────────────────────────────────
+// F10 — Anteprima Substack servita dal sito, senza proxy
+// ─────────────────────────────────────────────────────────────
+test.describe('F10 - Anteprima Substack', () => {
+  test('assets/substack.json e valido e con link https', async ({ page }) => {
+    const res = await page.request.get(BASE + '/assets/substack.json');
+    expect(res.status()).toBe(200);
+    const data = await res.json();
+    expect(Array.isArray(data.posts)).toBe(true);
+    expect(data.posts.length).toBeGreaterThan(0);
+    for (const p of data.posts) {
+      expect(p.link).toMatch(/^https:\/\/rosariodileva\.substack\.com\//);
+      expect(p.title.length).toBeGreaterThan(0);
+      expect(p.title).not.toMatch(/[<>]/);
+      expect(p.desc || '').not.toMatch(/[<>]/);
+    }
+  });
+  test('home: le card si popolano dal JSON locale', async ({ page }) => {
+    await page.goto(url(''), { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#substack-posts .sp-card')).toHaveCount(3);
+    const primo = page.locator('#substack-posts .sp-card-link').first();
+    await expect(primo).toHaveAttribute('href', /^https:\/\/rosariodileva\.substack\.com\//);
+    await expect(primo).toHaveAttribute('rel', /noopener/);
+  });
+  test('nessun proxy di terze parti nel codice del feed', async ({ page }) => {
+    const res = await page.request.get(BASE + '/scripts.js');
+    const js = await res.text();
+    expect(js).not.toContain('allorigins');
+    expect(js).not.toMatch(/corsproxy|cors-anywhere|thingproxy/i);
+  });
+});
+
+// ─────────────────────────────────────────────────────────────
+// F9 — Eventi: nulla di scaduto presentato come futuro
+// ─────────────────────────────────────────────────────────────
+test.describe('F9 - Eventi', () => {
+  test('eventi: gli eventi con data passata stanno in archivio', async ({ page }) => {
+    await page.goto(url('eventi'), { waitUntil: 'domcontentloaded' });
+    const data = await page.evaluate(() =>
+      JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent)
+    );
+    const eventi = data['@graph'].filter(n => n['@type'] === 'Event');
+    expect(eventi.length).toBeGreaterThan(0);
+    const oggi = new Date();
+    for (const ev of eventi) {
+      const passato = new Date(ev.startDate) < oggi;
+      const card = page.locator(`.eventi-card[aria-label*="${ev.startDate.slice(0, 4)}"]`).first();
+      // un evento passato non deve piu' comparire come "upcoming"
+      if (passato) {
+        await expect(page.locator('.eventi-upcoming')).toHaveCount(0);
+        await expect(card).toHaveClass(/eventi-past/);
+      }
+    }
+  });
+  test('eventi: nessun invito ad agire su una data gia' + " " + 'passata', async ({ page }) => {
+    await page.goto(url('eventi'), { waitUntil: 'domcontentloaded' });
+    // "aggiungi al calendario" su un evento concluso e' un invito a vuoto
+    await expect(page.locator('.eventi-past a[href*="calendar.google.com"]')).toHaveCount(0);
+    await expect(page.locator('.eventi-next')).toBeVisible();
+    await expect(page.locator('.eventi-next a[href="/newsletter"]')).toHaveCount(1);
+  });
+});
+
+// ─────────────────────────────────────────────────────────────
 // F7 — Recensioni (/algoritmo)
 // ─────────────────────────────────────────────────────────────
 test.describe('F7 - Recensioni', () => {
