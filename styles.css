@@ -5372,6 +5372,24 @@ footer {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
 }
+.bd-reviews-more {
+  margin-top: 1.4rem;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .06em;
+  color: var(--muted);
+}
+.bd-reviews-more a {
+  color: var(--fg-dim);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  transition: color .25s ease, border-color .25s ease;
+}
+.bd-reviews-more a:hover {
+  color: var(--amber);
+  border-bottom-color: currentColor;
+}
+.bd-reviews-more span { margin: 0 .4rem; }
 .review-card {
   display: flex;
   flex-direction: column;
