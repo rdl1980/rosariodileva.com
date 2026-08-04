@@ -5642,6 +5642,26 @@ footer {
 .press-quote p { font-family: var(--serif); font-style: italic; font-size: 1.05rem; color: var(--fg); margin: 0 0 .4rem; }
 .press-quote cite { font-family: var(--mono); font-size: .7rem; color: var(--muted); font-style: normal; }
 
+.press-quotes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.4rem;
+}
+.press-quotes .press-quote { margin: 0; }
+.press-quote-tag {
+  display: block;
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: .5rem;
+}
+@media (max-width: 640px) {
+  .press-quotes { grid-template-columns: 1fr; }
+}
+
 .press-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));

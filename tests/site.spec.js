@@ -496,6 +496,13 @@ test.describe('F7 - Recensioni', () => {
       expect(await link.getAttribute('rel')).toContain('noopener');
     }
   });
+  test('stampa: 4 citazioni pubblicabili con fonte attribuita', async ({ page }) => {
+    await page.goto(url('stampa'), { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#citazioni .press-quote')).toHaveCount(4);
+    await expect(page.locator('#citazioni .press-quote-tag')).toHaveCount(4);
+    await expect(page.locator('#citazioni')).toContainText('Emilio Caserta');
+    await expect(page.locator('#citazioni a[href*="lidentitario.com"]')).toHaveCount(1);
+  });
   test('algoritmo: il link alla rassegna punta a /stampa#rassegna', async ({ page }) => {
     await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
     await expect(page.locator('.bd-reviews-more a[href="/stampa#rassegna"]')).toHaveCount(1);
