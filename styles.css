@@ -164,6 +164,16 @@ button {
   padding: 0;
 }
 
+/* con dieci voci il menu deve restare su una riga sola */
+@media (max-width: 1400px) {
+  .nav-menu { gap: 20px; }
+  .nav-menu a { font-size: 11.5px; letter-spacing: .04em; }
+}
+@media (max-width: 1240px) {
+  .nav-menu { gap: 15px; }
+  .nav-menu a { font-size: 11px; letter-spacing: .02em; }
+}
+
 .nav-menu a {
   font-size: 12.5px;
   font-weight: 500;
@@ -172,6 +182,7 @@ button {
   color: var(--fg-dim);
   position: relative;
   padding: 4px 0;
+  white-space: nowrap;
   transition: color 0.2s ease;
 }
 
@@ -5186,6 +5197,153 @@ footer {
 }
 .hero-review-more { color: var(--amber-dim); }
 .hero-review-inner:hover .hero-review-more { color: var(--amber); }
+
+/* ── Officina della Narrazione: preview (officina.html) ──── */
+.off-section { padding: 3rem 2rem 5rem; }
+.off-inner { max-width: 1100px; margin: 0 auto; }
+
+.off-label {
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: .6rem;
+}
+.off-title {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+  color: var(--fg);
+}
+.off-intro p { color: var(--fg-dim); font-size: 1rem; line-height: 1.75; }
+.off-intro { margin-bottom: 3.5rem; }
+
+/* Le quattro fasi */
+.off-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 4rem;
+}
+.off-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1.5rem 1.4rem;
+}
+.off-card-n {
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--amber);
+  letter-spacing: .12em;
+  display: block;
+  margin-bottom: .6rem;
+}
+.off-card h3 {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 0 0 .45rem;
+  color: var(--fg);
+}
+.off-card p { margin: 0; font-size: .9rem; color: var(--fg-dim); line-height: 1.6; }
+
+/* Anteprima: il mondo dell'Officina, in chiaro */
+.off-preview {
+  display: grid;
+  grid-template-columns: minmax(240px, 340px) 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  padding: 2.5rem;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  margin-bottom: 4rem;
+}
+.off-preview-paper {
+  background: #ECE7DF;
+  color: #26211E;
+  border-radius: 4px;
+  padding: 2rem 1.7rem;
+  text-align: center;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  box-shadow: 0 24px 44px -22px rgba(0,0,0,.75);
+}
+.off-paper-kick {
+  font-size: .68rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #802420;
+  display: block;
+  margin-bottom: 1.3rem;
+}
+.off-paper-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 .7rem;
+  color: #26211E;
+  line-height: 1.1;
+}
+.off-paper-rh {
+  display: flex; justify-content: center; gap: 5px; margin: 0 0 1rem;
+}
+.off-paper-rh i {
+  width: 6px; height: 6px; background: #802420;
+  transform: rotate(45deg); display: block;
+}
+.off-paper-rh i:nth-child(2) { opacity: .55; }
+.off-paper-rh i:nth-child(3) { opacity: .3; }
+.off-paper-sub {
+  font-style: italic;
+  font-size: .95rem;
+  color: #5F5850;
+  margin: 0 0 1.3rem;
+  line-height: 1.5;
+}
+.off-paper-list {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  text-align: left;
+  font-size: .92rem;
+}
+.off-paper-list li {
+  padding: .4rem 0;
+  border-bottom: 1px solid #C7C1B8;
+  color: #26211E;
+}
+.off-paper-foot {
+  font-size: .78rem;
+  font-style: italic;
+  color: #5F5850;
+}
+.off-preview-copy p { color: var(--fg-dim); line-height: 1.7; margin: 0 0 1rem; }
+.off-note { font-family: var(--mono); font-size: .8rem; color: var(--amber-dim); }
+
+/* CTA finale */
+.off-cta {
+  text-align: center;
+  padding: 2.5rem 2rem;
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+}
+.off-cta .measure { margin: 0 auto 1.5rem; color: var(--fg-dim); }
+.off-cta .btn { margin: 0 .35rem .5rem; }
+.off-domain {
+  font-family: var(--mono);
+  font-size: .75rem;
+  letter-spacing: .1em;
+  color: var(--muted);
+  margin: 1.2rem 0 0;
+}
+
+@media (max-width: 780px) {
+  .off-preview { grid-template-columns: 1fr; padding: 1.6rem; }
+}
 
 /* ── Recensioni (algoritmo.html) ─────────────────────────── */
 .bd-reviews {
