@@ -573,29 +573,30 @@ test.describe('F9 - Eventi', () => {
 // F7 — Recensioni (/algoritmo)
 // ─────────────────────────────────────────────────────────────
 test.describe('F7 - Recensioni', () => {
-  test('algoritmo: 4 card recensione, stelle solo sulle due di Amazon', async ({ page }) => {
+  test('algoritmo: 5 card recensione, stelle solo sulle tre di Amazon', async ({ page }) => {
     await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('.review-card')).toHaveCount(4);
-    await expect(page.locator('.review-stars')).toHaveCount(2);
+    await expect(page.locator('.review-card')).toHaveCount(5);
+    await expect(page.locator('.review-stars')).toHaveCount(3);
     await expect(page.locator('#recensioni')).toContainText('Valerio Di Rosa');
     await expect(page.locator('#recensioni')).toContainText('Marianna Borriello');
     await expect(page.locator('#recensioni')).toContainText('La Penna nel Cassetto');
     await expect(page.locator('#recensioni')).toContainText("L'identitario");
+    await expect(page.locator('#recensioni')).toContainText('Emiliano');
   });
   test('algoritmo: link a tutte le recensioni Amazon', async ({ page }) => {
     await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
     const more = page.locator('.bd-reviews-more a').first();
     await expect(more).toHaveAttribute('href', /amazon\.it\/product-reviews\/B0H1F48YCT/);
   });
-  test('algoritmo: Book schema ha 4 Review, rating sulle due Amazon', async ({ page }) => {
+  test('algoritmo: Book schema ha 5 Review, rating sulle tre Amazon', async ({ page }) => {
     await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
     const data = await page.evaluate(() =>
       JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent)
     );
     const book = data['@graph'].find(n => n['@type'] === 'Book');
-    expect(book.review.length).toBe(4);
+    expect(book.review.length).toBe(5);
     const rated = book.review.filter(r => r.reviewRating);
-    expect(rated.length).toBe(2);
+    expect(rated.length).toBe(3);
     rated.forEach(r => expect(r.reviewRating.ratingValue).toBe('5'));
     expect(book.aggregateRating).toBeUndefined();
     const testate = book.review.filter(r => r.author['@type'] === 'Organization');

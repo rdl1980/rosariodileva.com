@@ -5396,6 +5396,11 @@ footer {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
+/* Con un numero dispari di recensioni l'ultima resterebbe sola in fondo:
+   falla occupare tutta la riga, cosi' sembra una scelta e non un buco. */
+.bd-reviews-grid > .review-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
 @media (max-width: 640px) {
   .bd-reviews-grid { grid-template-columns: 1fr; }
 }
