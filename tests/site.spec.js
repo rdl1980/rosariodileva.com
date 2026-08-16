@@ -452,6 +452,53 @@ test.describe('F6 - Area stampa', () => {
 });
 
 // ─────────────────────────────────────────────────────────────
+// F12 — Rotazione copertine: stessa sequenza su home e /algoritmo
+// ─────────────────────────────────────────────────────────────
+test.describe('F12 - Rotazione copertine', () => {
+  async function sequenza(page, slug, sel) {
+    await page.goto(url(slug), { waitUntil: 'domcontentloaded' });
+    return page.evaluate((s) => {
+      const f = document.querySelector(s);
+      if (!f) return null;
+      return {
+        hook: f.hasAttribute('data-cover-rotate'),
+        covers: [
+          f.querySelector('img:not(.cover-rot)').getAttribute('src'),
+          ...[...f.querySelectorAll('.cover-rot')].map(i => i.getAttribute('src')),
+        ],
+      };
+    }, sel);
+  }
+
+  test('home e algoritmo mostrano le stesse copertine nello stesso ordine', async ({ page }) => {
+    const home = await sequenza(page, '', '.book-cover');
+    const scheda = await sequenza(page, 'algoritmo', '#bd-cover-rotate');
+    expect(home).not.toBeNull();
+    expect(scheda).not.toBeNull();
+    expect(home.hook).toBe(true);
+    expect(scheda.hook).toBe(true);
+    expect(home.covers).toEqual(scheda.covers);
+    expect(home.covers.length).toBe(3);
+  });
+
+  test('tutte le copertine in rotazione esistono davvero', async ({ page }) => {
+    const home = await sequenza(page, '', '.book-cover');
+    for (const src of home.covers) {
+      const res = await page.request.head(BASE + '/' + encodeURI(src));
+      expect(res.status(), src).toBe(200);
+    }
+  });
+
+  test('un solo motore di rotazione in scripts.js', async ({ page }) => {
+    const js = await (await page.request.get(BASE + '/scripts.js')).text();
+    expect(js).not.toContain('show-alt');
+    expect(js).not.toContain('cover-alt');
+    // un solo punto che raccoglie i contenitori, non due implementazioni parallele
+    expect(js.match(/querySelectorAll\('\[data-cover-rotate\]'\)/g).length).toBe(1);
+  });
+});
+
+// ─────────────────────────────────────────────────────────────
 // F11 — SEO/GEO: meta nei limiti, llms.txt aggiornato
 // ─────────────────────────────────────────────────────────────
 test.describe('F11 - SEO e GEO', () => {

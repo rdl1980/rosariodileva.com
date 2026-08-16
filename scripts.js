@@ -787,33 +787,26 @@
   });
 }());
 
-// ── Crossfade copertina hero ─────────────────────────────────────────────────
+// ── Rotazione delle copertine ─────────────────────────────────
+// Un solo motore per la home e per la scheda del libro: prima erano due,
+// con esiti diversi sulle stesse copertine. Ogni contenitore marcato
+// data-cover-rotate alterna la sua immagine di base con le .cover-rot che contiene.
 (function () {
   'use strict';
-  var cover = document.querySelector('.book-cover');
-  if (!cover || !cover.querySelector('.cover-alt')) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  setInterval(function () {
-    cover.classList.toggle('show-alt');
-  }, 3000);
-}());
 
-// ── Rotazione copertine (scheda libro) ───────────────────────────────────────
-(function () {
-  'use strict';
-  var frame = document.getElementById('bd-cover-rotate');
-  if (!frame) return;
-  var rots = frame.querySelectorAll('.cover-rot');
-  if (!rots.length) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var states = rots.length + 1; // base + ogni copertina alternativa
-  var i = 0;
-  setInterval(function () {
-    i = (i + 1) % states;
-    rots.forEach(function (img, idx) {
-      img.classList.toggle('is-active', idx === i - 1);
-    });
-  }, 3000);
+  document.querySelectorAll('[data-cover-rotate]').forEach(function (frame) {
+    var rots = frame.querySelectorAll('.cover-rot');
+    if (!rots.length) return;
+    var stati = rots.length + 1; // la base piu ogni alternativa
+    var i = 0;
+    setInterval(function () {
+      i = (i + 1) % stati;
+      rots.forEach(function (img, idx) {
+        img.classList.toggle('is-active', idx === i - 1);
+      });
+    }, 3000);
+  });
 }());
 
 // ── Lead magnet: capitolo uno ────────────────────────────────────────────────

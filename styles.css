@@ -378,16 +378,7 @@ body.menu-open { overflow: hidden; }
   display: block;
 }
 
-/* Crossfade con la copertina promozionale */
-.book-cover .cover-alt {
-  position: absolute;
-  inset: 0;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 1.4s ease;
-}
-.book-cover.show-alt .cover-alt { opacity: 1; }
+
 
 .book-cover::after {
   content: "";
@@ -815,6 +806,18 @@ body.menu-open { overflow: hidden; }
   color: var(--fg);
   margin: 0 0 24px;
   text-wrap: pretty;
+}
+
+/* Senza questa regola il link nella bio era indistinguibile dal testo */
+.bio-text p a {
+  color: var(--amber);
+  text-decoration: none;
+  border-bottom: 1px solid var(--amber-dim);
+  transition: color .25s ease, border-color .25s ease;
+}
+.bio-text p a:hover {
+  color: var(--crimson-hot);
+  border-bottom-color: currentColor;
 }
 
 .bio-text p:first-of-type::first-letter {
@@ -2482,8 +2485,9 @@ footer {
   display: block;
 }
 
-/* Rotazione copertine (base -> promozionale -> copertina 2) */
-.bd-cover-frame .cover-rot {
+/* Copertine alternative: stessa regola in home e nella scheda del libro */
+[data-cover-rotate] { position: relative; }
+[data-cover-rotate] .cover-rot {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -2493,7 +2497,7 @@ footer {
   transition: opacity 1.4s ease;
   pointer-events: none;
 }
-.bd-cover-frame .cover-rot.is-active { opacity: 1; }
+[data-cover-rotate] .cover-rot.is-active { opacity: 1; }
 
 /* Sport book placeholder */
 .bd-cover-frame--sport {
