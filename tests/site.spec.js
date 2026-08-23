@@ -655,7 +655,11 @@ test.describe('F7 - Recensioni', () => {
     await page.goto(url('stampa'), { waitUntil: 'domcontentloaded' });
     await expect(page.locator('#rassegna')).toBeVisible();
     const items = page.locator('.press-news-item');
-    await expect(items).toHaveCount(2);
+    await expect(items).toHaveCount(3);
+    await expect(page.locator('#rassegna')).toContainText('Il Mattino');
+    await expect(page.locator('#rassegna')).toContainText('Ilaria Cotarella');
+    // l'articolo e' solo cartaceo: nessun link finto, ma la voce c'e'
+    await expect(page.locator('.press-news-static')).toHaveCount(1);
     await expect(page.locator('#rassegna')).toContainText("L'identitario");
     await expect(page.locator('#rassegna')).toContainText('Emilio Caserta');
     for (const link of await page.locator('.press-news-link').all()) {
@@ -665,9 +669,14 @@ test.describe('F7 - Recensioni', () => {
   });
   test('stampa: 4 citazioni pubblicabili con fonte attribuita', async ({ page }) => {
     await page.goto(url('stampa'), { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('#citazioni .press-quote')).toHaveCount(4);
-    await expect(page.locator('#citazioni .press-quote-tag')).toHaveCount(4);
+    await expect(page.locator('#citazioni .press-quote')).toHaveCount(7);
+    await expect(page.locator('#citazioni .press-quote-tag')).toHaveCount(7);
+    // ogni citazione dichiara da quale intervista viene
+    for (const c of await page.locator('#citazioni cite').all()) {
+      expect(await c.textContent()).toMatch(/L'identitario|Il Mattino/);
+    }
     await expect(page.locator('#citazioni')).toContainText('Emilio Caserta');
+    await expect(page.locator('#citazioni')).toContainText('Il Mattino');
     await expect(page.locator('#citazioni a[href*="lidentitario.com"]')).toHaveCount(1);
   });
   test('algoritmo: il link alla rassegna punta a /stampa#rassegna', async ({ page }) => {
