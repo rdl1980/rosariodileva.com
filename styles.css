@@ -5223,8 +5223,42 @@ footer {
   text-transform: uppercase;
   color: var(--muted);
 }
-.hero-review-more { color: var(--amber-dim); }
+.hero-review-more {
+  display: block;
+  margin-top: 1rem;
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--amber-dim);
+}
 .hero-review-inner:hover .hero-review-more { color: var(--amber); }
+
+/* Le voci si sovrappongono nella stessa cella: il riquadro prende l'altezza
+   della piu lunga e non sobbalza a ogni cambio. */
+.hero-review-slides { display: grid; }
+.hero-review-slide {
+  grid-area: 1 / 1;
+  /* la cella ha l'altezza della citazione piu lunga: le corte si centrano
+     invece di lasciare un vuoto sotto */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .7s ease, visibility .7s;
+}
+.hero-review-slide .hero-review-quote { margin-bottom: .8rem; }
+.hero-review-slide.is-active { opacity: 1; visibility: visible; }
+.hero-review-badge {
+  display: block;
+  font-family: var(--mono);
+  font-size: .62rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--crimson-hot);
+  margin-bottom: .7rem;
+}
 
 /* ── Officina della Narrazione: preview (officina.html) ──── */
 .off-section { padding: 3rem 2rem 5rem; }

@@ -489,6 +489,35 @@ test.describe('F12 - Rotazione copertine', () => {
     }
   });
 
+  test('home: le voci in hero ruotano, una visibile per volta', async ({ page }) => {
+    await page.goto(url(''), { waitUntil: 'domcontentloaded' });
+    const slides = page.locator('.hero-review-slide');
+    await expect(slides).toHaveCount(4);
+    await expect(page.locator('.hero-review-slide.is-active')).toHaveCount(1);
+    await expect(page.locator('.hero-review-inner[data-review-rotate]')).toHaveCount(1);
+    // ogni voce dichiara chi l'ha detta
+    for (const c of await page.locator('.hero-review-cite').all()) {
+      expect((await c.textContent()).trim().length).toBeGreaterThan(3);
+    }
+    // il riquadro non deve sobbalzare quando cambia la citazione
+    const h = await page.locator('.hero-review-inner').evaluate(e => e.getBoundingClientRect().height);
+    await page.waitForTimeout(7000);
+    await expect(page.locator('.hero-review-slide.is-active')).toHaveCount(1);
+    const h2 = await page.locator('.hero-review-inner').evaluate(e => e.getBoundingClientRect().height);
+    expect(Math.abs(h2 - h)).toBeLessThan(2);
+  });
+
+  test('home: le voci in hero esistono anche fra le recensioni', async ({ page }) => {
+    await page.goto(url(''), { waitUntil: 'domcontentloaded' });
+    const autori = await page.locator('.hero-review-cite').allTextContents();
+    await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
+    const sezione = (await page.locator('#recensioni').textContent()).replace(/\s+/g, ' ');
+    for (const a of autori) {
+      const nome = a.split('·')[0].trim();
+      expect(sezione, nome).toContain(nome);
+    }
+  });
+
   test('un solo motore di rotazione in scripts.js', async ({ page }) => {
     const js = await (await page.request.get(BASE + '/scripts.js')).text();
     expect(js).not.toContain('show-alt');

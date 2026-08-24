@@ -787,25 +787,36 @@
   });
 }());
 
-// ── Rotazione delle copertine ─────────────────────────────────
-// Un solo motore per la home e per la scheda del libro: prima erano due,
-// con esiti diversi sulle stesse copertine. Ogni contenitore marcato
-// data-cover-rotate alterna la sua immagine di base con le .cover-rot che contiene.
+// ── Rotazioni: copertine e voci dei lettori ─────────────────────────
+// Un solo motore, due usi. Le copertine hanno un'immagine di base sempre visibile
+// e le alternative si accendono sopra a turno; le recensioni sono invece tutte
+// pari, e ne resta visibile una alla volta.
 (function () {
   'use strict';
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  document.querySelectorAll('[data-cover-rotate]').forEach(function (frame) {
-    var rots = frame.querySelectorAll('.cover-rot');
-    if (!rots.length) return;
-    var stati = rots.length + 1; // la base piu ogni alternativa
+  function ruota(elementi, stati, attivo, ogniMs) {
     var i = 0;
     setInterval(function () {
       i = (i + 1) % stati;
-      rots.forEach(function (img, idx) {
-        img.classList.toggle('is-active', idx === i - 1);
+      elementi.forEach(function (el, idx) {
+        el.classList.toggle('is-active', attivo(idx, i));
       });
-    }, 3000);
+    }, ogniMs);
+  }
+
+  document.querySelectorAll('[data-cover-rotate]').forEach(function (frame) {
+    var rots = frame.querySelectorAll('.cover-rot');
+    if (!rots.length) return;
+    // stato 0 = solo la base, poi una alternativa per volta
+    ruota(rots, rots.length + 1, function (idx, i) { return idx === i - 1; }, 3000);
+  });
+
+  document.querySelectorAll('[data-review-rotate]').forEach(function (blocco) {
+    var voci = blocco.querySelectorAll('.hero-review-slide');
+    if (voci.length < 2) return;
+    // piu lento delle copertine: una citazione va letta, non intravista
+    ruota(voci, voci.length, function (idx, i) { return idx === i; }, 6500);
   });
 }());
 
