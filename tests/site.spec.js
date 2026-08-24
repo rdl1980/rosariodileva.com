@@ -620,9 +620,9 @@ test.describe('F9 - Eventi', () => {
 // F7 — Recensioni (/algoritmo)
 // ─────────────────────────────────────────────────────────────
 test.describe('F7 - Recensioni', () => {
-  test('algoritmo: 6 card recensione, stelle solo sulle quattro di Amazon', async ({ page }) => {
+  test('algoritmo: 7 card recensione, stelle solo sulle quattro di Amazon', async ({ page }) => {
     await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('.review-card')).toHaveCount(6);
+    await expect(page.locator('.review-card')).toHaveCount(7);
     await expect(page.locator('.review-stars')).toHaveCount(4);
     await expect(page.locator('#recensioni')).toContainText('Valerio Di Rosa');
     await expect(page.locator('#recensioni')).toContainText('Marianna Borriello');
@@ -630,26 +630,29 @@ test.describe('F7 - Recensioni', () => {
     await expect(page.locator('#recensioni')).toContainText("L'identitario");
     await expect(page.locator('#recensioni')).toContainText('Emiliano');
     await expect(page.locator('#recensioni')).toContainText('Raffaele Vaccaro');
+    await expect(page.locator('#recensioni')).toContainText('Il Mattino');
   });
   test('algoritmo: link a tutte le recensioni Amazon', async ({ page }) => {
     await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
     const more = page.locator('.bd-reviews-more a').first();
     await expect(more).toHaveAttribute('href', /amazon\.it\/product-reviews\/B0H1F48YCT/);
   });
-  test('algoritmo: Book schema ha 6 Review, rating sulle quattro Amazon', async ({ page }) => {
+  test('algoritmo: Book schema ha 7 Review, rating sulle quattro Amazon', async ({ page }) => {
     await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
     const data = await page.evaluate(() =>
       JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent)
     );
     const book = data['@graph'].find(n => n['@type'] === 'Book');
-    expect(book.review.length).toBe(6);
+    expect(book.review.length).toBe(7);
     const rated = book.review.filter(r => r.reviewRating);
     expect(rated.length).toBe(4);
     rated.forEach(r => expect(r.reviewRating.ratingValue).toBe('5'));
     expect(book.aggregateRating).toBeUndefined();
     const testate = book.review.filter(r => r.author['@type'] === 'Organization');
-    expect(testate.length).toBe(2);
-    testate.forEach(r => expect(r.url).toMatch(/^https:\/\//));
+    expect(testate.length).toBe(3);
+    // chi ha una url la deve avere in https; Il Mattino e' uscito solo su carta
+    testate.filter(r => r.url).forEach(r => expect(r.url).toMatch(/^https:\/\//));
+    expect(testate.filter(r => !r.url).map(r => r.author.name)).toEqual(['Il Mattino']);
   });
   test('stampa: rassegna con i due articoli e link esterni corretti', async ({ page }) => {
     await page.goto(url('stampa'), { waitUntil: 'domcontentloaded' });
