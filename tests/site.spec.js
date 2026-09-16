@@ -499,7 +499,10 @@ test.describe('F12 - Rotazione copertine', () => {
     for (const c of await page.locator('.hero-review-cite').all()) {
       expect((await c.textContent()).trim().length).toBeGreaterThan(3);
     }
-    // il riquadro non deve sobbalzare quando cambia la citazione
+    // il riquadro non deve sobbalzare quando cambia la citazione.
+    // I font vanno attesi: misurare prima li' rende il confronto instabile,
+    // perche' cambiando metriche cambia anche come vanno a capo le citazioni.
+    await page.evaluate(() => document.fonts.ready);
     const h = await page.locator('.hero-review-inner').evaluate(e => e.getBoundingClientRect().height);
     await page.waitForTimeout(7000);
     await expect(page.locator('.hero-review-slide.is-active')).toHaveCount(1);
@@ -564,9 +567,18 @@ test.describe('F11 - SEO e GEO', () => {
                           'La Penna nel Cassetto', '/quiz', '/gallery', '/diario', '/stampa']) {
       expect(t, atteso).toContain(atteso);
     }
-    // l'evento del 9 luglio non deve piu' essere annunciato come futuro
-    expect(t).toContain('si è tenuta');
+    // il 9 luglio resta al passato, e la data futura in calendario va nominata
+    expect(t).toMatch(/9 luglio 2026[^.]*\./);
+    expect(t).toMatch(/si (è|era) tenuta/);
     expect(t).not.toMatch(/Prima presentazione del romanzo: giovedì/);
+    // se c'e' un evento futuro nello schema, il llms.txt deve dirlo
+    const eventi = await page.request.get(BASE + '/eventi.html');
+    const ld = (await eventi.text()).match(/"startDate": "([^"]+)"/g) || [];
+    const futuri = ld.map(m => m.split('"')[3]).filter(d => new Date(d) > new Date());
+    for (const d of futuri) {
+      const giorno = String(Number(d.slice(8, 10)));
+      expect(t, d).toContain(giorno + ' settembre 2026');
+    }
   });
 
   test('la sitemap non ha lastmod piu vecchi dei file', async ({ page }) => {
@@ -618,7 +630,7 @@ test.describe('F10 - Anteprima Substack', () => {
 // F9 — Eventi: nulla di scaduto presentato come futuro
 // ─────────────────────────────────────────────────────────────
 test.describe('F9 - Eventi', () => {
-  test('eventi: gli eventi con data passata stanno in archivio', async ({ page }) => {
+  test('eventi: ogni evento dello schema ha la card giusta, passata o futura', async ({ page }) => {
     await page.goto(url('eventi'), { waitUntil: 'domcontentloaded' });
     const data = await page.evaluate(() =>
       JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent)
@@ -627,15 +639,17 @@ test.describe('F9 - Eventi', () => {
     expect(eventi.length).toBeGreaterThan(0);
     const oggi = new Date();
     for (const ev of eventi) {
+      const giorno = ev.startDate.slice(0, 10);
+      const card = page.locator(`.eventi-card[data-start="${giorno}"]`);
+      await expect(card, giorno).toHaveCount(1);
       const passato = new Date(ev.startDate) < oggi;
-      const card = page.locator(`.eventi-card[aria-label*="${ev.startDate.slice(0, 4)}"]`).first();
-      // un evento passato non deve piu' comparire come "upcoming"
-      if (passato) {
-        await expect(page.locator('.eventi-upcoming')).toHaveCount(0);
-        await expect(card).toHaveClass(/eventi-past/);
-      }
+      await expect(card, giorno).toHaveClass(passato ? /eventi-past/ : /eventi-upcoming/);
+      // un evento futuro deve poter finire nel calendario di chi legge
+      await expect(card.locator('a[href*="calendar.google.com"]'))
+        .toHaveCount(passato ? 0 : 1);
     }
   });
+
   test('eventi: nessun invito ad agire su una data gia' + " " + 'passata', async ({ page }) => {
     await page.goto(url('eventi'), { waitUntil: 'domcontentloaded' });
     // "aggiungi al calendario" su un evento concluso e' un invito a vuoto
