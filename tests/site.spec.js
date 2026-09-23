@@ -80,17 +80,22 @@ test.describe('F18 - sitemap', () => {
 });
 
 // ── F19: AggregateRating ──────────────────────────────────────────────────────
-test.describe('F19 - AggregateRating JSON-LD', () => {
-  test('diario.html: Book ha aggregateRating valido', async ({ page }) => {
-    await page.goto(url('diario'));
-    const data = await page.evaluate(() =>
-      JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent)
-    );
-    const book = data['@graph'].find(n => n['@type'] === 'Book');
-    expect(book.aggregateRating['@type']).toBe('AggregateRating');
-    expect(parseFloat(book.aggregateRating.ratingValue)).toBeGreaterThan(0);
-    expect(parseInt(book.aggregateRating.reviewCount)).toBeGreaterThan(0);
-  });
+test.describe('F19 - Nessun rating dichiarato senza recensioni visibili', () => {
+  // Google vuole che ogni valutazione nello schema sia visibile anche nella pagina.
+  // Un aggregateRating senza recensioni a vista e' markup ingannevole e puo' costare
+  // un'azione manuale su tutto il sito.
+  const PAGINE = ['', 'algoritmo', 'personaggi', 'diario', 'libri', 'autore', 'eventi', 'officina', 'stampa'];
+  for (const slug of PAGINE) {
+    test((slug || 'home') + ': ogni aggregateRating ha recensioni visibili', async ({ page }) => {
+      await page.goto(url(slug), { waitUntil: 'domcontentloaded' });
+      const conRating = await page.evaluate(() =>
+        [...document.querySelectorAll('script[type="application/ld+json"]')]
+          .map(s => s.textContent).filter(t => t.includes('aggregateRating')).length);
+      if (conRating > 0) {
+        await expect(page.locator('.review-card, .review-stars')).not.toHaveCount(0);
+      }
+    });
+  }
 });
 
 // ── F20: OG image ─────────────────────────────────────────────────────────────

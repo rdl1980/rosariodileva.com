@@ -560,7 +560,7 @@
     '<div class="ck-inner">' +
       '<p class="ck-text">Questo sito usa <strong>Google Fonts</strong> (servizio esterno) per la tipografia. ' +
       'Nessun cookie di profilazione. ' +
-      '<a href="/contatti">Privacy policy</a>.</p>' +
+      '<a href="/privacy">Privacy policy</a>.</p>' +
       '<div class="ck-btns">' +
         '<button class="ck-accept" type="button">Accetta</button>' +
         '<button class="ck-reject" type="button">Solo necessari</button>' +
