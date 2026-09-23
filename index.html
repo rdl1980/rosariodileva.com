@@ -44,7 +44,9 @@
       "name": "Rosario Di Leva",
       "url": "https://rosariodileva.com",
       "inLanguage": "it-IT",
-      "publisher": { "@id": "https://rosariodileva.com/autore#author" }
+      "publisher": {
+        "@id": "https://rosariodileva.com/autore#author"
+      }
     },
     {
       "@type": "Person",
@@ -52,9 +54,17 @@
       "name": "Rosario Di Leva",
       "url": "https://rosariodileva.com/autore",
       "jobTitle": "Autore",
-      "description": "Autore di techno-thriller. Professionista della tecnologia tra Italia, Dublino e Regno Unito.",
-      "nationality": { "@type": "Country", "name": "Italy" },
-      "knowsAbout": ["Intelligenza artificiale", "Techno-thriller", "Narratologia", "Tecnologia"],
+      "description": "Autore di techno-thriller e della collana di manuali di narratologia Officina della Narrazione. Professionista della tecnologia tra Italia, Dublino e Regno Unito.",
+      "nationality": {
+        "@type": "Country",
+        "name": "Italy"
+      },
+      "knowsAbout": [
+        "Intelligenza artificiale",
+        "Techno-thriller",
+        "Narratologia",
+        "Tecnologia"
+      ],
       "sameAs": [
         "https://www.instagram.com/rosario_di_leva_1980",
         "https://x.com/rosario_di_leva",
@@ -67,10 +77,15 @@
       "@type": "Book",
       "@id": "https://rosariodileva.com/algoritmo#book",
       "name": "L'algoritmo che governa i destini",
-      "author": { "@id": "https://rosariodileva.com/autore#author" },
+      "author": {
+        "@id": "https://rosariodileva.com/autore#author"
+      },
       "isbn": "9791255994756",
       "numberOfPages": 208,
-      "publisher": { "@type": "Organization", "name": "Bookabook" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Bookabook"
+      },
       "datePublished": "2026-06-11",
       "inLanguage": "it",
       "genre": "Techno-thriller",
@@ -90,12 +105,6 @@
 
 <!-- Preload LCP image -->
 <link rel="preload" as="image" href="assets/copertina.webp" />
-
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
 
 <!-- Google Consent Mode v2 + GA4 -->
 <script>
@@ -178,10 +187,10 @@
   <div class="hero-inner">
 
     <!-- COVER (left) -->
-    <div class="book-cover reveal" data-cover-rotate>
+    <div class="book-cover" data-cover-rotate>
       <img src="assets/copertina.webp" alt="Copertina: L'algoritmo che governa i destini di Rosario Di Leva, Bookabook 2026" width="366" height="544" fetchpriority="high" decoding="async" />
-      <img class="cover-rot" src="assets/copertina promozionale.webp" alt="" width="366" height="544" loading="lazy" decoding="async" aria-hidden="true" />
-      <img class="cover-rot" src="assets/copertina 2.webp" alt="" width="366" height="544" loading="lazy" decoding="async" aria-hidden="true" />
+      <img class="cover-rot" data-src="assets/copertina promozionale.webp" alt="" width="366" height="544" decoding="async" aria-hidden="true" />
+      <img class="cover-rot" data-src="assets/copertina 2.webp" alt="" width="366" height="544" decoding="async" aria-hidden="true" />
     </div>
 
     <!-- COPY (right) -->
@@ -305,7 +314,15 @@
     <span class="spotify-strip-label">// spotify playlist</span>
     <h2 class="spotify-strip-title">La colonna sonora <em>del romanzo.</em></h2>
     <p class="spotify-strip-sub">Le tracce che hanno accompagnato la scrittura de L'algoritmo che governa i destini.</p>
-    <iframe title="Playlist Spotify: La colonna sonora de L'algoritmo che governa i destini" data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3CS9vqZSiDjIjMVAGmN6Iz?utm_source=generator&si=3d9c2b4e866b4861" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <div class="sp-facade" data-consent-embed="spotify" data-src="https://open.spotify.com/embed/playlist/3CS9vqZSiDjIjMVAGmN6Iz?utm_source=generator&amp;si=3d9c2b4e866b4861">
+      <div class="sp-facade-inner">
+        <span class="sp-facade-icon" aria-hidden="true">♪</span>
+        <p class="sp-facade-text">La playlist è ospitata da Spotify, che usa i propri cookie.
+        La carico solo se me lo chiedi.</p>
+        <button class="btn primary sp-facade-btn" type="button">Carica la playlist <span class="arrow" aria-hidden="true"></span></button>
+        <a class="sp-facade-link" href="https://open.spotify.com/playlist/3CS9vqZSiDjIjMVAGmN6Iz" target="_blank" rel="noopener">oppure aprila direttamente su Spotify</a>
+      </div>
+    </div>
   </div>
 </section>
 

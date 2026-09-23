@@ -33,9 +33,6 @@
   gtag('config', 'G-TM3HD9NFKF');
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -119,10 +116,8 @@
     <p>Puoi disattivare il tracciamento tramite il <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">plug-in ufficiale di Google</a> o rifiutando i cookie tramite il banner presente nel sito.<br/>
     <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy policy di Google</a>.</p>
 
-    <h3>2. Google Fonts</h3>
-    <p>I font tipografici sono caricati da <code>fonts.googleapis.com</code> (Google Ireland Ltd.). Al caricamento della pagina, il browser dell'utente invia una richiesta ai server Google che può includere l'indirizzo IP. Non vengono impostati cookie di profilazione da questo servizio.</p>
-    <p><strong>Base giuridica:</strong> legittimo interesse (art. 6 c.1 lett. f GDPR) per garantire la corretta visualizzazione del sito.</p>
-    <p><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy policy di Google</a>.</p>
+    <h3>2. Font tipografici</h3>
+    <p>I caratteri tipografici sono ospitati direttamente su questo sito. Per mostrarli il browser non contatta server di terzi, e nessun dato di navigazione viene trasmesso a Google o ad altri fornitori.</p>
 
     <h3>3. Web3Forms (form di contatto)</h3>
     <p>I form di contatto presenti nelle pagine <a href="/contatti">/contatti</a> e <a href="/noraya">/noraya</a> utilizzano il servizio Web3Forms per l'invio delle email. I dati inseriti (nome, indirizzo email, messaggio) vengono trasmessi ai server di Web3Forms e inoltrati via email al titolare.</p>
@@ -130,7 +125,14 @@
     <p>I dati non vengono conservati da Web3Forms oltre il tempo necessario all'inoltro.<br/>
     <a href="https://web3forms.com/privacy" target="_blank" rel="noopener">Privacy policy di Web3Forms</a>.</p>
 
-    <h3>4. Substack (newsletter)</h3>
+    <h3>4. Contenuti incorporati: Spotify e Instagram</h3>
+    <p>Alcune pagine possono mostrare la playlist del romanzo su <strong>Spotify</strong> (home, <a href="/algoritmo">/algoritmo</a>, <a href="/noraya">/noraya</a>) e alcuni post <strong>Instagram</strong> (<a href="/contatti">/contatti</a>). Sono contenuti di terzi: quando vengono caricati, Spotify AB e Meta Platforms Ireland Ltd. ricevono l'indirizzo IP e possono impostare i propri cookie.</p>
+    <p>Per questo <strong>non vengono caricati in automatico</strong>. Al loro posto compare un riquadro statico, e il contenuto si carica solo se lo richiedi con un clic oppure se hai accettato i cookie dal banner. Finché non lo fai, nessuna richiesta parte verso Spotify o Instagram.</p>
+    <p><strong>Base giuridica:</strong> consenso dell'utente (art. 6 c.1 lett. a GDPR).<br/>
+    <a href="https://www.spotify.com/it/legal/privacy-policy/" target="_blank" rel="noopener">Privacy policy di Spotify</a> ·
+    <a href="https://privacycenter.instagram.com/policy" target="_blank" rel="noopener">Privacy policy di Instagram</a>.</p>
+
+    <h3>5. Substack (newsletter)</h3>
     <p>Se scegli di iscriverti alla newsletter tramite il link a <a href="https://rosariodileva.substack.com" target="_blank" rel="noopener">Substack</a>, il trattamento dei tuoi dati (nome, email) è gestito da Substack Inc. in conformità alla propria privacy policy.</p>
     <p><a href="https://substack.com/privacy" target="_blank" rel="noopener">Privacy policy di Substack</a>.</p>
   </section>
@@ -145,6 +147,8 @@
       <tbody>
         <tr><td><code>_ga</code></td><td>Analytics</td><td>2 anni</td><td>Distingue gli utenti univoci (Google Analytics)</td></tr>
         <tr><td><code>_ga_TM3HD9NFKF</code></td><td>Analytics</td><td>2 anni</td><td>Mantiene lo stato della sessione (Google Analytics)</td></tr>
+        <tr><td><code>sp_t</code>, <code>sp_landing</code></td><td>Terze parti (Spotify)</td><td>1 anno / 1 giorno</td><td>Impostati da Spotify solo se carichi la playlist</td></tr>
+        <tr><td>cookie di Instagram</td><td>Terze parti (Meta)</td><td>variabile</td><td>Impostati da Instagram solo se carichi i post</td></tr>
         <tr><td><code>rdl-cookie-consent</code></td><td>Tecnico</td><td>localStorage</td><td>Memorizza la scelta sul banner cookie (nessuna scadenza, rimane fino alla cancellazione manuale)</td></tr>
       </tbody>
     </table>
@@ -153,7 +157,7 @@
 
   <section class="prv-section">
     <h2>// trasferimento dei dati</h2>
-    <p>Google Analytics e Google Fonts possono trasferire dati verso gli Stati Uniti. Google aderisce alle Clausole Contrattuali Standard approvate dalla Commissione Europea come garanzia di adeguato livello di protezione.</p>
+    <p>Google Analytics e, se li carichi, Spotify e Instagram possono trasferire dati verso gli Stati Uniti. I fornitori aderiscono al Data Privacy Framework UE-USA o alle Clausole Contrattuali Standard approvate dalla Commissione Europea come garanzia di adeguato livello di protezione.</p>
   </section>
 
   <section class="prv-section">
@@ -171,7 +175,7 @@
 
   <section class="prv-section">
     <h2>// aggiornamenti</h2>
-    <p>Questa informativa è aggiornata al <strong>maggio 2026</strong>. Eventuali modifiche verranno pubblicate su questa pagina.</p>
+    <p>Questa informativa è aggiornata al <strong>settembre 2026</strong>. Eventuali modifiche verranno pubblicate su questa pagina.</p>
   </section>
 
 </div>

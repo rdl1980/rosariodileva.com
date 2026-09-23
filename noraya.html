@@ -48,10 +48,6 @@
 </script>
 
 <link rel="preconnect" href="https://api.web3forms.com" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
 <!-- Google Consent Mode v2 + GA4 -->
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -205,7 +201,7 @@
 
       <!-- Colonna immagine -->
       <div class="noraya-portrait reveal delay-2" aria-hidden="true">
-        <img src="assets/noraya2.webp"
+        <img width="1254" height="1254" src="assets/noraya2.webp"
              alt="Noraya, l'intelligenza artificiale protagonista del romanzo"
              loading="lazy" decoding="async" />
         <div class="noraya-portrait-hud">
@@ -228,7 +224,15 @@
     <span class="spotify-strip-label">// spotify playlist</span>
     <h2 class="spotify-strip-title">La colonna sonora <em>del romanzo.</em></h2>
     <p class="spotify-strip-sub">Le tracce che hanno accompagnato la scrittura de L'algoritmo che governa i destini.</p>
-    <iframe title="Playlist Spotify: La colonna sonora de L'algoritmo che governa i destini" data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3CS9vqZSiDjIjMVAGmN6Iz?utm_source=generator&si=3d9c2b4e866b4861" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <div class="sp-facade" data-consent-embed="spotify" data-src="https://open.spotify.com/embed/playlist/3CS9vqZSiDjIjMVAGmN6Iz?utm_source=generator&amp;si=3d9c2b4e866b4861">
+      <div class="sp-facade-inner">
+        <span class="sp-facade-icon" aria-hidden="true">♪</span>
+        <p class="sp-facade-text">La playlist è ospitata da Spotify, che usa i propri cookie.
+        La carico solo se me lo chiedi.</p>
+        <button class="btn primary sp-facade-btn" type="button">Carica la playlist <span class="arrow" aria-hidden="true"></span></button>
+        <a class="sp-facade-link" href="https://open.spotify.com/playlist/3CS9vqZSiDjIjMVAGmN6Iz" target="_blank" rel="noopener">oppure aprila direttamente su Spotify</a>
+      </div>
+    </div>
   </div>
 </section>
 

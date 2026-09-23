@@ -469,7 +469,7 @@ test.describe('F12 - Rotazione copertine', () => {
         hook: f.hasAttribute('data-cover-rotate'),
         covers: [
           f.querySelector('img:not(.cover-rot)').getAttribute('src'),
-          ...[...f.querySelectorAll('.cover-rot')].map(i => i.getAttribute('src')),
+          ...[...f.querySelectorAll('.cover-rot')].map(i => i.getAttribute('src') || i.dataset.src),
         ],
       };
     }, sel);
@@ -762,5 +762,164 @@ test.describe('F8 - Instagram embed', () => {
     await expect(page.locator('#ig-facade')).toBeHidden();
     const script = await page.locator('script[src*="instagram.com/embed.js"]').count();
     expect(script).toBe(1);
+  });
+});
+
+// ─────────────────────────────────────────────────────────────
+// F13 — Privacy: niente terze parti prima del consenso
+// ─────────────────────────────────────────────────────────────
+test.describe('F13 - Consenso e terze parti', () => {
+  const PAGINE_SPOTIFY = ['', 'algoritmo', 'noraya'];
+
+  for (const slug of PAGINE_SPOTIFY) {
+    test((slug || 'home') + ': nessuna richiesta a Spotify senza consenso', async ({ page }) => {
+      const spotify = [];
+      page.on('request', r => { if (/spotify|scdn\.co/.test(r.url())) spotify.push(r.url()); });
+      await page.goto(url(slug), { waitUntil: 'load' });
+      await page.mouse.wheel(0, 5000);
+      await page.waitForTimeout(800);
+      expect(spotify, spotify.join('\n')).toEqual([]);
+      await expect(page.locator('[data-consent-embed="spotify"]')).toHaveCount(1);
+      await expect(page.locator('iframe[src*="open.spotify.com"]')).toHaveCount(0);
+    });
+  }
+
+  test('home: la playlist si carica al click', async ({ page }) => {
+    await page.goto(url(''), { waitUntil: 'domcontentloaded' });
+    await page.locator('.sp-facade-btn').click();
+    await expect(page.locator('iframe[src*="open.spotify.com/embed"]')).toHaveCount(1);
+    await expect(page.locator('[data-consent-embed="spotify"]')).toHaveCount(0);
+  });
+
+  test('home: accettando dal banner la playlist arriva senza ricaricare', async ({ page }) => {
+    await page.goto(url(''), { waitUntil: 'domcontentloaded' });
+    await page.locator('#cookie-banner .ck-accept').click();
+    await expect(page.locator('iframe[src*="open.spotify.com/embed"]')).toHaveCount(1);
+  });
+
+  test('home: con consenso gia dato la playlist parte da sola', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('rdl-cookie-consent', 'accepted'));
+    await page.goto(url(''), { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('iframe[src*="open.spotify.com/embed"]')).toHaveCount(1);
+  });
+
+  test('il banner dice cosa si accetta e porta alla privacy', async ({ page }) => {
+    await page.goto(url(''), { waitUntil: 'domcontentloaded' });
+    const b = page.locator('#cookie-banner');
+    await expect(b).toContainText('Google Analytics');
+    await expect(b).toContainText('Spotify');
+    await expect(b.locator('a')).toHaveAttribute('href', '/privacy');
+  });
+
+  test('la privacy dichiara Spotify e Instagram', async ({ page }) => {
+    await page.goto(url('privacy'), { waitUntil: 'domcontentloaded' });
+    const t = await page.locator('body').textContent();
+    expect(t).toContain('Spotify');
+    expect(t).toContain('sp_t');
+    expect(t).toMatch(/Instagram/);
+    expect(t).not.toContain('fonts.googleapis.com');
+  });
+
+  const TUTTE = ['', 'algoritmo', 'personaggi', 'quiz', 'libri', 'diario', 'noraya', 'autore',
+                 'gallery', 'eventi', 'officina', 'stampa', 'contatti', 'newsletter', 'privacy'];
+  test('nessuna pagina chiede i font a Google', async ({ page }) => {
+    const google = [];
+    page.on('request', r => { if (/fonts\.(googleapis|gstatic)\.com/.test(r.url())) google.push(r.url()); });
+    for (const slug of TUTTE) await page.goto(url(slug), { waitUntil: 'load' });
+    expect(google).toEqual([]);
+  });
+
+  test('i font locali esistono e arrivano', async ({ page }) => {
+    const css = await (await page.request.get(BASE + '/styles.css')).text();
+    const file = [...new Set([...css.matchAll(/url\((assets\/fonts\/[^)]+\.woff2)\)/g)].map(m => m[1]))];
+    expect(file.length).toBeGreaterThan(3);
+    for (const f of file) {
+      expect((await page.request.head(BASE + '/' + f)).status(), f).toBe(200);
+    }
+  });
+});
+
+// ─────────────────────────────────────────────────────────────
+// F14 — Prestazioni e stabilita visiva
+// ─────────────────────────────────────────────────────────────
+test.describe('F14 - Prestazioni', () => {
+  test('home: la copertina principale e visibile senza aspettare lo script', async ({ page }) => {
+    await page.goto(url(''), { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.book-cover')).not.toHaveClass(/\breveal\b/);
+  });
+
+  test('home: le copertine alternative non partono prima del load', async ({ page }) => {
+    await page.goto(url(''), { waitUntil: 'load' });
+    await expect(page.locator('.book-cover .cover-rot[src]')).toHaveCount(2, { timeout: 3000 });
+    // Confronto fatto dentro la pagina, con i tempi del browser: la richiesta di
+    // ogni copertina alternativa deve partire dopo l'inizio dell'evento load.
+    const t = await page.evaluate(() => {
+      const nav = performance.getEntriesByType('navigation')[0];
+      const alt = performance.getEntriesByType('resource')
+        .filter(r => /copertina(%20| )(promozionale|2)\.webp/.test(r.name));
+      const lcp = performance.getEntriesByType('resource')
+        .find(r => /copertina\.webp/.test(r.name));
+      return { load: nav.loadEventStart, alt: alt.map(r => r.startTime), lcp: lcp && lcp.startTime };
+    });
+    expect(t.alt.length).toBe(2);
+    for (const inizio of t.alt) expect(inizio).toBeGreaterThanOrEqual(t.load);
+    expect(t.lcp).toBeLessThan(t.load);
+  });
+
+  test('gallery: i riquadri usano miniature, il lightbox l originale', async ({ page }) => {
+    await page.goto(url('gallery'), { waitUntil: 'domcontentloaded' });
+    const tiles = await page.locator('.gallery-tile[data-src$=".webp"]').evaluateAll(ts =>
+      ts.map(t => ({ full: t.dataset.src, img: t.querySelector('img').getAttribute('src') })));
+    expect(tiles.length).toBeGreaterThan(10);
+    const conMiniatura = tiles.filter(t => t.img.startsWith('assets/thumbs/'));
+    expect(conMiniatura.length).toBeGreaterThan(10);
+    for (const t of conMiniatura) {
+      expect((await page.request.head(BASE + '/' + encodeURI(t.img))).status(), t.img).toBe(200);
+      expect(t.full.startsWith('assets/thumbs/')).toBe(false);
+    }
+  });
+
+  const CON_IMMAGINI = ['eventi', 'gallery', 'noraya', 'personaggi', 'algoritmo', 'autore'];
+  for (const slug of CON_IMMAGINI) {
+    test(slug + ': ogni immagine statica dichiara le proprie dimensioni', async ({ page }) => {
+      await page.goto(url(slug), { waitUntil: 'domcontentloaded' });
+      const senza = await page.locator('img[src]:not([src=""])').evaluateAll(imgs =>
+        imgs.filter(i => !(i.getAttribute('width') && i.getAttribute('height')))
+            .map(i => i.getAttribute('src')));
+      expect(senza, senza.join(', ')).toEqual([]);
+    });
+  }
+});
+
+// ─────────────────────────────────────────────────────────────
+// F15 — Un'unica entita per il libro e per l'autore
+// ─────────────────────────────────────────────────────────────
+test.describe('F15 - Entita coerenti', () => {
+  test('il romanzo ha lo stesso @id in home, /algoritmo e /personaggi', async ({ page }) => {
+    for (const slug of ['', 'algoritmo', 'personaggi']) {
+      await page.goto(url(slug), { waitUntil: 'domcontentloaded' });
+      const ids = await page.evaluate(() => {
+        const out = [];
+        document.querySelectorAll('script[type="application/ld+json"]').forEach(s => {
+          const d = JSON.parse(s.textContent);
+          (d['@graph'] || [d]).forEach(n => {
+            if (n['@type'] === 'Book' && n.name === "L'algoritmo che governa i destini") out.push(n['@id']);
+          });
+        });
+        return out;
+      });
+      expect(ids, slug || 'home').toEqual(['https://rosariodileva.com/algoritmo#book']);
+    }
+  });
+
+  test('la descrizione della persona e la stessa in home e in /autore', async ({ page }) => {
+    const leggi = async slug => {
+      await page.goto(url(slug), { waitUntil: 'domcontentloaded' });
+      return page.evaluate(() => {
+        const d = JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent);
+        return (d['@graph'] || [d]).find(n => n['@type'] === 'Person').description;
+      });
+    };
+    expect(await leggi('')).toBe(await leggi('autore'));
   });
 });

@@ -546,21 +546,28 @@
 }());
 
 // ── Cookie consent banner ────────────────────────────────────────────────────
+// Il consenso copre due cose: le statistiche di Google Analytics e i contenuti
+// di terzi incorporati (playlist Spotify, post Instagram), che portano con se' i
+// loro cookie. Quando l'utente sceglie, la pagina riceve l'evento "rdl:consent"
+// e i contenuti in attesa si caricano subito, senza bisogno di ricaricare.
 (function () {
   'use strict';
 
-  const CONSENT_KEY = 'rdl-cookie-consent';
-  if (localStorage.getItem(CONSENT_KEY)) return;
+  var CONSENT_KEY = 'rdl-cookie-consent';
+  var scelta = null;
+  try { scelta = localStorage.getItem(CONSENT_KEY); } catch (e) {}
+  if (scelta) return;
 
-  const banner = document.createElement('div');
+  var banner = document.createElement('div');
   banner.id = 'cookie-banner';
   banner.setAttribute('role', 'dialog');
   banner.setAttribute('aria-label', 'Consenso cookie');
   banner.innerHTML =
     '<div class="ck-inner">' +
-      '<p class="ck-text">Questo sito usa <strong>Google Fonts</strong> (servizio esterno) per la tipografia. ' +
-      'Nessun cookie di profilazione. ' +
-      '<a href="/privacy">Privacy policy</a>.</p>' +
+      '<p class="ck-text">Se accetti, uso <strong>Google Analytics</strong> per contare le visite ' +
+      'e carico la <strong>playlist Spotify</strong> e i <strong>post Instagram</strong>, che hanno ' +
+      'i propri cookie. Se rifiuti il sito funziona lo stesso: quei contenuti li apri tu, ' +
+      'quando vuoi. <a href="/privacy">Privacy policy</a>.</p>' +
       '<div class="ck-btns">' +
         '<button class="ck-accept" type="button">Accetta</button>' +
         '<button class="ck-reject" type="button">Solo necessari</button>' +
@@ -575,19 +582,54 @@
   });
 
   function dismiss(choice) {
-    localStorage.setItem(CONSENT_KEY, choice);
+    try { localStorage.setItem(CONSENT_KEY, choice); } catch (e) {}
     // Aggiorna Google Consent Mode v2
     if (typeof gtag === 'function') {
       gtag('consent', 'update', {
         analytics_storage: choice === 'accepted' ? 'granted' : 'denied'
       });
     }
+    document.dispatchEvent(new CustomEvent('rdl:consent', { detail: choice }));
     banner.classList.remove('ck-visible');
     banner.addEventListener('transitionend', function () { banner.remove(); }, { once: true });
   }
 
   banner.querySelector('.ck-accept').addEventListener('click', function () { dismiss('accepted'); });
   banner.querySelector('.ck-reject').addEventListener('click', function () { dismiss('rejected'); });
+}());
+
+// ── Contenuti di terzi in attesa di consenso (playlist Spotify) ────────────────
+// Finche' l'utente non accetta o non clicca, al posto del player c'e' una
+// copertina statica: nessuna richiesta a Spotify, nessun cookie.
+(function () {
+  'use strict';
+
+  function carica(box) {
+    if (box.dataset.caricato) return;
+    box.dataset.caricato = '1';
+    var f = document.createElement('iframe');
+    f.src = box.dataset.src;
+    f.title = "Playlist Spotify: La colonna sonora de L'algoritmo che governa i destini";
+    f.width = '100%';
+    f.height = '352';
+    f.setAttribute('frameborder', '0');
+    f.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
+    f.style.borderRadius = '12px';
+    box.replaceWith(f);
+    if (typeof gtag === 'function') gtag('event', 'spotify_load', { event_category: 'social' });
+  }
+
+  var scatole = document.querySelectorAll('[data-consent-embed="spotify"]');
+  if (!scatole.length) return;
+
+  scatole.forEach(function (box) {
+    var btn = box.querySelector('.sp-facade-btn');
+    if (btn) btn.addEventListener('click', function () { carica(box); });
+  });
+
+  function tutte() { scatole.forEach(carica); }
+  try { if (localStorage.getItem('rdl-cookie-consent') === 'accepted') tutte(); } catch (e) {}
+  document.addEventListener('rdl:consent', function (e) { if (e.detail === 'accepted') tutte(); });
 }());
 
 // ── GA4 Event tracking (#25) ─────────────────────────────────────────────────
@@ -808,6 +850,16 @@
   document.querySelectorAll('[data-cover-rotate]').forEach(function (frame) {
     var rots = frame.querySelectorAll('.cover-rot');
     if (!rots.length) return;
+    // Le alternative non devono contendere la banda alla copertina principale,
+    // che e' l'elemento su cui Google misura la velocita' della pagina:
+    // le chiedo solo a pagina caricata, ben prima del primo cambio (3 s).
+    function scarica() {
+      rots.forEach(function (img) {
+        if (img.dataset.src && !img.getAttribute('src')) img.src = img.dataset.src;
+      });
+    }
+    if (document.readyState === 'complete') scarica();
+    else window.addEventListener('load', scarica, { once: true });
     // stato 0 = solo la base, poi una alternativa per volta
     ruota(rots, rots.length + 1, function (idx, i) { return idx === i - 1; }, 3000);
   });
@@ -1312,8 +1364,12 @@
 
   if (loadBtn) loadBtn.addEventListener('click', loadInstagram);
 
-  // Auto-carica se l'utente ha già accettato i cookie dal banner
+  // Auto-carica se l'utente ha già accettato i cookie dal banner, oppure
+  // appena accetta, senza dover ricaricare la pagina
   try {
     if (localStorage.getItem('rdl-cookie-consent') === 'accepted') loadInstagram();
   } catch (e) {}
+  document.addEventListener('rdl:consent', function (e) {
+    if (e.detail === 'accepted') loadInstagram();
+  });
 }());
