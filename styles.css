@@ -6270,7 +6270,8 @@ footer {
    telefono lento. Stessa animazione, ma parte col primo paint. */
 .page-header .reveal,
 .bd-cover-wrap.reveal,
-.bd-title.reveal {
+.bd-title.reveal,
+.gallery-grid.reveal {
   opacity: 1;
   transform: none;
   animation: hdr-in .9s ease both;
@@ -6285,5 +6286,6 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .page-header .reveal,
   .bd-cover-wrap.reveal,
-  .bd-title.reveal { animation: none; }
+  .bd-title.reveal,
+  .gallery-grid.reveal { animation: none; }
 }
