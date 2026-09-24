@@ -6262,3 +6262,28 @@ footer {
   margin-inline: auto;
 }
 .sp-facade-link:hover { color: var(--amber); border-bottom-color: currentColor; }
+
+/* ── Intestazioni delle pagine interne: comparsa senza JavaScript ──────────
+   Titolo, sottotitolo e copertina della scheda libro sono spesso l'elemento su cui Google misura la
+   velocita' della pagina (LCP). Con la comparsa affidata allo script restavano
+   invisibili finche' il JavaScript non girava: sulla gallery fino a 5,7 s su un
+   telefono lento. Stessa animazione, ma parte col primo paint. */
+.page-header .reveal,
+.bd-cover-wrap.reveal,
+.bd-title.reveal {
+  opacity: 1;
+  transform: none;
+  animation: hdr-in .9s ease both;
+}
+.page-header .reveal.delay-1,
+.bd-title.reveal.delay-1 { animation-delay: .1s; }
+.page-header .reveal.delay-2 { animation-delay: .2s; }
+@keyframes hdr-in {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-header .reveal,
+  .bd-cover-wrap.reveal,
+  .bd-title.reveal { animation: none; }
+}

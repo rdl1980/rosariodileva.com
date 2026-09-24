@@ -879,6 +879,18 @@ test.describe('F14 - Prestazioni', () => {
     }
   });
 
+  test('gallery: nessun video scaricato all apertura della pagina', async ({ page }) => {
+    // I riquadri video mostrano solo un'anteprima: il filmato parte nel lightbox.
+    // Prima erano otto <video> che all'apertura chiedevano poster e file insieme
+    // al foglio di stile, e la pagina restava bianca per secondi.
+    const media = [];
+    page.on('request', r => { if (r.resourceType() === 'media' || /\.mp4/.test(r.url())) media.push(r.url()); });
+    await page.goto(url('gallery'), { waitUntil: 'load' });
+    expect(media).toEqual([]);
+    await expect(page.locator('.gallery-tile video')).toHaveCount(0);
+    await expect(page.locator('.gallery-tile[data-src$=".mp4"] img[loading="lazy"]')).toHaveCount(8);
+  });
+
   const CON_IMMAGINI = ['eventi', 'gallery', 'noraya', 'personaggi', 'algoritmo', 'autore'];
   for (const slug of CON_IMMAGINI) {
     test(slug + ': ogni immagine statica dichiara le proprie dimensioni', async ({ page }) => {
