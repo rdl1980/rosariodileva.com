@@ -670,7 +670,7 @@ test.describe('F9 - Eventi', () => {
 test.describe('F7 - Recensioni', () => {
   test('algoritmo: 7 card recensione, stelle solo sulle quattro di Amazon', async ({ page }) => {
     await page.goto(url('algoritmo'), { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('.review-card')).toHaveCount(7);
+    await expect(page.locator('.review-card')).toHaveCount(8);
     await expect(page.locator('.review-stars')).toHaveCount(4);
     await expect(page.locator('#recensioni')).toContainText('Valerio Di Rosa');
     await expect(page.locator('#recensioni')).toContainText('Marianna Borriello');
@@ -691,13 +691,13 @@ test.describe('F7 - Recensioni', () => {
       JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent)
     );
     const book = data['@graph'].find(n => n['@type'] === 'Book');
-    expect(book.review.length).toBe(7);
+    expect(book.review.length).toBe(8);
     const rated = book.review.filter(r => r.reviewRating);
     expect(rated.length).toBe(4);
     rated.forEach(r => expect(r.reviewRating.ratingValue).toBe('5'));
     expect(book.aggregateRating).toBeUndefined();
     const testate = book.review.filter(r => r.author['@type'] === 'Organization');
-    expect(testate.length).toBe(3);
+    expect(testate.length).toBe(4);
     // chi ha una url la deve avere in https; Il Mattino e' uscito solo su carta
     testate.filter(r => r.url).forEach(r => expect(r.url).toMatch(/^https:\/\//));
     expect(testate.filter(r => !r.url).map(r => r.author.name)).toEqual(['Il Mattino']);
