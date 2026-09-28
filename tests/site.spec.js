@@ -706,7 +706,9 @@ test.describe('F7 - Recensioni', () => {
     await page.goto(url('stampa'), { waitUntil: 'domcontentloaded' });
     await expect(page.locator('#rassegna')).toBeVisible();
     const items = page.locator('.press-news-item');
-    await expect(items).toHaveCount(3);
+    await expect(items).toHaveCount(4);
+    // l'articolo online del Mattino (settembre) ha il link alla testata
+    await expect(page.locator('#rassegna a[href*="ilmattino.it"]')).toHaveCount(1);
     await expect(page.locator('#rassegna')).toContainText('Il Mattino');
     await expect(page.locator('#rassegna')).toContainText('Ilaria Cotarella');
     // l'articolo e' solo cartaceo: nessun link finto, ma la voce c'e'
