@@ -12,6 +12,7 @@ import os
 import re
 import sys
 import time
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime
@@ -21,6 +22,11 @@ FEED = BASE + "/feed"
 # Substack risponde 403 agli IP dei runner se la richiesta non somiglia a un
 # browser: servono User-Agent e Accept credibili, e qualche tentativo.
 API = BASE + "/api/v1/archive?sort=new&limit=%d"
+# Quando Substack rifiuta anche l'archivio, passiamo da servizi che scaricano il
+# feed dai loro server. Girano solo qui in CI: il browser non li vede mai, e
+# tutto quello che restituiscono viene comunque spogliato a testo puro.
+RSS2JSON = "https://api.rss2json.com/v1/api.json?rss_url=" + urllib.parse.quote(FEED, safe="")
+ALLORIGINS = "https://api.allorigins.win/raw?url=" + urllib.parse.quote(FEED, safe="")
 OUT = os.path.join("assets", "substack.json")
 QUANTI = 3
 MAX_DESC = 140
@@ -81,8 +87,8 @@ def taglia(desc):
     return desc[:MAX_DESC].rstrip() + "…" if len(desc) > MAX_DESC else desc
 
 
-def da_rss():
-    root = ET.fromstring(scarica(FEED))
+def da_rss(url=FEED):
+    root = ET.fromstring(scarica(url))
     voci = []
     for item in root.iter("item"):
         link = url_sicuro(testo(item.find("link")))
@@ -121,9 +127,42 @@ def da_api():
     return voci
 
 
+def da_rss2json():
+    """Il feed convertito in JSON da rss2json, scaricato dai loro server."""
+    dati = json.loads(scarica(RSS2JSON).decode("utf-8"))
+    if dati.get("status") != "ok":
+        raise ValueError("rss2json: %s" % dati.get("message", "risposta non valida"))
+    voci = []
+    for p in dati.get("items", []):
+        link = url_sicuro(p.get("link") or "")
+        if not link:
+            continue
+        d = ""
+        stamp = (p.get("pubDate") or "")[:10]
+        if len(stamp) == 10:
+            a, m, g = stamp.split("-")
+            d = "%d %s %s" % (int(g), MESI[int(m) - 1], a)
+        voci.append({
+            "title": spoglia(p.get("title") or ""),
+            "link": link,
+            "date": d,
+            "desc": taglia(spoglia(p.get("description") or "")),
+        })
+        if len(voci) == QUANTI:
+            break
+    return voci
+
+
+def da_allorigins():
+    """Lo stesso RSS, ma chiesto a Substack dai server di allorigins."""
+    return da_rss(ALLORIGINS)
+
+
 def main():
     voci = []
-    for nome, fonte in (("RSS", da_rss), ("archivio", da_api)):
+    fonti = (("RSS", da_rss), ("archivio", da_api),
+             ("rss2json", da_rss2json), ("allorigins", da_allorigins))
+    for nome, fonte in fonti:
         try:
             print("Provo il feed via %s..." % nome)
             voci = fonte()
@@ -137,6 +176,7 @@ def main():
         # runner. Non e' un errore nostro e non rompe niente: il JSON gia'
         # committato resta valido e la home continua a mostrarlo. Usciamo con
         # successo per non riempire di notifiche rosse una cosa che funziona.
+        print("::warning::Nessuna fonte Substack raggiungibile, anteprima non aggiornata")
         print("Nessuna fonte raggiungibile: lascio assets/substack.json com'e'.")
         print("Per aggiornarlo da una macchina che raggiunge Substack:")
         print("    python .github/scripts/fetch-substack.py")
