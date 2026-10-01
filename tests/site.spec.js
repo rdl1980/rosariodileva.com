@@ -662,6 +662,21 @@ test.describe('F9 - Eventi', () => {
     await expect(page.locator('.eventi-next')).toBeVisible();
     await expect(page.locator('.eventi-next a[href="/newsletter"]')).toHaveCount(1);
   });
+
+  test('eventi: la serata Feltrinelli ha video e foto, senza scaricarli all apertura', async ({ page }) => {
+    const media = [];
+    page.on('request', r => { if (/\.mp4/.test(r.url())) media.push(r.url()); });
+    await page.goto(url('eventi'), { waitUntil: 'load' });
+    const video = page.locator('.eventi-serata video');
+    await expect(video).toHaveCount(1);
+    await expect(video).toHaveAttribute('preload', 'none');
+    expect(media).toEqual([]);
+    const foto = page.locator('.eventi-serata-foto img');
+    await expect(foto).toHaveCount(5);
+    for (const src of await foto.evaluateAll(is => is.map(i => i.getAttribute('src')))) {
+      expect((await page.request.head(BASE + '/' + src)).status(), src).toBe(200);
+    }
+  });
 });
 
 // ─────────────────────────────────────────────────────────────
@@ -890,7 +905,7 @@ test.describe('F14 - Prestazioni', () => {
     await page.goto(url('gallery'), { waitUntil: 'load' });
     expect(media).toEqual([]);
     await expect(page.locator('.gallery-tile video')).toHaveCount(0);
-    await expect(page.locator('.gallery-tile[data-src$=".mp4"] img[loading="lazy"]')).toHaveCount(8);
+    await expect(page.locator('.gallery-tile[data-src$=".mp4"] img[loading="lazy"]')).toHaveCount(9);
   });
 
   const CON_IMMAGINI = ['eventi', 'gallery', 'noraya', 'personaggi', 'algoritmo', 'autore'];

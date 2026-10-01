@@ -5376,8 +5376,51 @@ footer {
   color: var(--muted);
 }
 
+/* La serata in foto e video */
+.eventi-serata {
+  margin: 0 0 3rem;
+}
+.eventi-serata-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) 1fr;
+  gap: 1rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+.eventi-serata-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.eventi-serata-foto {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.eventi-serata-foto li:first-child { grid-column: span 2; }
+.eventi-serata-foto li:first-child img { aspect-ratio: 16 / 9; }
+.eventi-serata-foto a { display: block; }
+.eventi-serata-foto img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+}
+
 @media (max-width: 768px) {
   .eventi-card { grid-template-columns: 1fr; }
+  .eventi-serata-grid { grid-template-columns: 1fr; }
+  .eventi-serata-video { max-width: 360px; margin: 0 auto; }
+  .eventi-serata-foto { gap: .6rem; }
   .eventi-card-photo { min-height: 300px; }
   .eventi-card-body { padding: 1.5rem; }
   .eventi-meta { grid-template-columns: 1fr; gap: .8rem; }
