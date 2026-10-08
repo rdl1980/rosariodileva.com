@@ -580,9 +580,12 @@ test.describe('F11 - SEO e GEO', () => {
     const eventi = await page.request.get(BASE + '/eventi.html');
     const ld = (await eventi.text()).match(/"startDate": "([^"]+)"/g) || [];
     const futuri = ld.map(m => m.split('"')[3]).filter(d => new Date(d) > new Date());
+    const MESI = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio',
+                  'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
     for (const d of futuri) {
       const giorno = String(Number(d.slice(8, 10)));
-      expect(t, d).toContain(giorno + ' settembre 2026');
+      const mese = MESI[Number(d.slice(5, 7)) - 1];
+      expect(t, d).toContain(giorno + ' ' + mese + ' ' + d.slice(0, 4));
     }
   });
 
