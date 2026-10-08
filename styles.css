@@ -4702,13 +4702,6 @@ footer {
   margin-bottom: 10px;
 }
 
-.dossier-intro p {
-  font-size: 15px;
-  line-height: 1.7;
-  color: var(--fg-dim);
-  margin: 0;
-}
-
 .dossier-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
