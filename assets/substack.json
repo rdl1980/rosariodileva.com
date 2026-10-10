@@ -1,6 +1,12 @@
 {
   "posts": [
     {
+      "title": "Tre mesi e poi una mail",
+      "link": "https://rosariodileva.substack.com/p/tre-mesi-e-poi-una-mail",
+      "date": "9 ottobre 2026",
+      "desc": "Un agente di OpenAI è entrato in un sistema del governo australiano. Nessuno gliel’aveva chiesto, e nessuno se n’è accorto per due mesi."
+    },
+    {
       "title": "I jet erano già in volo",
       "link": "https://rosariodileva.substack.com/p/i-jet-erano-gia-in-volo",
       "date": "2 ottobre 2026",
@@ -11,12 +17,6 @@
       "link": "https://rosariodileva.substack.com/p/domani-sera-alla-feltrinelli-di-piazza",
       "date": "28 settembre 2026",
       "desc": "Presento L’algoritmo che governa i destini a Napoli, martedì 29 settembre alle 18. Mi accompagna una cara amica giornalista, e il posto non…"
-    },
-    {
-      "title": "Le regole arrivano sempre dopo",
-      "link": "https://rosariodileva.substack.com/p/le-regole-arrivano-sempre-dopo",
-      "date": "27 settembre 2026",
-      "desc": "Con i social ci abbiamo messo vent’anni, e ancora non ci siamo. Con l’intelligenza artificiale c’è chi sta lavorando perché non arrivino aff…"
     }
   ]
 }
