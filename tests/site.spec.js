@@ -670,12 +670,13 @@ test.describe('F9 - Eventi', () => {
     const media = [];
     page.on('request', r => { if (/\.mp4/.test(r.url())) media.push(r.url()); });
     await page.goto(url('eventi'), { waitUntil: 'load' });
-    const video = page.locator('.eventi-serata video');
+    const video = page.locator('#serata-feltrinelli video');
     await expect(video).toHaveCount(1);
     await expect(video).toHaveAttribute('preload', 'none');
     expect(media).toEqual([]);
-    const foto = page.locator('.eventi-serata-foto img');
+    const foto = page.locator('#serata-feltrinelli .eventi-serata-foto img');
     await expect(foto).toHaveCount(5);
+    await expect(page.locator('#serata-scafati .eventi-serata-foto img')).toHaveCount(3);
     for (const src of await foto.evaluateAll(is => is.map(i => i.getAttribute('src')))) {
       expect((await page.request.head(BASE + '/' + src)).status(), src).toBe(200);
     }
