@@ -1,6 +1,12 @@
 {
   "posts": [
     {
+      "title": "Il log non scrive più il tuo nome",
+      "link": "https://rosariodileva.substack.com/p/il-log-non-scrive-piu-il-tuo-nome",
+      "date": "17 ottobre 2026",
+      "desc": "Google ha dato agli agenti un account aziendale vero: email, calendario, posto in rubrica. E un'identità a cui attribuire quello che fanno."
+    },
+    {
       "title": "Ogni rivoluzione ha abbassato il prezzo di qualcosa",
       "link": "https://rosariodileva.substack.com/p/ogni-rivoluzione-ha-abbassato-il",
       "date": "11 ottobre 2026",
@@ -11,12 +17,6 @@
       "link": "https://rosariodileva.substack.com/p/tre-mesi-e-poi-una-mail",
       "date": "9 ottobre 2026",
       "desc": "Un agente di OpenAI è entrato in un sistema del governo australiano. Nessuno gliel’aveva chiesto, e nessuno se n’è accorto per due mesi."
-    },
-    {
-      "title": "I jet erano già in volo",
-      "link": "https://rosariodileva.substack.com/p/i-jet-erano-gia-in-volo",
-      "date": "2 ottobre 2026",
-      "desc": "Un rapporto di intelligence scritto con l’aiuto di un chatbot è arrivato ai vertici militari americani. Diceva una cosa che non era vera, e…"
     }
   ]
 }
