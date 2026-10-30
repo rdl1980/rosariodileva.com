@@ -1,6 +1,12 @@
 {
   "posts": [
     {
+      "title": "Il filo di Arianna",
+      "link": "https://rosariodileva.substack.com/p/il-filo-di-arianna",
+      "date": "30 ottobre 2026",
+      "desc": "L’INPS affida a un’intelligenza artificiale il compito di guidarci tra oltre 400 prestazioni. Il nome è scelto bene. Il mito, però, va letto…"
+    },
+    {
       "title": "Non sono stato io",
       "link": "https://rosariodileva.substack.com/p/non-sono-stato-io",
       "date": "24 ottobre 2026",
@@ -11,12 +17,6 @@
       "link": "https://rosariodileva.substack.com/p/il-log-non-scrive-piu-il-tuo-nome",
       "date": "17 ottobre 2026",
       "desc": "Google ha dato agli agenti un account aziendale vero: email, calendario, posto in rubrica. E un'identità a cui attribuire quello che fanno."
-    },
-    {
-      "title": "Ogni rivoluzione ha abbassato il prezzo di qualcosa",
-      "link": "https://rosariodileva.substack.com/p/ogni-rivoluzione-ha-abbassato-il",
-      "date": "11 ottobre 2026",
-      "desc": "Il motore quello della forza, il computer quello del calcolo, internet quello della distribuzione. Adesso tocca al lavoro mentale, e la doma…"
     }
   ]
 }
