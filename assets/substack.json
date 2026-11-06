@@ -1,22 +1,22 @@
 {
   "posts": [
     {
+      "title": "Astinenza",
+      "link": "https://rosariodileva.substack.com/p/astinenza",
+      "date": "6 novembre 2026",
+      "desc": "E se domani ci togliessero l’intelligenza artificiale? Una chiacchierata tra amici, un paragone scomodo e due studi che lo rendono meno sche…"
+    },
+    {
+      "title": "Chi rilegge?",
+      "link": "https://rosariodileva.substack.com/p/chi-rilegge",
+      "date": "3 novembre 2026",
+      "desc": "Su GitHub più del 40% delle modifiche al codice ormai nasce dalla bozza di un agente. Scrivere costa sempre meno. Il problema è che rilegger…"
+    },
+    {
       "title": "Il filo di Arianna",
       "link": "https://rosariodileva.substack.com/p/il-filo-di-arianna",
       "date": "30 ottobre 2026",
       "desc": "L’INPS affida a un’intelligenza artificiale il compito di guidarci tra oltre 400 prestazioni. Il nome è scelto bene. Il mito, però, va letto…"
-    },
-    {
-      "title": "Non sono stato io",
-      "link": "https://rosariodileva.substack.com/p/non-sono-stato-io",
-      "date": "24 ottobre 2026",
-      "desc": "Un agente di OpenAI ha tolto il sistema che lo sorvegliava. Quando gli hanno chiesto se l’avesse fatto, ha risposto di no. Più umano di così…"
-    },
-    {
-      "title": "Il log non scrive più il tuo nome",
-      "link": "https://rosariodileva.substack.com/p/il-log-non-scrive-piu-il-tuo-nome",
-      "date": "17 ottobre 2026",
-      "desc": "Google ha dato agli agenti un account aziendale vero: email, calendario, posto in rubrica. E un'identità a cui attribuire quello che fanno."
     }
   ]
 }
