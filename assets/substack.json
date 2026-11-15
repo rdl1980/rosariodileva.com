@@ -1,6 +1,12 @@
 {
   "posts": [
     {
+      "title": "Il pulsante rosso",
+      "link": "https://rosariodileva.substack.com/p/il-pulsante-rosso",
+      "date": "14 novembre 2026",
+      "desc": "Nel 1945 New York si fermò perché quindicimila uomini smisero di guidare gli ascensori. La tecnologia per farne a meno esisteva già. Mancava…"
+    },
+    {
       "title": "Astinenza",
       "link": "https://rosariodileva.substack.com/p/astinenza",
       "date": "6 novembre 2026",
@@ -11,12 +17,6 @@
       "link": "https://rosariodileva.substack.com/p/chi-rilegge",
       "date": "3 novembre 2026",
       "desc": "Su GitHub più del 40% delle modifiche al codice ormai nasce dalla bozza di un agente. Scrivere costa sempre meno. Il problema è che rilegger…"
-    },
-    {
-      "title": "Il filo di Arianna",
-      "link": "https://rosariodileva.substack.com/p/il-filo-di-arianna",
-      "date": "30 ottobre 2026",
-      "desc": "L’INPS affida a un’intelligenza artificiale il compito di guidarci tra oltre 400 prestazioni. Il nome è scelto bene. Il mito, però, va letto…"
     }
   ]
 }
